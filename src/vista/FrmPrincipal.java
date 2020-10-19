@@ -80,6 +80,12 @@ public class FrmPrincipal extends JFrame {
 		pPrincipal.add(pLateral);
 		pLateral.setLayout(null);
 		
+		JPanel pImagenVendedor = new JPanel();
+		pImagenVendedor.setBackground(new Color(143,143,143));
+		pImagenVendedor.setBounds(0, 0, 192, 115);
+		pLateral.add(pImagenVendedor);
+		pImagenVendedor.setLayout(null);
+		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
 		pContenido.setBounds(190, 69, 724, 479);
