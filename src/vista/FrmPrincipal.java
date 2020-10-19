@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class FrmPrincipal extends JFrame {
 
@@ -58,6 +59,7 @@ public class FrmPrincipal extends JFrame {
 		pEncabezado.setLayout(null);
 		
 		JButton btnMenu = new JButton("");
+		btnMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/menu.png")));
 		btnMenu.setBounds(60, 11, 73, 47);
 		pEncabezado.add(btnMenu);
 		
