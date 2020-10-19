@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class FrmPrincipal extends JFrame {
 
@@ -98,28 +99,43 @@ public class FrmPrincipal extends JFrame {
 		pImagenVendedor.add(lblImagenVendedor);
 		
 		RSButtonMetro btnMantenimiento = new RSButtonMetro();
+		btnMantenimiento.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnMantenimiento.setColorNormal(new Color(143, 143, 143));
+		btnMantenimiento.setColorHover(new Color(153,153,153));
 		btnMantenimiento.setText("Mantenimiento");
-		btnMantenimiento.setBounds(0, 143, 192, 23);
+		btnMantenimiento.setBounds(0, 143, 192, 30);
 		pLateral.add(btnMantenimiento);
 		
 		RSButtonMetro btnReporte = new RSButtonMetro();
+		btnReporte.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnReporte.setColorNormal(new Color(143, 143, 143));
+		btnReporte.setColorHover(new Color(153,153,153));
 		btnReporte.setText("Reporte");
-		btnReporte.setBounds(0, 192, 192, 23);
+		btnReporte.setBounds(0, 192, 192, 30);
 		pLateral.add(btnReporte);
 		
 		RSButtonMetro btnOpciones = new RSButtonMetro();
+		btnOpciones.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnOpciones.setColorNormal(new Color(143, 143, 143));
+		btnOpciones.setColorHover(new Color(153,153,153));		
 		btnOpciones.setText("Opciones");
-		btnOpciones.setBounds(0, 238, 192, 23);
+		btnOpciones.setBounds(0, 238, 192, 30);
 		pLateral.add(btnOpciones);
 		
-		RSButtonMetro btnAyuda = new RSButtonMetro();
+		RSButtonMetro btnAyuda = new RSButtonMetro();		
+		btnAyuda.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnAyuda.setColorNormal(new Color(143, 143, 143));
+		btnAyuda.setColorHover(new Color(153,153,153));		
 		btnAyuda.setText("Ayuda");
-		btnAyuda.setBounds(0, 283, 192, 23);
+		btnAyuda.setBounds(0, 283, 192, 30);
 		pLateral.add(btnAyuda);
 		
-		RSButtonMetro btnCerrarSesion = new RSButtonMetro();
+		RSButtonMetro btnCerrarSesion = new RSButtonMetro();		
+		btnCerrarSesion.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCerrarSesion.setColorNormal(new Color(143, 143, 143));
+		btnCerrarSesion.setColorHover(new Color(153,153,153));		
 		btnCerrarSesion.setText("Cerrar Sesi\u00f3n");
-		btnCerrarSesion.setBounds(0, 445, 192, 23);
+		btnCerrarSesion.setBounds(0, 438, 192, 30);
 		pLateral.add(btnCerrarSesion);
 		
 		JPanel pContenido = new JPanel();
