@@ -39,5 +39,20 @@ public class FrmPrincipal extends JFrame {
 		pPrincipal.setBounds(0, 0, 914, 548);
 		contentPane.add(pPrincipal);
 		pPrincipal.setLayout(null);
+		
+		JPanel pEncabezado = new JPanel();
+		pEncabezado.setBounds(0, 0, 914, 69);
+		pPrincipal.add(pEncabezado);
+		pEncabezado.setLayout(null);
+		
+		JPanel pLateral = new JPanel();
+		pLateral.setBounds(0, 69, 192, 479);
+		pPrincipal.add(pLateral);
+		pLateral.setLayout(null);
+		
+		JPanel pContenido = new JPanel();
+		pContenido.setBounds(190, 69, 724, 479);
+		pPrincipal.add(pContenido);
+		pContenido.setLayout(null);
 	}
 }
