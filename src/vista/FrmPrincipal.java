@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
@@ -21,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class FrmPrincipal extends JFrame {
 
@@ -48,6 +48,7 @@ public class FrmPrincipal extends JFrame {
 	}
 
 	public FrmPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/fenix_icon.png")));
 		setResizable(false);
 		setTitle("Fenix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
