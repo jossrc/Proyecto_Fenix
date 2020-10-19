@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Animacion.Animacion;
+import rsbutton.RSButtonMetro;
 
 import javax.swing.JButton;
 import javax.swing.Icon;
@@ -96,23 +97,28 @@ public class FrmPrincipal extends JFrame {
 		lblImagenVendedor.setIcon(icono);
 		pImagenVendedor.add(lblImagenVendedor);
 		
-		JButton btnMantenimiento = new JButton("Mantenimiento");
+		RSButtonMetro btnMantenimiento = new RSButtonMetro();
+		btnMantenimiento.setText("Mantenimiento");
 		btnMantenimiento.setBounds(0, 143, 192, 23);
 		pLateral.add(btnMantenimiento);
 		
-		JButton btnReporte = new JButton("Reporte");
+		RSButtonMetro btnReporte = new RSButtonMetro();
+		btnReporte.setText("Reporte");
 		btnReporte.setBounds(0, 192, 192, 23);
 		pLateral.add(btnReporte);
 		
-		JButton btnOpciones = new JButton("Opciones");
+		RSButtonMetro btnOpciones = new RSButtonMetro();
+		btnOpciones.setText("Opciones");
 		btnOpciones.setBounds(0, 238, 192, 23);
 		pLateral.add(btnOpciones);
 		
-		JButton btnAyuda = new JButton("Ayuda");
+		RSButtonMetro btnAyuda = new RSButtonMetro();
+		btnAyuda.setText("Ayuda");
 		btnAyuda.setBounds(0, 283, 192, 23);
 		pLateral.add(btnAyuda);
 		
-		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		RSButtonMetro btnCerrarSesion = new RSButtonMetro();
+		btnCerrarSesion.setText("Cerrar Sesi\u00f3n");
 		btnCerrarSesion.setBounds(0, 445, 192, 23);
 		pLateral.add(btnCerrarSesion);
 		
