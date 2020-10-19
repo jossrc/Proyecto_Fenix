@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 public class FrmPrincipal extends JFrame {
 
@@ -55,6 +56,10 @@ public class FrmPrincipal extends JFrame {
 		pEncabezado.setBounds(0, 0, 914, 69);
 		pPrincipal.add(pEncabezado);
 		pEncabezado.setLayout(null);
+		
+		JButton btnMenu = new JButton("");
+		btnMenu.setBounds(60, 11, 73, 47);
+		pEncabezado.add(btnMenu);
 		
 		JPanel pLateral = new JPanel();
 		pLateral.setBackground(new Color(143,143,143));
