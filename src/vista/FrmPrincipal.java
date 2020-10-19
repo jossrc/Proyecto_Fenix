@@ -9,8 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import Animacion.Animacion;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrmPrincipal extends JFrame {
 
@@ -59,7 +64,7 @@ public class FrmPrincipal extends JFrame {
 		pPrincipal.add(pEncabezado);
 		pEncabezado.setLayout(null);
 		
-		JButton btnMenu = new JButton("");
+		JButton btnMenu = new JButton("");		
 		btnMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenu.setContentAreaFilled(false);
 		btnMenu.setOpaque(true);
@@ -80,5 +85,16 @@ public class FrmPrincipal extends JFrame {
 		pContenido.setBounds(190, 69, 724, 479);
 		pPrincipal.add(pContenido);
 		pContenido.setLayout(null);
+		
+		btnMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int posicion = pLateral.getX();
+				if (posicion > -1) {
+					Animacion.mover_izquierda(0, -192, 2, 2, pLateral);
+				} else {
+					Animacion.mover_derecha(-192, 0, 2, 2, pLateral);
+				}
+			}
+		});
 	}
 }
