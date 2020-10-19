@@ -96,6 +96,26 @@ public class FrmPrincipal extends JFrame {
 		lblImagenVendedor.setIcon(icono);
 		pImagenVendedor.add(lblImagenVendedor);
 		
+		JButton btnMantenimiento = new JButton("Mantenimiento");
+		btnMantenimiento.setBounds(0, 143, 192, 23);
+		pLateral.add(btnMantenimiento);
+		
+		JButton btnReporte = new JButton("Reporte");
+		btnReporte.setBounds(0, 192, 192, 23);
+		pLateral.add(btnReporte);
+		
+		JButton btnOpciones = new JButton("Opciones");
+		btnOpciones.setBounds(0, 238, 192, 23);
+		pLateral.add(btnOpciones);
+		
+		JButton btnAyuda = new JButton("Ayuda");
+		btnAyuda.setBounds(0, 283, 192, 23);
+		pLateral.add(btnAyuda);
+		
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.setBounds(0, 445, 192, 23);
+		pLateral.add(btnCerrarSesion);
+		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
 		pContenido.setBounds(190, 69, 724, 479);
