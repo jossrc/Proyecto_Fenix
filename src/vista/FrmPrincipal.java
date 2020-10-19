@@ -50,7 +50,7 @@ public class FrmPrincipal extends JFrame {
 	public FrmPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/fenix_icon.png")));
 		setResizable(false);
-		setTitle("Fenix");
+		setTitle("F\u00e9nix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 920, 577);
 		contentPane = new JPanel();
@@ -79,6 +79,11 @@ public class FrmPrincipal extends JFrame {
 		btnMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/menu.png")));
 		btnMenu.setBounds(10, 11, 57, 47);
 		pEncabezado.add(btnMenu);
+		
+		JLabel lblTitulo = new JLabel("F\u00e9nix Juguetes de Colecci\u00f3n");
+		lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
+		lblTitulo.setBounds(330, 22, 254, 24);
+		pEncabezado.add(lblTitulo);
 		
 		JPanel pLateral = new JPanel();
 		pLateral.setBackground(new Color(143,143,143));
