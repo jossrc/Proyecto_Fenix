@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -59,6 +60,7 @@ public class FrmPrincipal extends JFrame {
 		pEncabezado.setLayout(null);
 		
 		JButton btnMenu = new JButton("");
+		btnMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenu.setContentAreaFilled(false);
 		btnMenu.setOpaque(true);
 		btnMenu.setBorder(null);
