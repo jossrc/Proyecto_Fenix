@@ -59,8 +59,12 @@ public class FrmPrincipal extends JFrame {
 		pEncabezado.setLayout(null);
 		
 		JButton btnMenu = new JButton("");
+		btnMenu.setContentAreaFilled(false);
+		btnMenu.setOpaque(true);
+		btnMenu.setBorder(null);
+		btnMenu.setBackground(new Color(241,71,38));
 		btnMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/menu.png")));
-		btnMenu.setBounds(60, 11, 73, 47);
+		btnMenu.setBounds(10, 11, 57, 47);
 		pEncabezado.add(btnMenu);
 		
 		JPanel pLateral = new JPanel();
