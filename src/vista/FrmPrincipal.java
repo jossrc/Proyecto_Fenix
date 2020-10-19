@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,9 +14,11 @@ import javax.swing.border.EmptyBorder;
 import Animacion.Animacion;
 
 import javax.swing.JButton;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class FrmPrincipal extends JFrame {
 
@@ -85,6 +88,13 @@ public class FrmPrincipal extends JFrame {
 		pImagenVendedor.setBounds(0, 0, 192, 115);
 		pLateral.add(pImagenVendedor);
 		pImagenVendedor.setLayout(null);
+		
+		JLabel lblImagenVendedor = new JLabel("");		
+		lblImagenVendedor.setBounds(50, 11, 90, 90);
+		ImageIcon perfil = new ImageIcon("src/img/perfil.png");
+		Icon icono = new ImageIcon(perfil.getImage().getScaledInstance(lblImagenVendedor.getWidth(), lblImagenVendedor.getHeight(), Image.SCALE_SMOOTH));
+		lblImagenVendedor.setIcon(icono);
+		pImagenVendedor.add(lblImagenVendedor);
 		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
