@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -36,21 +37,25 @@ public class FrmPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel pPrincipal = new JPanel();
+		pPrincipal.setBackground(new Color(240,240,240));
 		pPrincipal.setBounds(0, 0, 914, 548);
 		contentPane.add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
 		JPanel pEncabezado = new JPanel();
+		pEncabezado.setBackground(new Color(241, 71, 38));
 		pEncabezado.setBounds(0, 0, 914, 69);
 		pPrincipal.add(pEncabezado);
 		pEncabezado.setLayout(null);
 		
 		JPanel pLateral = new JPanel();
+		pLateral.setBackground(new Color(143,143,143));
 		pLateral.setBounds(0, 69, 192, 479);
 		pPrincipal.add(pLateral);
 		pLateral.setLayout(null);
 		
 		JPanel pContenido = new JPanel();
+		pContenido.setBackground(new Color(240,240,240));
 		pContenido.setBounds(190, 69, 724, 479);
 		pPrincipal.add(pContenido);
 		pContenido.setLayout(null);
