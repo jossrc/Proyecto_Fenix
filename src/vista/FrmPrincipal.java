@@ -171,7 +171,7 @@ public class FrmPrincipal extends JFrame {
 		
 		btnReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				new CambiaPanel(pContenido, new PReporte());
 			}
 		});
 		
