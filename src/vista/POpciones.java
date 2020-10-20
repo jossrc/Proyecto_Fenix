@@ -1,12 +1,17 @@
 package vista;
 
 import javax.swing.JPanel;
+
+import util.CambiaPanel;
+
 import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class POpciones extends JPanel {
 
@@ -21,7 +26,7 @@ public class POpciones extends JPanel {
 		pSubmenu.setBounds(0, 0, 828, 51);
 		add(pSubmenu);
 		
-		JButton btnTasaCambios = new JButton("Tasa de Cambios");
+		JButton btnTasaCambios = new JButton("Tasa de Cambios");		
 		btnTasaCambios.setOpaque(true);
 		btnTasaCambios.setForeground(Color.WHITE);
 		btnTasaCambios.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -32,7 +37,7 @@ public class POpciones extends JPanel {
 		btnTasaCambios.setBounds(122, 11, 141, 29);
 		pSubmenu.add(btnTasaCambios);
 		
-		JButton btnDescuentos = new JButton("Descuentos");
+		JButton btnDescuentos = new JButton("Descuentos");		
 		btnDescuentos.setOpaque(true);
 		btnDescuentos.setForeground(Color.WHITE);
 		btnDescuentos.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -47,6 +52,18 @@ public class POpciones extends JPanel {
 		pContenidoOpciones.setBounds(0, 51, 828, 611);
 		add(pContenidoOpciones);
 		pContenidoOpciones.setLayout(new CardLayout(0, 0));
+		
+		btnTasaCambios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// new CambiaPanel(pContenidoOpciones, content);
+			}
+		});
+		
+		btnDescuentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// new CambiaPanel(pContenidoOpciones, content);
+			}
+		});
 
 	}
 
