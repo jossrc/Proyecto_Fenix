@@ -84,7 +84,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JLabel lblTitulo = new JLabel("F\u00e9nix Juguetes de Colecci\u00f3n");
 		lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lblTitulo.setBounds(372, 22, 254, 24);
+		lblTitulo.setBounds(382, 22, 254, 24);
 		pEncabezado.add(lblTitulo);
 		
 		JPanel pLateral = new JPanel();
