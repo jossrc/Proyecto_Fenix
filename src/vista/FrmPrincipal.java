@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import Animacion.Animacion;
 import rsbutton.RSButtonMetro;
+import util.CambiaPanel;
 
 import javax.swing.JButton;
 import javax.swing.Icon;
@@ -21,6 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.CardLayout;
 
 public class FrmPrincipal extends JFrame {
 
@@ -148,7 +150,7 @@ public class FrmPrincipal extends JFrame {
 		pContenido.setBackground(new Color(240,240,240));
 		pContenido.setBounds(190, 69, 724, 479);
 		pPrincipal.add(pContenido);
-		pContenido.setLayout(null);
+		pContenido.setLayout(new CardLayout(0, 0));
 		
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -163,7 +165,7 @@ public class FrmPrincipal extends JFrame {
 		
 		btnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				new CambiaPanel(pContenido, new pMantenimiento());
 			}
 		});
 		
