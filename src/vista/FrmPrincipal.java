@@ -165,7 +165,7 @@ public class FrmPrincipal extends JFrame {
 		
 		btnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new CambiaPanel(pContenido, new pMantenimiento());
+				new CambiaPanel(pContenido, new PMantenimiento());
 			}
 		});
 		

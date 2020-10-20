@@ -12,11 +12,11 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class pMantenimiento extends JPanel {
+public class PMantenimiento extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public pMantenimiento() {
+	public PMantenimiento() {
 		setLayout(null);
 		
 		JPanel pSubmenu = new JPanel();
