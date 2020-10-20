@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.CardLayout;
 
 public class PReporte extends JPanel {
 
@@ -47,6 +48,11 @@ public class PReporte extends JPanel {
 		btnVentasConcretadas.setBackground(Color.LIGHT_GRAY);
 		btnVentasConcretadas.setBounds(516, 11, 141, 29);
 		pSubmenu.add(btnVentasConcretadas);
+		
+		JPanel pContenidoReporte = new JPanel();
+		pContenidoReporte.setBounds(0, 51, 828, 611);
+		add(pContenidoReporte);
+		pContenidoReporte.setLayout(new CardLayout(0, 0));
 
 	}
 
