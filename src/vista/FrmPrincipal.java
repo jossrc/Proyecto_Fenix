@@ -54,7 +54,7 @@ public class FrmPrincipal extends JFrame {
 		setResizable(false);
 		setTitle("F\u00e9nix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 920, 577);
+		setBounds(100, 100, 1024, 760);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,13 +62,13 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pPrincipal = new JPanel();
 		pPrincipal.setBackground(new Color(240,240,240));
-		pPrincipal.setBounds(0, 0, 914, 548);
+		pPrincipal.setBounds(0, 0, 1018, 731);
 		contentPane.add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
 		JPanel pEncabezado = new JPanel();
 		pEncabezado.setBackground(new Color(241, 71, 38));
-		pEncabezado.setBounds(0, 0, 914, 69);
+		pEncabezado.setBounds(0, 0, 1018, 69);
 		pPrincipal.add(pEncabezado);
 		pEncabezado.setLayout(null);
 		
@@ -84,12 +84,12 @@ public class FrmPrincipal extends JFrame {
 		
 		JLabel lblTitulo = new JLabel("F\u00e9nix Juguetes de Colecci\u00f3n");
 		lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lblTitulo.setBounds(330, 22, 254, 24);
+		lblTitulo.setBounds(372, 22, 254, 24);
 		pEncabezado.add(lblTitulo);
 		
 		JPanel pLateral = new JPanel();
 		pLateral.setBackground(new Color(143,143,143));
-		pLateral.setBounds(0, 69, 192, 479);
+		pLateral.setBounds(0, 69, 192, 662);
 		pPrincipal.add(pLateral);
 		pLateral.setLayout(null);
 		
@@ -143,12 +143,12 @@ public class FrmPrincipal extends JFrame {
 		btnCerrarSesion.setColorNormal(new Color(143, 143, 143));
 		btnCerrarSesion.setColorHover(new Color(153,153,153));		
 		btnCerrarSesion.setText("Cerrar Sesi\u00f3n");
-		btnCerrarSesion.setBounds(0, 438, 190, 30);
+		btnCerrarSesion.setBounds(0, 621, 190, 30);
 		pLateral.add(btnCerrarSesion);
 		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
-		pContenido.setBounds(190, 69, 724, 479);
+		pContenido.setBounds(190, 69, 828, 662);
 		pPrincipal.add(pContenido);
 		pContenido.setLayout(new CardLayout(0, 0));
 		
