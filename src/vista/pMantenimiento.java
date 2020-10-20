@@ -1,11 +1,16 @@
 package vista;
 
 import javax.swing.JPanel;
+
+import util.CambiaPanel;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class pMantenimiento extends JPanel {
 
@@ -20,7 +25,7 @@ public class pMantenimiento extends JPanel {
 		add(pSubmenu);
 		pSubmenu.setLayout(null);
 		
-		JButton btnCliente = new JButton("Cliente");
+		JButton btnCliente = new JButton("Cliente");		
 		btnCliente.setForeground(Color.WHITE);
 		btnCliente.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -31,7 +36,7 @@ public class pMantenimiento extends JPanel {
 		btnCliente.setBounds(122, 11, 117, 29);
 		pSubmenu.add(btnCliente);
 		
-		JButton btnVentas = new JButton("Ventas");
+		JButton btnVentas = new JButton("Ventas");		
 		btnVentas.setForeground(Color.WHITE);
 		btnVentas.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -42,7 +47,7 @@ public class pMantenimiento extends JPanel {
 		btnVentas.setBounds(322, 11, 117, 29);
 		pSubmenu.add(btnVentas);
 		
-		JButton btnProductos = new JButton("Productos");
+		JButton btnProductos = new JButton("Productos");		
 		btnProductos.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnProductos.setForeground(Color.WHITE);
 		btnProductos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -57,7 +62,24 @@ public class pMantenimiento extends JPanel {
 		pContenidoMantenimiento.setBounds(0, 50, 828, 612);
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
-
+		
+		btnCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new CambiaPanel(pContenidoMantenimiento, content);
+			}
+		});
+		
+		btnVentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new CambiaPanel(pContenidoMantenimiento, content);
+			}
+		});
+		
+		btnProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new CambiaPanel(pContenidoMantenimiento, content);
+			}
+		});
 	}
 
 }
