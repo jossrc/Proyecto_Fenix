@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.CardLayout;
 
 public class POpciones extends JPanel {
 
@@ -12,11 +13,11 @@ public class POpciones extends JPanel {
 	public POpciones() {
 		setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(0, 0, 828, 51);
-		add(panel);
+		JPanel pSubmenu = new JPanel();
+		pSubmenu.setLayout(null);
+		pSubmenu.setBackground(Color.LIGHT_GRAY);
+		pSubmenu.setBounds(0, 0, 828, 51);
+		add(pSubmenu);
 		
 		JButton btnTasaCambios = new JButton("Tasa de Cambios");
 		btnTasaCambios.setOpaque(true);
@@ -26,7 +27,7 @@ public class POpciones extends JPanel {
 		btnTasaCambios.setBorder(null);
 		btnTasaCambios.setBackground(Color.LIGHT_GRAY);
 		btnTasaCambios.setBounds(122, 11, 141, 29);
-		panel.add(btnTasaCambios);
+		pSubmenu.add(btnTasaCambios);
 		
 		JButton btnDescuentos = new JButton("Descuentos");
 		btnDescuentos.setOpaque(true);
@@ -36,7 +37,12 @@ public class POpciones extends JPanel {
 		btnDescuentos.setBorder(null);
 		btnDescuentos.setBackground(Color.LIGHT_GRAY);
 		btnDescuentos.setBounds(516, 11, 117, 29);
-		panel.add(btnDescuentos);
+		pSubmenu.add(btnDescuentos);
+		
+		JPanel pContenidoOpciones = new JPanel();
+		pContenidoOpciones.setBounds(0, 51, 828, 611);
+		add(pContenidoOpciones);
+		pContenidoOpciones.setLayout(new CardLayout(0, 0));
 
 	}
 
