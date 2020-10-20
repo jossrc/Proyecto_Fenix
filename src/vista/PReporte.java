@@ -1,10 +1,15 @@
 package vista;
 
 import javax.swing.JPanel;
+
+import util.CambiaPanel;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PReporte extends JPanel {
 
@@ -19,7 +24,7 @@ public class PReporte extends JPanel {
 		pSubmenu.setBounds(0, 0, 828, 51);
 		add(pSubmenu);
 		
-		JButton btnBoleta = new JButton("Boleta");
+		JButton btnBoleta = new JButton("Boleta");		
 		btnBoleta.setOpaque(true);
 		btnBoleta.setForeground(Color.WHITE);
 		btnBoleta.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -29,7 +34,7 @@ public class PReporte extends JPanel {
 		btnBoleta.setBounds(122, 11, 117, 29);
 		pSubmenu.add(btnBoleta);
 		
-		JButton btnProductos = new JButton("Productos");
+		JButton btnProductos = new JButton("Productos");		
 		btnProductos.setOpaque(true);
 		btnProductos.setForeground(Color.WHITE);
 		btnProductos.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -39,7 +44,7 @@ public class PReporte extends JPanel {
 		btnProductos.setBounds(322, 11, 117, 29);
 		pSubmenu.add(btnProductos);
 		
-		JButton btnVentasConcretadas = new JButton("Ventas Concretadas");
+		JButton btnVentasConcretadas = new JButton("Ventas Concretadas");		
 		btnVentasConcretadas.setOpaque(true);
 		btnVentasConcretadas.setForeground(Color.WHITE);
 		btnVentasConcretadas.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -53,6 +58,24 @@ public class PReporte extends JPanel {
 		pContenidoReporte.setBounds(0, 51, 828, 611);
 		add(pContenidoReporte);
 		pContenidoReporte.setLayout(new CardLayout(0, 0));
+		
+		btnBoleta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// new CambiaPanel(pContenidoReporte, content)
+			}
+		});
+		
+		btnProductos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// new CambiaPanel(pContenidoReporte, content)
+			}
+		});
+		
+		btnVentasConcretadas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// new CambiaPanel(pContenidoReporte, content)
+			}
+		});
 
 	}
 
