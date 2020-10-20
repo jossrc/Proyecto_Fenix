@@ -112,7 +112,7 @@ public class FrmPrincipal extends JFrame {
 		btnMantenimiento.setBounds(0, 143, 192, 30);
 		pLateral.add(btnMantenimiento);
 		
-		RSButtonMetro btnReporte = new RSButtonMetro();
+		RSButtonMetro btnReporte = new RSButtonMetro();		
 		btnReporte.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReporte.setColorNormal(new Color(143, 143, 143));
 		btnReporte.setColorHover(new Color(153,153,153));
@@ -120,7 +120,7 @@ public class FrmPrincipal extends JFrame {
 		btnReporte.setBounds(0, 192, 192, 30);
 		pLateral.add(btnReporte);
 		
-		RSButtonMetro btnOpciones = new RSButtonMetro();
+		RSButtonMetro btnOpciones = new RSButtonMetro();		
 		btnOpciones.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnOpciones.setColorNormal(new Color(143, 143, 143));
 		btnOpciones.setColorHover(new Color(153,153,153));		
@@ -128,7 +128,7 @@ public class FrmPrincipal extends JFrame {
 		btnOpciones.setBounds(0, 238, 192, 30);
 		pLateral.add(btnOpciones);
 		
-		RSButtonMetro btnAyuda = new RSButtonMetro();		
+		RSButtonMetro btnAyuda = new RSButtonMetro();
 		btnAyuda.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnAyuda.setColorNormal(new Color(143, 143, 143));
 		btnAyuda.setColorHover(new Color(153,153,153));		
@@ -158,6 +158,30 @@ public class FrmPrincipal extends JFrame {
 				} else {
 					Animacion.mover_derecha(-192, 0, 2, 2, pLateral);
 				}
+			}
+		});
+		
+		btnMantenimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		
+		btnReporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		
+		btnOpciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}
