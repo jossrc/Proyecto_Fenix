@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import util.CambiaPanel;
 
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -28,6 +30,7 @@ public class PReporte extends JPanel {
 		btnBoleta.setOpaque(true);
 		btnBoleta.setForeground(Color.WHITE);
 		btnBoleta.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnBoleta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBoleta.setContentAreaFilled(false);
 		btnBoleta.setBorder(null);
 		btnBoleta.setBackground(Color.LIGHT_GRAY);
@@ -38,6 +41,7 @@ public class PReporte extends JPanel {
 		btnProductos.setOpaque(true);
 		btnProductos.setForeground(Color.WHITE);
 		btnProductos.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnProductos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProductos.setContentAreaFilled(false);
 		btnProductos.setBorder(null);
 		btnProductos.setBackground(Color.LIGHT_GRAY);
@@ -48,6 +52,7 @@ public class PReporte extends JPanel {
 		btnVentasConcretadas.setOpaque(true);
 		btnVentasConcretadas.setForeground(Color.WHITE);
 		btnVentasConcretadas.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnVentasConcretadas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVentasConcretadas.setContentAreaFilled(false);
 		btnVentasConcretadas.setBorder(null);
 		btnVentasConcretadas.setBackground(Color.LIGHT_GRAY);
