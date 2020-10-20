@@ -2,6 +2,8 @@ package vista;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.CardLayout;
@@ -23,6 +25,7 @@ public class POpciones extends JPanel {
 		btnTasaCambios.setOpaque(true);
 		btnTasaCambios.setForeground(Color.WHITE);
 		btnTasaCambios.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnTasaCambios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnTasaCambios.setContentAreaFilled(false);
 		btnTasaCambios.setBorder(null);
 		btnTasaCambios.setBackground(Color.LIGHT_GRAY);
@@ -33,6 +36,7 @@ public class POpciones extends JPanel {
 		btnDescuentos.setOpaque(true);
 		btnDescuentos.setForeground(Color.WHITE);
 		btnDescuentos.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnDescuentos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnDescuentos.setContentAreaFilled(false);
 		btnDescuentos.setBorder(null);
 		btnDescuentos.setBackground(Color.LIGHT_GRAY);
