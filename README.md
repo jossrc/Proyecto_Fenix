@@ -2,7 +2,7 @@
 
 Integrantes :
 - 🕵🏻‍♂️ Robles Colonia, José
-- ☠ 
+- ☠ Efimova, Elena
 - 👨🏻‍🎓 
 - 💂🏻‍♂️ 
 - 🧛🏻‍♂️ 
