@@ -22,7 +22,7 @@ public class PMantenimiento extends JPanel {
 		
 		JPanel pSubmenu = new JPanel();
 		pSubmenu.setBackground(Color.LIGHT_GRAY);
-		pSubmenu.setBounds(0, 0, 828, 51);
+		pSubmenu.setBounds(0, 0, 827, 51);
 		add(pSubmenu);
 		pSubmenu.setLayout(null);
 		
@@ -45,7 +45,7 @@ public class PMantenimiento extends JPanel {
 		btnVentas.setOpaque(true);
 		btnVentas.setBorder(null);
 		btnVentas.setBackground(Color.LIGHT_GRAY);		
-		btnVentas.setBounds(322, 11, 117, 29);
+		btnVentas.setBounds(340, 11, 117, 29);
 		pSubmenu.add(btnVentas);
 		
 		JButton btnProductos = new JButton("Productos");		
@@ -56,11 +56,11 @@ public class PMantenimiento extends JPanel {
 		btnProductos.setOpaque(true);
 		btnProductos.setBorder(null);
 		btnProductos.setBackground(Color.LIGHT_GRAY);
-		btnProductos.setBounds(516, 11, 117, 29);
+		btnProductos.setBounds(580, 11, 117, 29);
 		pSubmenu.add(btnProductos);
 		
 		JPanel pContenidoMantenimiento = new JPanel();
-		pContenidoMantenimiento.setBounds(0, 50, 827, 481);
+		pContenidoMantenimiento.setBounds(0, 50, 827, 480);
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
 		
