@@ -27,7 +27,7 @@ public class MantClientes extends JPanel {
 		
 		//Dando Forma al Panel
 		JPanel panelClientes = new JPanel();
-		panelClientes.setBounds(0, 0, 827, 481);
+		panelClientes.setBounds(0, 0, 817, 470);
 		add(panelClientes);
 		panelClientes.setLayout(null);
 		
@@ -36,7 +36,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(lblNombres);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 283);
+		scrollPane.setBounds(10, 187, 600, 271);
 		panelClientes.add(scrollPane);
 		
 		tblCliente = new JTable();

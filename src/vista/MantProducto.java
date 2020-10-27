@@ -29,7 +29,7 @@ public class MantProducto extends JPanel {
 		
 		//Dando Forma al Panel
 		JPanel panelProducto = new JPanel();
-		panelProducto.setBounds(0, 0, 827, 481);
+		panelProducto.setBounds(0, 0, 817, 470);
 		add(panelProducto);
 		panelProducto.setLayout(null);
 		
@@ -38,7 +38,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblCodigo);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 283);
+		scrollPane.setBounds(10, 187, 600, 271);
 		panelProducto.add(scrollPane);
 		
 		tblProducto = new JTable();
