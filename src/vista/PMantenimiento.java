@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import util.CambiaPanel;
 
 public class PMantenimiento extends JPanel {
 
@@ -59,13 +60,14 @@ public class PMantenimiento extends JPanel {
 		pSubmenu.add(btnProductos);
 		
 		JPanel pContenidoMantenimiento = new JPanel();
-		pContenidoMantenimiento.setBounds(0, 50, 828, 612);
+		pContenidoMantenimiento.setBounds(0, 50, 827, 481);
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
 		
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CambiaPanel(pContenidoMantenimiento, content);
+				new CambiaPanel(pContenidoMantenimiento, new MantClientes());
 			}
 		});
 		
@@ -78,6 +80,7 @@ public class PMantenimiento extends JPanel {
 		btnProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CambiaPanel(pContenidoMantenimiento, content);
+				new CambiaPanel(pContenidoMantenimiento, new MantProducto());
 			}
 		});
 	}

@@ -13,7 +13,7 @@ public class PAyuda extends JPanel {
 		setLayout(null);
 		
 		JPanel pContenidoAyuda = new JPanel();
-		pContenidoAyuda.setBounds(0, 0, 828, 662);
+		pContenidoAyuda.setBounds(0, 0, 827, 531);
 		add(pContenidoAyuda);
 		pContenidoAyuda.setLayout(null);
 		
