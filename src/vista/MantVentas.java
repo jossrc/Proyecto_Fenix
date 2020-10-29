@@ -35,7 +35,7 @@ public class MantVentas extends JPanel {
 		setLayout(null);
 		
 		JPanel panelVentas = new JPanel();
-		panelVentas.setBounds(0, 0, 817, 470);
+		panelVentas.setBounds(0, 0, 817, 532);
 		add(panelVentas);
 		panelVentas.setLayout(null);		
 		

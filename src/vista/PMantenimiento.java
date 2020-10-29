@@ -60,7 +60,7 @@ public class PMantenimiento extends JPanel {
 		pSubmenu.add(btnProductos);
 		
 		JPanel pContenidoMantenimiento = new JPanel();
-		pContenidoMantenimiento.setBounds(0, 50, 827, 480);
+		pContenidoMantenimiento.setBounds(0, 50, 827, 532);
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
 		
