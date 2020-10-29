@@ -54,7 +54,7 @@ public class FrmPrincipal extends JFrame {
 		setResizable(false);
 		setTitle("F\u00e9nix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 691);
+		setBounds(100, 100, 1024, 722);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,7 +62,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pPrincipal = new JPanel();
 		pPrincipal.setBackground(new Color(240,240,240));
-		pPrincipal.setBounds(0, 0, 1018, 662);
+		pPrincipal.setBounds(0, 0, 1018, 693);
 		contentPane.add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
@@ -89,7 +89,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pLateral = new JPanel();
 		pLateral.setBackground(new Color(143,143,143));
-		pLateral.setBounds(0, 69, 192, 593);
+		pLateral.setBounds(0, 69, 192, 624);
 		pPrincipal.add(pLateral);
 		pLateral.setLayout(null);
 		
@@ -148,7 +148,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
-		pContenido.setBounds(191, 69, 827, 593);
+		pContenido.setBounds(191, 69, 827, 624);
 		pPrincipal.add(pContenido);
 		pContenido.setLayout(new CardLayout(0, 0));
 		
