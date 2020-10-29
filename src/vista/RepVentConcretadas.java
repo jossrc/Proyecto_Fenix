@@ -6,6 +6,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,12 +14,20 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class RepVentConcretadas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtCantidadEncontrada;
 	private JTextField txtCantidadAVisualizar;
+	private JTable tblReporte;
+	private JTextField txtGananciaTotal;
+	
+	private DefaultTableModel model;
+	private JTextField txtHistorialVentas;
+	private JTextField txtHistorialGanancia;
 
 	public RepVentConcretadas() {
 		setLayout(null);
@@ -107,6 +116,60 @@ public class RepVentConcretadas extends JPanel {
 		btnCancelarReporte.setBackground(new Color(241, 71, 38));
 		btnCancelarReporte.setBounds(372, 33, 162, 31);
 		pFiltroCantidad.add(btnCancelarReporte);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 284, 596, 206);
+		panelVentasConcretadas.add(scrollPane);
+		
+		tblReporte = new JTable();
+		model = new DefaultTableModel();
+		tblReporte.setModel(model);
+		model.addColumn("N° Boleta");
+		model.addColumn("Cliente");
+		model.addColumn("Compras");
+		model.addColumn("Total");
+		tblReporte.getColumnModel().getColumn(0).setPreferredWidth(60);
+		tblReporte.getColumnModel().getColumn(1).setPreferredWidth(366);
+		tblReporte.getColumnModel().getColumn(2).setPreferredWidth(85);
+		tblReporte.getColumnModel().getColumn(3).setPreferredWidth(85);
+		scrollPane.setViewportView(tblReporte);
+		
+		txtGananciaTotal = new JTextField();
+		txtGananciaTotal.setEditable(false);
+		txtGananciaTotal.setBounds(531, 501, 86, 26);
+		panelVentasConcretadas.add(txtGananciaTotal);
+		txtGananciaTotal.setColumns(10);
+		
+		JLabel lblGananciaTotal = new JLabel("Ganancia Total");
+		lblGananciaTotal.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lblGananciaTotal.setBounds(436, 507, 87, 18);
+		panelVentasConcretadas.add(lblGananciaTotal);
+		
+		JLabel lblHistorialDeVentas = new JLabel("Historial de ventas totales");
+		lblHistorialDeVentas.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lblHistorialDeVentas.setBounds(633, 79, 149, 18);
+		panelVentasConcretadas.add(lblHistorialDeVentas);
+		
+		txtHistorialVentas = new JTextField();
+		txtHistorialVentas.setEditable(false);
+		txtHistorialVentas.setBounds(657, 105, 95, 26);
+		panelVentasConcretadas.add(txtHistorialVentas);
+		txtHistorialVentas.setColumns(10);
+		
+		JLabel lblHistorialDeGanancia = new JLabel("Historial de ganancia");
+		lblHistorialDeGanancia.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lblHistorialDeGanancia.setBounds(644, 176, 121, 18);
+		panelVentasConcretadas.add(lblHistorialDeGanancia);
+		
+		txtHistorialGanancia = new JTextField();
+		txtHistorialGanancia.setEditable(false);
+		txtHistorialGanancia.setColumns(10);
+		txtHistorialGanancia.setBounds(657, 205, 95, 26);
+		panelVentasConcretadas.add(txtHistorialGanancia);
+		
+		JButton btnImprimirReporte = new JButton("IMPRIMIR REPORTE");
+		btnImprimirReporte.setBounds(657, 315, 130, 39);
+		panelVentasConcretadas.add(btnImprimirReporte);
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
