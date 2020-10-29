@@ -56,6 +56,7 @@ public class MantVentas extends JPanel {
 		pDatosVenta.add(lblCliente);
 		
 		txtCliente = new JTextField();
+		txtCliente.setEditable(false);
 		txtCliente.setBounds(21, 44, 219, 20);
 		pDatosVenta.add(txtCliente);
 		txtCliente.setColumns(10);
@@ -95,6 +96,7 @@ public class MantVentas extends JPanel {
 		pDatosProducto.add(lblCodigo);
 		
 		txtCodigo = new JTextField();
+		txtCodigo.setEditable(false);
 		txtCodigo.setColumns(10);
 		txtCodigo.setBounds(21, 44, 219, 20);
 		pDatosProducto.add(txtCodigo);
@@ -117,6 +119,7 @@ public class MantVentas extends JPanel {
 		pDatosProducto.add(lblPrecio);
 		
 		txtPrecio = new JTextField();
+		txtPrecio.setEditable(false);
 		txtPrecio.setColumns(10);
 		txtPrecio.setBounds(473, 44, 115, 20);
 		pDatosProducto.add(txtPrecio);
@@ -126,6 +129,7 @@ public class MantVentas extends JPanel {
 		pDatosProducto.add(lblDescripcionProducto);
 		
 		txtDescripcionProducto = new JTextField();
+		txtDescripcionProducto.setEditable(false);
 		txtDescripcionProducto.setBounds(22, 100, 218, 20);
 		pDatosProducto.add(txtDescripcionProducto);
 		txtDescripcionProducto.setColumns(10);
@@ -135,6 +139,7 @@ public class MantVentas extends JPanel {
 		pDatosProducto.add(lblStock);
 		
 		txtStock = new JTextField();
+		txtStock.setEditable(false);
 		txtStock.setColumns(10);
 		txtStock.setBounds(473, 100, 115, 20);
 		pDatosProducto.add(txtStock);
@@ -208,6 +213,7 @@ public class MantVentas extends JPanel {
 		pPagar.add(lblDescuento);
 		
 		txtSubtotal = new JTextField();
+		txtSubtotal.setEditable(false);
 		txtSubtotal.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtSubtotal.setColumns(10);
 		txtSubtotal.setBounds(10, 36, 86, 20);
@@ -225,6 +231,7 @@ public class MantVentas extends JPanel {
 		pPagar.add(lblTotalAPagar);
 		
 		txtTotalAPagar = new JTextField();
+		txtTotalAPagar.setEditable(false);
 		txtTotalAPagar.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtTotalAPagar.setColumns(10);
 		txtTotalAPagar.setBounds(212, 36, 125, 20);
