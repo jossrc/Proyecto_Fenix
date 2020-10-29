@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -13,6 +14,8 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class MantVentas extends JPanel {
 
@@ -24,6 +27,9 @@ public class MantVentas extends JPanel {
 	private JTextField txtPrecio;
 	private JTextField txtDescripcionProducto;
 	private JTextField txtStock;
+	private JTable tblVenta;
+	
+	private DefaultTableModel model;
 
 	public MantVentas() {
 		setLayout(null);
@@ -126,7 +132,21 @@ public class MantVentas extends JPanel {
 		txtStock.setColumns(10);
 		txtStock.setBounds(473, 100, 115, 20);
 		pDatosProducto.add(txtStock);
-
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 264, 683, 195);
+		panelVentas.add(scrollPane);
+		
+		tblVenta = new JTable();		
+		model = new DefaultTableModel();
+		tblVenta.setModel(model);
+		scrollPane.setViewportView(tblVenta);
+		model.addColumn("C\u00F3digo");
+		model.addColumn("Tipo");
+		model.addColumn("Descripci\u00F3n");
+		model.addColumn("Cantidad");
+		model.addColumn("Precio");
+		model.addColumn("Importe");
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
