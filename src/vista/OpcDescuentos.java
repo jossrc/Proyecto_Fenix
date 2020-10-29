@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class OpcDescuentos extends JPanel {
 
@@ -21,8 +22,10 @@ public class OpcDescuentos extends JPanel {
 	private JTextField txtCodigo;
 	private JTextField txtPrecioActual;
 	private JTextField txtDescripcion;
-	private JTextField txtDescuento;
-	private JTextField textField;
+	private JTextField txtDescuento1;
+	private JTextField txtDescuento2;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField txtDescuento3;
 
 	public OpcDescuentos() {
 		setLayout(null);
@@ -81,13 +84,13 @@ public class OpcDescuentos extends JPanel {
 		lblDescuento1.setBounds(317, 75, 60, 14);
 		pProducto.add(lblDescuento1);
 		
-		txtDescuento = new JTextField();
-		txtDescuento.setColumns(10);
-		txtDescuento.setBounds(317, 100, 115, 20);
-		pProducto.add(txtDescuento);
+		txtDescuento1 = new JTextField();
+		txtDescuento1.setColumns(10);
+		txtDescuento1.setBounds(317, 100, 115, 20);
+		pProducto.add(txtDescuento1);
 		
 		JComboBox<String> cboTipoDescuento1 = new JComboBox<String>();
-		cboTipoDescuento1.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento1.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento1.setBounds(470, 31, 136, 24);
 		pProducto.add(cboTipoDescuento1);
 		
@@ -99,13 +102,13 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoProducto.setOpaque(true);
 		btnGenerarDescuentoProducto.setBorder(null);
 		btnGenerarDescuentoProducto.setBackground(new Color(19, 205, 210));
-		btnGenerarDescuentoProducto.setBounds(475, 82, 131, 38);
+		btnGenerarDescuentoProducto.setBounds(486, 75, 131, 38);
 		pProducto.add(btnGenerarDescuentoProducto);
 		
 		JPanel pTipoMarca = new JPanel();
 		pTipoMarca.setLayout(null);
 		pTipoMarca.setBorder(crearBordeTitulo("Por Tipo y Marca"));
-		pTipoMarca.setBounds(33, 225, 757, 86);
+		pTipoMarca.setBounds(33, 225, 627, 122);
 		panelDescuentos.add(pTipoMarca);
 		
 		JLabel lblSeleccionar1 = new JLabel("SELECCIONAR");
@@ -113,7 +116,7 @@ public class OpcDescuentos extends JPanel {
 		pTipoMarca.add(lblSeleccionar1);
 		
 		JComboBox<String> cboTipoDescuento2 = new JComboBox<String>();
-		cboTipoDescuento2.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento2.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento2.setBounds(22, 46, 136, 24);
 		pTipoMarca.add(cboTipoDescuento2);
 		
@@ -122,6 +125,7 @@ public class OpcDescuentos extends JPanel {
 		pTipoMarca.add(lblTipoProducto);
 		
 		JRadioButton rdbtnTipoProducto = new JRadioButton("");
+		buttonGroup.add(rdbtnTipoProducto);
 		rdbtnTipoProducto.setSelected(true);
 		rdbtnTipoProducto.setBounds(281, 19, 21, 21);
 		pTipoMarca.add(rdbtnTipoProducto);
@@ -131,6 +135,7 @@ public class OpcDescuentos extends JPanel {
 		pTipoMarca.add(lblMarcaProducto);
 		
 		JRadioButton rdbtnMarcaProducto = new JRadioButton("");
+		buttonGroup.add(rdbtnMarcaProducto);
 		rdbtnMarcaProducto.setBounds(281, 49, 21, 21);
 		pTipoMarca.add(rdbtnMarcaProducto);
 		
@@ -138,19 +143,19 @@ public class OpcDescuentos extends JPanel {
 		lblSeleccionar2.setBounds(327, 21, 70, 14);
 		pTipoMarca.add(lblSeleccionar2);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Lista de Tipos...","Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
-		comboBox.setBounds(327, 46, 136, 24);
-		pTipoMarca.add(comboBox);
+		JComboBox<String> cboLista = new JComboBox<String>();
+		cboLista.setModel(new DefaultComboBoxModel<String>(new String[] {"Lista de Tipos...","Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
+		cboLista.setBounds(327, 46, 136, 24);
+		pTipoMarca.add(cboLista);
 		
 		JLabel lblDescuento2 = new JLabel("DESCUENTO");
-		lblDescuento2.setBounds(481, 21, 60, 14);
+		lblDescuento2.setBounds(224, 93, 60, 14);
 		pTipoMarca.add(lblDescuento2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(481, 48, 115, 20);
-		pTipoMarca.add(textField);
+		txtDescuento2 = new JTextField();
+		txtDescuento2.setColumns(10);
+		txtDescuento2.setBounds(327, 90, 115, 20);
+		pTipoMarca.add(txtDescuento2);
 		
 		JButton btnGenerarDescuentoTipoMarca = new JButton("GENERAR");
 		btnGenerarDescuentoTipoMarca.setForeground(Color.WHITE);
@@ -160,8 +165,50 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoTipoMarca.setOpaque(true);
 		btnGenerarDescuentoTipoMarca.setBorder(null);
 		btnGenerarDescuentoTipoMarca.setBackground(new Color(19, 205, 210));
-		btnGenerarDescuentoTipoMarca.setBounds(616, 21, 131, 38);
+		btnGenerarDescuentoTipoMarca.setBounds(486, 37, 131, 38);
 		pTipoMarca.add(btnGenerarDescuentoTipoMarca);
+		
+		JPanel pTodo = new JPanel();
+		pTodo.setBorder(crearBordeTitulo("Todos"));
+		pTodo.setLayout(null);
+		pTodo.setBorder(crearBordeTitulo("Producto"));
+		pTodo.setBounds(33, 368, 627, 99);
+		panelDescuentos.add(pTodo);
+		
+		JLabel lblDescuento3 = new JLabel("DESCUENTO");
+		lblDescuento3.setBounds(186, 41, 60, 14);
+		pTodo.add(lblDescuento3);
+		
+		txtDescuento3 = new JTextField();
+		txtDescuento3.setColumns(10);
+		txtDescuento3.setBounds(186, 66, 115, 20);
+		pTodo.add(txtDescuento3);
+		
+		JButton btnGenerarDescuentoTodo = new JButton("GENERAR");
+		btnGenerarDescuentoTodo.setForeground(Color.WHITE);
+		btnGenerarDescuentoTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnGenerarDescuentoTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGenerarDescuentoTodo.setContentAreaFilled(false);
+		btnGenerarDescuentoTodo.setOpaque(true);
+		btnGenerarDescuentoTodo.setBorder(null);
+		btnGenerarDescuentoTodo.setBackground(new Color(19, 205, 210));
+		btnGenerarDescuentoTodo.setBounds(486, 41, 131, 38);
+		pTodo.add(btnGenerarDescuentoTodo);
+		
+		JLabel lblSeleccionar3 = new JLabel("SELECCIONAR");
+		lblSeleccionar3.setBounds(20, 41, 70, 14);
+		pTodo.add(lblSeleccionar3);
+		
+		JComboBox<String> cboTipoDescuento3 = new JComboBox<String>();
+		cboTipoDescuento3.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento3.setBounds(20, 64, 136, 24);
+		pTodo.add(cboTipoDescuento3);
+		
+		JLabel lblNewLabel = new JLabel("* Todos los productos tendr\u00E1n descuentos");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 11));
+		lblNewLabel.setBounds(20, 15, 226, 15);
+		pTodo.add(lblNewLabel);
 
 	}
 	
