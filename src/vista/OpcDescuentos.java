@@ -90,7 +90,7 @@ public class OpcDescuentos extends JPanel {
 		pProducto.add(txtDescuento1);
 		
 		JComboBox<String> cboTipoDescuento1 = new JComboBox<String>();
-		cboTipoDescuento1.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento1.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento1.setBounds(470, 31, 136, 24);
 		pProducto.add(cboTipoDescuento1);
 		
@@ -116,7 +116,7 @@ public class OpcDescuentos extends JPanel {
 		pTipoMarca.add(lblSeleccionar1);
 		
 		JComboBox<String> cboTipoDescuento2 = new JComboBox<String>();
-		cboTipoDescuento2.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento2.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento2.setBounds(22, 46, 136, 24);
 		pTipoMarca.add(cboTipoDescuento2);
 		
@@ -200,7 +200,7 @@ public class OpcDescuentos extends JPanel {
 		pTodo.add(lblSeleccionar3);
 		
 		JComboBox<String> cboTipoDescuento3 = new JComboBox<String>();
-		cboTipoDescuento3.setModel(new DefaultComboBoxModel(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
+		cboTipoDescuento3.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento3.setBounds(20, 64, 136, 24);
 		pTodo.add(cboTipoDescuento3);
 		
@@ -209,6 +209,28 @@ public class OpcDescuentos extends JPanel {
 		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 11));
 		lblNewLabel.setBounds(20, 15, 226, 15);
 		pTodo.add(lblNewLabel);
+		
+		JButton btnActivar = new JButton("ACTIVAR");
+		btnActivar.setForeground(Color.WHITE);
+		btnActivar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnActivar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnActivar.setContentAreaFilled(false);
+		btnActivar.setOpaque(true);
+		btnActivar.setBorder(null);
+		btnActivar.setBackground(Color.GRAY);
+		btnActivar.setBounds(200, 487, 130, 42);
+		panelDescuentos.add(btnActivar);
+		
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(Color.GRAY);
+		btnCancelar.setBounds(377, 487, 130, 42);
+		panelDescuentos.add(btnCancelar);
 
 	}
 	
