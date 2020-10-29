@@ -26,7 +26,7 @@ public class OpcDescuentos extends JPanel {
 		setLayout(null);
 		
 		JPanel panelDescuentos = new JPanel();
-		panelDescuentos.setBounds(0, 0, 827, 570);
+		panelDescuentos.setBounds(0, 0, 827, 551);
 		add(panelDescuentos);
 		panelDescuentos.setLayout(null);
 		
@@ -90,14 +90,14 @@ public class OpcDescuentos extends JPanel {
 		pProducto.add(comboBox);
 		
 		JButton btnGenerar = new JButton("GENERAR");		
-		btnGenerar.setOpaque(true);
 		btnGenerar.setForeground(Color.WHITE);
 		btnGenerar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnGenerar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnGenerar.setContentAreaFilled(false);
+		btnGenerar.setOpaque(true);
 		btnGenerar.setBorder(null);
 		btnGenerar.setBackground(new Color(19, 205, 210));
-		btnGenerar.setBounds(475, 82, 115, 38);
+		btnGenerar.setBounds(475, 82, 131, 38);
 		pProducto.add(btnGenerar);
 
 	}
