@@ -4,11 +4,14 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 public class RepVentConcretadas extends JPanel {
@@ -20,6 +23,7 @@ public class RepVentConcretadas extends JPanel {
 		setLayout(null);
 		
 		JPanel panelVentasConcretadas = new JPanel();
+		panelVentasConcretadas.setBorder(crearBordeTitulo("Opciones de B\u00fasqueda por Fecha"));
 		panelVentasConcretadas.setBounds(0, 0, 817, 551);
 		add(panelVentasConcretadas);
 		panelVentasConcretadas.setLayout(null);
@@ -65,6 +69,12 @@ public class RepVentConcretadas extends JPanel {
 		btnBuscarVentas.setBackground(new Color(9, 168, 136));
 		btnBuscarVentas.setBounds(205, 79, 162, 31);
 		pBusquedasFecha.add(btnBuscarVentas);
-
+	}
+	
+	private TitledBorder crearBordeTitulo(String titulo) {
+		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), titulo, TitledBorder.LEADING, TitledBorder.TOP, null, null);
+		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		return titled;
 	}
 }
