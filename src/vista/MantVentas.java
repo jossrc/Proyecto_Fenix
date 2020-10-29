@@ -141,12 +141,34 @@ public class MantVentas extends JPanel {
 		model = new DefaultTableModel();
 		tblVenta.setModel(model);
 		scrollPane.setViewportView(tblVenta);
+		
+		JButton btnAdicionarProducto = new JButton("+");
+		btnAdicionarProducto.setBounds(647, 125, 57, 36);
+		panelVentas.add(btnAdicionarProducto);
+		
+		JButton btnQuitarProducto = new JButton("-");
+		btnQuitarProducto.setBounds(647, 182, 57, 36);
+		panelVentas.add(btnQuitarProducto);
+		
+		JButton btnGenerarVenta = new JButton("GENERAR");
+		btnGenerarVenta.setBounds(703, 296, 102, 36);
+		panelVentas.add(btnGenerarVenta);
+		
+		JButton btnCancelarVenta = new JButton("CANCELAR");
+		btnCancelarVenta.setBounds(703, 355, 102, 36);
+		panelVentas.add(btnCancelarVenta);
 		model.addColumn("C\u00F3digo");
 		model.addColumn("Tipo");
 		model.addColumn("Descripci\u00F3n");
 		model.addColumn("Cantidad");
 		model.addColumn("Precio");
 		model.addColumn("Importe");
+		tblVenta.getColumnModel().getColumn(0).setPreferredWidth(113);
+		tblVenta.getColumnModel().getColumn(1).setPreferredWidth(113);
+		tblVenta.getColumnModel().getColumn(2).setPreferredWidth(226);
+		tblVenta.getColumnModel().getColumn(3).setPreferredWidth(77);
+		tblVenta.getColumnModel().getColumn(4).setPreferredWidth(77);
+		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
