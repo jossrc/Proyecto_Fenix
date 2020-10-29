@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.LineBorder;
 
 public class MantVentas extends JPanel {
 
@@ -30,12 +31,14 @@ public class MantVentas extends JPanel {
 	private JTable tblVenta;
 	
 	private DefaultTableModel model;
+	private JTextField txtPagaCon;
+	private JTextField txtCambio;
 
 	public MantVentas() {
 		setLayout(null);
 		
 		JPanel panelVentas = new JPanel();
-		panelVentas.setBounds(0, 0, 817, 532);
+		panelVentas.setBounds(0, 0, 817, 551);
 		add(panelVentas);
 		panelVentas.setLayout(null);		
 		
@@ -157,6 +160,35 @@ public class MantVentas extends JPanel {
 		JButton btnCancelarVenta = new JButton("CANCELAR");
 		btnCancelarVenta.setBounds(703, 355, 102, 36);
 		panelVentas.add(btnCancelarVenta);
+		
+		JPanel pCambio = new JPanel();
+		pCambio.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pCambio.setBounds(10, 470, 305, 70);
+		panelVentas.add(pCambio);
+		pCambio.setLayout(null);
+		
+		JLabel lblPagaCon = new JLabel("PAGA CON");
+		lblPagaCon.setBounds(10, 11, 52, 14);
+		pCambio.add(lblPagaCon);
+		
+		JLabel lblCambio = new JLabel("CAMBIO");
+		lblCambio.setBounds(109, 11, 40, 14);
+		pCambio.add(lblCambio);
+		
+		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.setBounds(214, 35, 77, 23);
+		pCambio.add(btnCalcular);
+		
+		txtPagaCon = new JTextField();
+		txtPagaCon.setBounds(10, 36, 86, 20);
+		pCambio.add(txtPagaCon);
+		txtPagaCon.setColumns(10);
+		
+		txtCambio = new JTextField();
+		txtCambio.setEditable(false);
+		txtCambio.setColumns(10);
+		txtCambio.setBounds(109, 36, 86, 20);
+		pCambio.add(txtCambio);
 		model.addColumn("C\u00F3digo");
 		model.addColumn("Tipo");
 		model.addColumn("Descripci\u00F3n");
