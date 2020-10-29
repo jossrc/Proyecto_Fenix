@@ -60,7 +60,7 @@ public class PReporte extends JPanel {
 		pSubmenu.add(btnVentasConcretadas);
 		
 		JPanel pContenidoReporte = new JPanel();
-		pContenidoReporte.setBounds(0, 51, 828, 611);
+		pContenidoReporte.setBounds(0, 51, 827, 481);
 		add(pContenidoReporte);
 		pContenidoReporte.setLayout(new CardLayout(0, 0));
 		
