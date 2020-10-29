@@ -33,6 +33,9 @@ public class MantVentas extends JPanel {
 	private DefaultTableModel model;
 	private JTextField txtPagaCon;
 	private JTextField txtCambio;
+	private JTextField txtSubtotal;
+	private JTextField txtDescuento;
+	private JTextField txtTotalAPagar;
 
 	public MantVentas() {
 		setLayout(null);
@@ -175,9 +178,9 @@ public class MantVentas extends JPanel {
 		lblCambio.setBounds(109, 11, 40, 14);
 		pCambio.add(lblCambio);
 		
-		JButton btnCalcular = new JButton("Calcular");
-		btnCalcular.setBounds(214, 35, 77, 23);
-		pCambio.add(btnCalcular);
+		JButton btnCalcularCambio = new JButton("Calcular");
+		btnCalcularCambio.setBounds(214, 21, 77, 37);
+		pCambio.add(btnCalcularCambio);
 		
 		txtPagaCon = new JTextField();
 		txtPagaCon.setBounds(10, 36, 86, 20);
@@ -189,6 +192,47 @@ public class MantVentas extends JPanel {
 		txtCambio.setColumns(10);
 		txtCambio.setBounds(109, 36, 86, 20);
 		pCambio.add(txtCambio);
+		
+		JPanel pPagar = new JPanel();
+		pPagar.setLayout(null);
+		pPagar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pPagar.setBounds(332, 470, 456, 70);
+		panelVentas.add(pPagar);
+		
+		JLabel lblSubtotal = new JLabel("SUBTOTAL");
+		lblSubtotal.setBounds(10, 11, 51, 14);
+		pPagar.add(lblSubtotal);
+		
+		JLabel lblDescuento = new JLabel("DESCUENTO");
+		lblDescuento.setBounds(109, 11, 60, 14);
+		pPagar.add(lblDescuento);
+		
+		txtSubtotal = new JTextField();
+		txtSubtotal.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtSubtotal.setColumns(10);
+		txtSubtotal.setBounds(10, 36, 86, 20);
+		pPagar.add(txtSubtotal);
+		
+		txtDescuento = new JTextField();
+		txtDescuento.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtDescuento.setText("0.0");
+		txtDescuento.setColumns(10);
+		txtDescuento.setBounds(109, 36, 86, 20);
+		pPagar.add(txtDescuento);
+		
+		JLabel lblTotalAPagar = new JLabel("TOTAL A PAGAR");
+		lblTotalAPagar.setBounds(212, 11, 79, 14);
+		pPagar.add(lblTotalAPagar);
+		
+		txtTotalAPagar = new JTextField();
+		txtTotalAPagar.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtTotalAPagar.setColumns(10);
+		txtTotalAPagar.setBounds(212, 36, 125, 20);
+		pPagar.add(txtTotalAPagar);
+		
+		JButton btnCalcularPagoTotal = new JButton("Calcular");
+		btnCalcularPagoTotal.setBounds(357, 23, 89, 35);
+		pPagar.add(btnCalcularPagoTotal);
 		model.addColumn("C\u00F3digo");
 		model.addColumn("Tipo");
 		model.addColumn("Descripci\u00F3n");
