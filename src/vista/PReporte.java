@@ -66,7 +66,7 @@ public class PReporte extends JPanel {
 		
 		btnBoleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoReporte, content)
+				new CambiaPanel(pContenidoReporte, new RepBoleta());
 			}
 		});
 		

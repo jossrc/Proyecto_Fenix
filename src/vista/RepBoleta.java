@@ -21,8 +21,8 @@ public class RepBoleta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tblBoleta;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtNumBoleta;
+	private JTextField txtDNI_RUC;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public RepBoleta() {
@@ -34,7 +34,7 @@ public class RepBoleta extends JPanel {
 		pBoleta.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(49, 189, 616, 310);
+		scrollPane.setBounds(14, 215, 616, 310);
 		pBoleta.add(scrollPane);
 		
 		tblBoleta = new JTable();
@@ -48,7 +48,7 @@ public class RepBoleta extends JPanel {
 		btnBuscar.setOpaque(true);
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.GRAY);
-		btnBuscar.setBounds(687, 189, 117, 43);
+		btnBuscar.setBounds(665, 225, 117, 43);
 		pBoleta.add(btnBuscar);
 		
 		JButton btnVisualizar = new JButton("VISUALIZAR");
@@ -59,7 +59,7 @@ public class RepBoleta extends JPanel {
 		btnVisualizar.setOpaque(true);
 		btnVisualizar.setBorder(null);
 		btnVisualizar.setBackground(Color.GRAY);
-		btnVisualizar.setBounds(687, 262, 117, 43);
+		btnVisualizar.setBounds(665, 294, 117, 43);
 		pBoleta.add(btnVisualizar);
 		
 		JButton btnImprimir = new JButton("IMPRIMIR");
@@ -70,54 +70,54 @@ public class RepBoleta extends JPanel {
 		btnImprimir.setOpaque(true);
 		btnImprimir.setBorder(null);
 		btnImprimir.setBackground(Color.GRAY);
-		btnImprimir.setBounds(687, 334, 117, 43);
+		btnImprimir.setBounds(665, 370, 117, 43);
 		pBoleta.add(btnImprimir);
 		
 		JPanel pTipoBusqueda = new JPanel();
 		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Busqueda por Tipo", TitledBorder.LEADING, TitledBorder.TOP, null, null);
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		pTipoBusqueda.setBorder(titled);
-		pTipoBusqueda.setBounds(45, 11, 620, 149);
+		pTipoBusqueda.setBounds(14, 29, 620, 149);
 		pBoleta.add(pTipoBusqueda);
 		pTipoBusqueda.setLayout(null);
 		
-		JLabel label = new JLabel("Buscar por N\u00B0 Boleta");
-		label.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		label.setBounds(62, 18, 132, 19);
-		pTipoBusqueda.add(label);
+		JLabel lblBuscarBoleta = new JLabel("Buscar por N\u00B0 Boleta");
+		lblBuscarBoleta.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblBuscarBoleta.setBounds(62, 18, 132, 19);
+		pTipoBusqueda.add(lblBuscarBoleta);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(316, 18, 265, 20);
-		pTipoBusqueda.add(textField);
+		txtNumBoleta = new JTextField();
+		txtNumBoleta.setColumns(10);
+		txtNumBoleta.setBounds(316, 18, 265, 20);
+		pTipoBusqueda.add(txtNumBoleta);
 		
-		JLabel label_1 = new JLabel("Buscar por N\u00B0 Documento (DNI/RUC)");
-		label_1.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		label_1.setBounds(62, 56, 233, 19);
-		pTipoBusqueda.add(label_1);
+		JLabel lblBuscarDocumento = new JLabel("Buscar por N\u00B0 Documento (DNI/RUC)");
+		lblBuscarDocumento.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblBuscarDocumento.setBounds(62, 56, 233, 19);
+		pTipoBusqueda.add(lblBuscarDocumento);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(316, 56, 265, 20);
-		pTipoBusqueda.add(textField_1);
+		txtDNI_RUC = new JTextField();
+		txtDNI_RUC.setColumns(10);
+		txtDNI_RUC.setBounds(316, 56, 265, 20);
+		pTipoBusqueda.add(txtDNI_RUC);
 		
-		JLabel label_2 = new JLabel("Buscar por Rango de Fechas");
-		label_2.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		label_2.setBounds(62, 102, 186, 19);
-		pTipoBusqueda.add(label_2);
+		JLabel lblBuscarRango = new JLabel("Buscar por Rango de Fechas");
+		lblBuscarRango.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblBuscarRango.setBounds(62, 102, 186, 19);
+		pTipoBusqueda.add(lblBuscarRango);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(294, 102, 107, 20);
-		pTipoBusqueda.add(dateChooser);
+		JDateChooser txtFechInicial = new JDateChooser();
+		txtFechInicial.setBounds(294, 102, 107, 20);
+		pTipoBusqueda.add(txtFechInicial);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(474, 102, 107, 20);
-		pTipoBusqueda.add(dateChooser_1);
+		JDateChooser txtFechFinal = new JDateChooser();
+		txtFechFinal.setBounds(474, 102, 107, 20);
+		pTipoBusqueda.add(txtFechFinal);
 		
-		JLabel label_3 = new JLabel("hasta");
-		label_3.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		label_3.setBounds(422, 103, 35, 19);
-		pTipoBusqueda.add(label_3);
+		JLabel lblHasta = new JLabel("hasta");
+		lblHasta.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblHasta.setBounds(422, 103, 35, 19);
+		pTipoBusqueda.add(lblHasta);
 		
 		JRadioButton rdbtnBoleta = new JRadioButton("");
 		buttonGroup.add(rdbtnBoleta);
