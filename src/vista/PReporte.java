@@ -72,7 +72,7 @@ public class PReporte extends JPanel {
 		
 		btnProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoReporte, content)
+				new CambiaPanel(pContenidoReporte, new RepProducto());
 			}
 		});
 		
