@@ -146,7 +146,7 @@ public class FrmPrincipal extends JFrame {
 		btnCerrarSesion.setBounds(0, 532, 190, 30);
 		pLateral.add(btnCerrarSesion);
 		
-		RSButtonMetro btnTransacciones = new RSButtonMetro();
+		RSButtonMetro btnTransacciones = new RSButtonMetro();		
 		btnTransacciones.setText("Transacciones");
 		btnTransacciones.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTransacciones.setColorNormal(new Color(143, 143, 143));
@@ -174,6 +174,12 @@ public class FrmPrincipal extends JFrame {
 		btnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new CambiaPanel(pContenido, new PMantenimiento());
+			}
+		});
+		
+		btnTransacciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CambiaPanel(pContenido, new PTransacciones());
 			}
 		});
 		
