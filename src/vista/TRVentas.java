@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 
-public class MantVentas extends JPanel {
+public class TRVentas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtCliente;
@@ -37,7 +37,7 @@ public class MantVentas extends JPanel {
 	private JTextField txtDescuento;
 	private JTextField txtTotalAPagar;
 
-	public MantVentas() {
+	public TRVentas() {
 		setLayout(null);
 		
 		JPanel panelVentas = new JPanel();
