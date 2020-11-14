@@ -8,8 +8,11 @@ import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 
 public class RepProducto extends JPanel {
@@ -35,6 +38,9 @@ public class RepProducto extends JPanel {
 		scrollPane.setViewportView(tblProductos);
 		
 		JPanel pProducto = new JPanel();
+		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Busqueda por Tipo", TitledBorder.LEADING, TitledBorder.TOP, null, null);
+		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		pProducto.setBorder(titled);
 		pProducto.setLayout(null);
 		pProducto.setBounds(14, 29, 727, 149);
 		panel.add(pProducto);
