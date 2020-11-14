@@ -11,7 +11,6 @@ import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import util.CambiaPanel;
 
 public class PMantenimiento extends JPanel {
 
@@ -37,16 +36,16 @@ public class PMantenimiento extends JPanel {
 		btnCliente.setBounds(122, 11, 117, 29);
 		pSubmenu.add(btnCliente);
 		
-		JButton btnVentas = new JButton("Ventas");		
-		btnVentas.setForeground(Color.WHITE);
-		btnVentas.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVentas.setContentAreaFilled(false);
-		btnVentas.setOpaque(true);
-		btnVentas.setBorder(null);
-		btnVentas.setBackground(Color.LIGHT_GRAY);		
-		btnVentas.setBounds(340, 11, 117, 29);
-		pSubmenu.add(btnVentas);
+		JButton btnVendedores = new JButton("Vendedores");		
+		btnVendedores.setForeground(Color.WHITE);
+		btnVendedores.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnVendedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVendedores.setContentAreaFilled(false);
+		btnVendedores.setOpaque(true);
+		btnVendedores.setBorder(null);
+		btnVendedores.setBackground(Color.LIGHT_GRAY);		
+		btnVendedores.setBounds(340, 11, 117, 29);
+		pSubmenu.add(btnVendedores);
 		
 		JButton btnProductos = new JButton("Productos");		
 		btnProductos.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -71,9 +70,9 @@ public class PMantenimiento extends JPanel {
 			}
 		});
 		
-		btnVentas.addActionListener(new ActionListener() {
+		btnVendedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new CambiaPanel(pContenidoMantenimiento, new MantVentas());
+				//new CambiaPanel(pContenidoMantenimiento, new MantVentas());
 			}
 		});
 		
