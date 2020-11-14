@@ -151,7 +151,7 @@ public class FrmPrincipal extends JFrame {
 		btnTransacciones.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTransacciones.setColorNormal(new Color(143, 143, 143));
 		btnTransacciones.setColorHover(new Color(153, 153, 153));
-		btnTransacciones.setBounds(2, 185, 190, 30);
+		btnTransacciones.setBounds(2, 185, 188, 30);
 		pLateral.add(btnTransacciones);
 		
 		JPanel pContenido = new JPanel();

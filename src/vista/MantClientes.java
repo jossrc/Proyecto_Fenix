@@ -14,6 +14,9 @@ import javax.swing.JTable;
 
 
 public class MantClientes extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
 	private JTextField txtDNI;

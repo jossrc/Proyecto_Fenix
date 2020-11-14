@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import util.CambiaPanel;
 
 import java.awt.Color;
+import java.awt.Cursor;
 
 import javax.swing.JButton;
 import java.awt.Font;
@@ -36,10 +37,11 @@ public class PTransacciones extends JPanel {
 		pContenido.add(pSubmenu);
 		
 		btnVentas = new JButton("Ventas");		
-		btnVentas.setOpaque(true);
 		btnVentas.setForeground(Color.WHITE);
 		btnVentas.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVentas.setContentAreaFilled(false);
+		btnVentas.setOpaque(true);
 		btnVentas.setBorder(null);
 		btnVentas.setBackground(Color.LIGHT_GRAY);
 		btnVentas.setBounds(340, 11, 117, 29);

@@ -16,6 +16,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class MantProducto extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField txtCodigo;
 	private JTextField txtDescripcion;
 	private JTextField txtStock;
@@ -154,8 +157,8 @@ public class MantProducto extends JPanel {
 		lblTipo.setBounds(37, 145, 46, 14);
 		panelProducto.add(lblTipo);
 		
-		JComboBox cmbTipo = new JComboBox();
-		cmbTipo.setModel(new DefaultComboBoxModel(new String[] {"Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
+		JComboBox<String> cmbTipo = new JComboBox<String>();
+		cmbTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
 		cmbTipo.setBounds(109, 148, 323, 20);
 		panelProducto.add(cmbTipo);
 
