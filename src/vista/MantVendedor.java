@@ -1,90 +1,89 @@
 package vista;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
-
-public class MantClientes extends JPanel {
-	
-	private static final long serialVersionUID = 1L;
+public class MantVendedor extends JPanel {
+private static final long serialVersionUID = 1L;
 	
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
 	private JTextField txtDNI;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
-	private JTable tblCliente;
+	private JTable tblVendedor;
 
 	
-	public MantClientes() {
+	public MantVendedor() {
 		setLayout(null);
 		
 		//Dando Forma al Panel
-		JPanel panelClientes = new JPanel();
-		panelClientes.setBounds(0, 0, 817, 470);
-		add(panelClientes);
-		panelClientes.setLayout(null);
+		JPanel panelVendedor = new JPanel();
+		panelVendedor.setBounds(0, 0, 817, 470);
+		add(panelVendedor);
+		panelVendedor.setLayout(null);
 		
 		JLabel lblNombres = new JLabel("Nombres");
 		lblNombres.setBounds(37, 45, 46, 14);
-		panelClientes.add(lblNombres);
+		panelVendedor.add(lblNombres);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 187, 600, 271);
-		panelClientes.add(scrollPane);
+		panelVendedor.add(scrollPane);
 		
-		tblCliente = new JTable();
-		scrollPane.setViewportView(tblCliente);
+		tblVendedor = new JTable();
+		scrollPane.setViewportView(tblVendedor);
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(37, 70, 46, 14);
-		panelClientes.add(lblApellidos);
+		panelVendedor.add(lblApellidos);
 		
 		JLabel lblDni = new JLabel("DNI");
 		lblDni.setBounds(37, 95, 46, 14);
-		panelClientes.add(lblDni);
+		panelVendedor.add(lblDni);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
 		lblTelefono.setBounds(37, 120, 46, 14);
-		panelClientes.add(lblTelefono);
+		panelVendedor.add(lblTelefono);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
 		lblDireccin.setBounds(37, 145, 46, 14);
-		panelClientes.add(lblDireccin);
+		panelVendedor.add(lblDireccin);
 		
 		txtNombres = new JTextField();
 		txtNombres.setBounds(109, 42, 323, 20);
-		panelClientes.add(txtNombres);
+		panelVendedor.add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setBounds(109, 67, 323, 20);
 		txtApellidos.setColumns(10);
-		panelClientes.add(txtApellidos);
+		panelVendedor.add(txtApellidos);
 		
 		txtDNI = new JTextField();
 		txtDNI.setBounds(109, 92, 323, 20);
 		txtDNI.setColumns(10);
-		panelClientes.add(txtDNI);
+		panelVendedor.add(txtDNI);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setBounds(109, 117, 323, 20);
 		txtTelefono.setColumns(10);
-		panelClientes.add(txtTelefono);
+		panelVendedor.add(txtTelefono);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setBounds(109, 142, 323, 20);
 		txtDireccion.setColumns(10);
-		panelClientes.add(txtDireccion);
+		panelVendedor.add(txtDireccion);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.setBounds(477, 45, 122, 53);
@@ -95,7 +94,7 @@ public class MantClientes extends JPanel {
 		btnLimpiar.setOpaque(true);
 		btnLimpiar.setBorder(null);
 		btnLimpiar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnLimpiar);
+		panelVendedor.add(btnLimpiar);
 		
 		JButton btnVerTodo = new JButton("Ver Todo");
 		btnVerTodo.setBounds(477, 106, 122, 53);
@@ -110,7 +109,7 @@ public class MantClientes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panelClientes.add(btnVerTodo);
+		panelVendedor.add(btnVerTodo);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(633, 189, 122, 53);
@@ -121,7 +120,7 @@ public class MantClientes extends JPanel {
 		btnAgregar.setOpaque(true);
 		btnAgregar.setBorder(null);
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnAgregar);
+		panelVendedor.add(btnAgregar);
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setBounds(633, 253, 122, 53);
@@ -132,7 +131,7 @@ public class MantClientes extends JPanel {
 		btnEditar.setOpaque(true);
 		btnEditar.setBorder(null);
 		btnEditar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnEditar);
+		panelVendedor.add(btnEditar);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(633, 317, 122, 53);
@@ -143,7 +142,7 @@ public class MantClientes extends JPanel {
 		btnBuscar.setOpaque(true);
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnBuscar);
+		panelVendedor.add(btnBuscar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(633, 381, 122, 53);
@@ -154,11 +153,11 @@ public class MantClientes extends JPanel {
 		btnEliminar.setOpaque(true);
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnEliminar);
+		panelVendedor.add(btnEliminar);
 		
-		JLabel lblClientes = new JLabel("Clientes");
-		lblClientes.setBounds(109, 11, 78, 14);
-		panelClientes.add(lblClientes);
+		JLabel lblVendedores = new JLabel("Vendedores");
+		lblVendedores.setBounds(109, 11, 99, 14);
+		panelVendedor.add(lblVendedores);
 
 	}
 }
