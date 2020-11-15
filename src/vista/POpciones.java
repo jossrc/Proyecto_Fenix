@@ -55,7 +55,7 @@ public class POpciones extends JPanel {
 		
 		btnTasaCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoOpciones, content);
+				new CambiaPanel(pContenidoOpciones, new OpTasaCambios());
 			}
 		});
 		
