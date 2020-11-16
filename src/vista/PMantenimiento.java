@@ -73,6 +73,7 @@ public class PMantenimiento extends JPanel {
 		btnVendedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CambiaPanel(pContenidoMantenimiento, new MantVentas());
+				new CambiaPanel(pContenidoMantenimiento, new MantVendedor());
 			}
 		});
 		
