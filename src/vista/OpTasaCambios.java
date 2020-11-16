@@ -20,9 +20,9 @@ public class OpTasaCambios extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCantidadmonedaoriginal;
-	private JTextField txtCantidadmonedafinal;
-	private JTextField txttasaOriginal;
+	private JTextField txtCantidadMonedaOriginal;
+	private JTextField txtCantidadMonedaFinal;
+	private JTextField txtTasaOriginal;
 	private JTextField txtTasaFinal;
 
 	/**
@@ -55,15 +55,15 @@ public class OpTasaCambios extends JPanel {
 		lblA.setBounds(276, 32, 46, 14);
 		pMoneda.add(lblA);
 		
-		JComboBox cmbMonedaOrigen = new JComboBox();
-		cmbMonedaOrigen.setModel(new DefaultComboBoxModel(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
-		cmbMonedaOrigen.setBounds(28, 58, 153, 20);
-		pMoneda.add(cmbMonedaOrigen);
+		JComboBox<String> cboMonedaOrigen = new JComboBox<String>();
+		cboMonedaOrigen.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
+		cboMonedaOrigen.setBounds(28, 58, 153, 20);
+		pMoneda.add(cboMonedaOrigen);
 		
-		JComboBox cmbMonedaFinal = new JComboBox();
-		cmbMonedaFinal.setModel(new DefaultComboBoxModel(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
-		cmbMonedaFinal.setBounds(276, 57, 153, 20);
-		pMoneda.add(cmbMonedaFinal);
+		JComboBox<String> cboMonedaFinal = new JComboBox<String>();
+		cboMonedaFinal.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
+		cboMonedaFinal.setBounds(276, 57, 153, 20);
+		pMoneda.add(cboMonedaFinal);
 		
 		JButton btnAplicar = new JButton("Aplicar");
 		btnAplicar.setBounds(482, 46, 107, 40);
@@ -75,12 +75,11 @@ public class OpTasaCambios extends JPanel {
 		btnAplicar.setBorder(null);
 		btnAplicar.setBackground(new Color(19, 205, 210));
 		pMoneda.add(btnAplicar);
-		
-		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
-		label.setBounds(212, 58, 54, 26);
-		pMoneda.add(label);
+				
+		JLabel lblArrow01 = new JLabel("");
+		lblArrow01.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
+		lblArrow01.setBounds(212, 58, 54, 26);
+		pMoneda.add(lblArrow01);
 		
 		JPanel pCantidad = new JPanel();
 		pCantidad.setLayout(null);
@@ -88,20 +87,20 @@ public class OpTasaCambios extends JPanel {
 		pCantidad.setBounds(33, 234, 627, 132);
 		panelTcambios.add(pCantidad);
 		
-		txtCantidadmonedaoriginal = new JTextField();
-		txtCantidadmonedaoriginal.setBounds(38, 60, 168, 20);
-		pCantidad.add(txtCantidadmonedaoriginal);
-		txtCantidadmonedaoriginal.setColumns(10);
+		txtCantidadMonedaOriginal = new JTextField();
+		txtCantidadMonedaOriginal.setBounds(38, 60, 168, 20);
+		pCantidad.add(txtCantidadMonedaOriginal);
+		txtCantidadMonedaOriginal.setColumns(10);
 		
-		txtCantidadmonedafinal = new JTextField();
-		txtCantidadmonedafinal.setColumns(10);
-		txtCantidadmonedafinal.setBounds(276, 60, 168, 20);
-		pCantidad.add(txtCantidadmonedafinal);
+		txtCantidadMonedaFinal = new JTextField();
+		txtCantidadMonedaFinal.setColumns(10);
+		txtCantidadMonedaFinal.setBounds(276, 60, 168, 20);
+		pCantidad.add(txtCantidadMonedaFinal);
 		
-		JLabel lblArrow = new JLabel("");
-		lblArrow.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
-		lblArrow.setBounds(212, 60, 54, 26);
-		pCantidad.add(lblArrow);
+		JLabel lblArrow02 = new JLabel("");
+		lblArrow02.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
+		lblArrow02.setBounds(212, 60, 54, 26);
+		pCantidad.add(lblArrow02);
 		
 		JPanel pTasa = new JPanel();
 		pTasa.setLayout(null);
@@ -109,15 +108,15 @@ public class OpTasaCambios extends JPanel {
 		pTasa.setBounds(33, 391, 627, 132);
 		panelTcambios.add(pTasa);
 		
-		txttasaOriginal = new JTextField();
-		txttasaOriginal.setColumns(10);
-		txttasaOriginal.setBounds(40, 52, 168, 20);
-		pTasa.add(txttasaOriginal);
+		txtTasaOriginal = new JTextField();
+		txtTasaOriginal.setColumns(10);
+		txtTasaOriginal.setBounds(40, 52, 168, 20);
+		pTasa.add(txtTasaOriginal);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
-		label_1.setBounds(214, 52, 54, 26);
-		pTasa.add(label_1);
+		JLabel lblArrow03 = new JLabel("");
+		lblArrow03.setIcon(new ImageIcon(OpTasaCambios.class.getResource("/img/right-arrow_resize.png")));
+		lblArrow03.setBounds(214, 52, 54, 26);
+		pTasa.add(lblArrow03);
 		
 		txtTasaFinal = new JTextField();
 		txtTasaFinal.setColumns(10);
