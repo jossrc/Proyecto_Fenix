@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,7 +35,7 @@ private static final long serialVersionUID = 1L;
 		panelVendedor.setLayout(null);
 		
 		JLabel lblNombres = new JLabel("Nombres");
-		lblNombres.setBounds(37, 45, 46, 14);
+		lblNombres.setBounds(37, 67, 46, 14);
 		panelVendedor.add(lblNombres);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -45,33 +46,33 @@ private static final long serialVersionUID = 1L;
 		scrollPane.setViewportView(tblVendedor);
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(37, 70, 46, 14);
+		lblApellidos.setBounds(37, 92, 46, 14);
 		panelVendedor.add(lblApellidos);
 		
 		JLabel lblDni = new JLabel("DNI");
-		lblDni.setBounds(37, 95, 46, 14);
+		lblDni.setBounds(37, 39, 46, 14);
 		panelVendedor.add(lblDni);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
 		lblTelefono.setBounds(37, 120, 46, 14);
 		panelVendedor.add(lblTelefono);
 		
-		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
-		lblDireccin.setBounds(37, 145, 46, 14);
-		panelVendedor.add(lblDireccin);
+		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
+		lblDireccion.setBounds(37, 145, 46, 14);
+		panelVendedor.add(lblDireccion);
 		
 		txtNombres = new JTextField();
-		txtNombres.setBounds(109, 42, 323, 20);
+		txtNombres.setBounds(109, 64, 323, 20);
 		panelVendedor.add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		txtApellidos = new JTextField();
-		txtApellidos.setBounds(109, 67, 323, 20);
+		txtApellidos.setBounds(109, 89, 323, 20);
 		txtApellidos.setColumns(10);
 		panelVendedor.add(txtApellidos);
 		
 		txtDNI = new JTextField();
-		txtDNI.setBounds(109, 92, 323, 20);
+		txtDNI.setBounds(109, 36, 323, 20);
 		txtDNI.setColumns(10);
 		panelVendedor.add(txtDNI);
 		
@@ -85,7 +86,7 @@ private static final long serialVersionUID = 1L;
 		txtDireccion.setColumns(10);
 		panelVendedor.add(txtDireccion);
 		
-		JButton btnLimpiar = new JButton("Limpiar");
+		JButton btnLimpiar = new JButton("Limpiar");		
 		btnLimpiar.setBounds(477, 45, 122, 53);
 		btnLimpiar.setForeground(Color.WHITE);
 		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -104,14 +105,10 @@ private static final long serialVersionUID = 1L;
 		btnVerTodo.setContentAreaFilled(false);
 		btnVerTodo.setOpaque(true);
 		btnVerTodo.setBorder(null);
-		btnVerTodo.setBackground(Color.LIGHT_GRAY);
-		btnVerTodo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnVerTodo.setBackground(Color.LIGHT_GRAY);		
 		panelVendedor.add(btnVerTodo);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("Agregar");		
 		btnAgregar.setBounds(633, 189, 122, 53);
 		btnAgregar.setForeground(Color.WHITE);
 		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -158,6 +155,144 @@ private static final long serialVersionUID = 1L;
 		JLabel lblVendedores = new JLabel("Vendedores");
 		lblVendedores.setBounds(109, 11, 99, 14);
 		panelVendedor.add(lblVendedores);
+		
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiar();
+			}
+		});
+		
+		btnVerTodo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crearVendedor();
+			}
+		});
+	}
+	
+	private void crearVendedor() {
+		String dni = leerDNI();
+		String nombre, apellido, telefono, direccion;
+		
+		if (dni != null) {
+			nombre = leerNombre();
+			if (nombre != null) {
+				apellido = leerApellido();
+				if (apellido != null) {
+					telefono = leerTelefono();
+					if (telefono != null) {
+						direccion = leerDireccion();
+						if (direccion != null) {							
+							JOptionPane.showMessageDialog(this, "Nuevo Cliente agregado");
+							limpiar();
+							// TODO: Crea un objeto Venededor y lo retorna							
+						}
+					}
+				}
+			}
+		}
+		
+		//return null
+	}
+
+	private String leerDNI() {
+
+		String dni = txtDNI.getText().trim();
+
+		if (dni.isEmpty()) {
+			aviso("El campo DNI está vacío");
+			return null;
+		}
+
+		if (!dni.matches("^[0-9]{8}$")) {
+			aviso("Ingrese un DNI válido");
+			return null;
+		}
+
+		return dni;
 
 	}
+
+	private String leerNombre() {
+		String nombre = txtNombres.getText().trim();
+
+		if (nombre.isEmpty()) {
+			aviso("El campo nombre está vacío");
+			return null;
+		}
+
+		if (!nombre.matches("^(?=.{3,15}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
+			aviso("Ingrese un nombre válido");
+			return null;
+		}
+
+		return nombre;
+
+	}
+
+	private String leerApellido() {
+		String apellido = txtApellidos.getText().trim();
+
+		if (apellido.isEmpty()) {
+			aviso("El campo apellido está vacío");
+			return null;
+		}
+
+		if (!apellido.matches("^(?=.{3,15}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
+			aviso("Ingrese un apellido válido");
+			return null;
+		}
+
+		return apellido;
+	}
+
+	private String leerTelefono() {
+
+		String telefono = txtTelefono.getText().trim();
+
+		if (telefono.isEmpty()) {
+			aviso("El campo Telefono está vacío");
+			return null;
+		}
+
+		if (!telefono.matches("([0-9]{7,9})")) {
+			aviso("Ingrese un teléfono válido");
+			return null;
+		}
+
+		return telefono;
+
+	}
+
+	private String leerDireccion() {
+		String direccion = txtDireccion.getText().trim();
+		if (direccion.isEmpty()) {
+			aviso("El campo Dirección está vacío");
+			return null;
+		}
+
+		return direccion;
+	}
+
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
+	}
+	
+	private void limpiar() {
+		txtDNI.setText("");
+		txtNombres.setText("");
+		txtApellidos.setText("");
+		txtTelefono.setText("");
+		txtDireccion.setText("");
+		
+		txtDNI.requestFocus();
+		txtDNI.selectAll();
+	}
+	
+	
 }
