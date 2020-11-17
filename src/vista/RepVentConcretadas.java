@@ -2,6 +2,8 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -11,11 +13,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RepVentConcretadas extends JPanel {
 
@@ -28,6 +33,8 @@ public class RepVentConcretadas extends JPanel {
 	private DefaultTableModel model;
 	private JTextField txtHistorialVentas;
 	private JTextField txtHistorialGanancia;
+	private JDateChooser txtDesde;
+	private JDateChooser txtHasta;
 
 	public RepVentConcretadas() {
 		setLayout(null);
@@ -47,7 +54,7 @@ public class RepVentConcretadas extends JPanel {
 		lblDesde.setBounds(10, 18, 32, 14);
 		pBusquedasFecha.add(lblDesde);
 		
-		JDateChooser txtDesde = new JDateChooser();
+		txtDesde = new JDateChooser();
 		txtDesde.setBounds(10, 43, 139, 20);
 		pBusquedasFecha.add(txtDesde);
 		
@@ -55,7 +62,7 @@ public class RepVentConcretadas extends JPanel {
 		lblHasta.setBounds(10, 74, 33, 14);
 		pBusquedasFecha.add(lblHasta);
 		
-		JDateChooser txtHasta = new JDateChooser();
+		txtHasta = new JDateChooser();
 		txtHasta.setBounds(10, 99, 139, 20);
 		pBusquedasFecha.add(txtHasta);
 		
@@ -64,12 +71,13 @@ public class RepVentConcretadas extends JPanel {
 		pBusquedasFecha.add(lblCantidadEncontrada);
 		
 		txtCantidadEncontrada = new JTextField();
+		txtCantidadEncontrada.setForeground(Color.RED);
 		txtCantidadEncontrada.setEditable(false);
 		txtCantidadEncontrada.setBounds(205, 43, 162, 20);
 		pBusquedasFecha.add(txtCantidadEncontrada);
 		txtCantidadEncontrada.setColumns(10);
 		
-		JButton btnBuscarVentas = new JButton("BUSCAR");
+		JButton btnBuscarVentas = new JButton("BUSCAR");		
 		btnBuscarVentas.setForeground(Color.WHITE);
 		btnBuscarVentas.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnBuscarVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -95,7 +103,7 @@ public class RepVentConcretadas extends JPanel {
 		txtCantidadAVisualizar.setBounds(10, 44, 162, 20);
 		pFiltroCantidad.add(txtCantidadAVisualizar);
 		
-		JButton btnGenerarReporte = new JButton("GENERAR REPORTE");
+		JButton btnGenerarReporte = new JButton("GENERAR REPORTE");		
 		btnGenerarReporte.setForeground(Color.WHITE);
 		btnGenerarReporte.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnGenerarReporte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -106,7 +114,7 @@ public class RepVentConcretadas extends JPanel {
 		btnGenerarReporte.setBounds(198, 33, 162, 31);
 		pFiltroCantidad.add(btnGenerarReporte);
 		
-		JButton btnCancelarReporte = new JButton("CANCELAR REPORTE");
+		JButton btnCancelarReporte = new JButton("CANCELAR REPORTE");		
 		btnCancelarReporte.setForeground(Color.WHITE);
 		btnCancelarReporte.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnCancelarReporte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -167,9 +175,94 @@ public class RepVentConcretadas extends JPanel {
 		txtHistorialGanancia.setBounds(657, 205, 95, 26);
 		panelVentasConcretadas.add(txtHistorialGanancia);
 		
-		JButton btnImprimirReporte = new JButton("IMPRIMIR REPORTE");
+		JButton btnImprimirReporte = new JButton("IMPRIMIR REPORTE");		
 		btnImprimirReporte.setBounds(657, 315, 130, 39);
 		panelVentasConcretadas.add(btnImprimirReporte);
+		
+		btnBuscarVentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnGenerarReporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnCancelarReporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnImprimirReporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	private String leerFechaInicial() {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+			return sdf.format(txtDesde.getDate());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	private String leerFechaFinal() {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+			return sdf.format(txtHasta.getDate());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	private int leerCantidadEncontrada() {
+		String cantidad = txtCantidadEncontrada.getText().trim();
+		
+		if (cantidad.isEmpty()) {
+			return -1;
+		}
+		
+		return Integer.parseInt(cantidad);
+	}
+	
+	private int leerCantidadAVisualizar() {
+		String cantidad = txtCantidadAVisualizar.getText().trim();
+		
+		if (cantidad.isEmpty()) {
+			aviso("El Campo Cantidad a Visualizar está vacío");
+			return -1;
+		}
+		
+		if (!cantidad.matches("[1-9]+")) {
+			aviso("Ingrese una Cantidad Válida");
+			return -1;
+		}
+		
+		int cantidadVisualizar = Integer.parseInt(cantidad);
+		
+		if (cantidadVisualizar > leerCantidadEncontrada()) {
+			aviso("Ingrese un valor menor o igual a la Cantidad Encontrada");
+			return -1;
+		}
+		
+		return cantidadVisualizar;
+	}
+	
+	private double leerGananciaTotal() {
+		String ganancia = txtGananciaTotal.getText().trim();
+		
+		if (ganancia.isEmpty()) {
+			return -1;
+		}
+		
+		return Double.parseDouble(ganancia);
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
@@ -177,5 +270,9 @@ public class RepVentConcretadas extends JPanel {
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		return titled;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
 }
