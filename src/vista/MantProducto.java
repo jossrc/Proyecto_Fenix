@@ -226,7 +226,7 @@ public class MantProducto extends JPanel {
 			return null;
 		}
 
-		if (codigo.matches("PROD[0-9]{4}")) {
+		if (!codigo.matches("PROD[0-9]{4}")) {
 			aviso("Ingrese un código válido (PRODXXXX)");
 			return null;
 		}
@@ -253,7 +253,7 @@ public class MantProducto extends JPanel {
 			return -1;
 		}
 
-		if (stock.matches("[0-9]{1,3}")) {
+		if (!stock.matches("[0-9]{1,3}")) {
 			aviso("Ingrese un valor válido para el Stock");
 			return -1;
 		}
@@ -291,7 +291,7 @@ public class MantProducto extends JPanel {
 	}
 
 	private int leerTipo() {
-		int tipo = cboMarca.getSelectedIndex();
+		int tipo = cboTipo.getSelectedIndex();
 
 		if (tipo == -1 || tipo == 0) {
 			aviso("Seleccione un Tipo válido");
@@ -307,10 +307,11 @@ public class MantProducto extends JPanel {
 
 	private void limpiar() {
 		txtCodigo.setText("");
-		txtDescripcion.setText("");
-		txtStock.setText("");
+		txtDescripcion.setText("");		
 		cboMarca.setSelectedIndex(0);
 		cboTipo.setSelectedIndex(0);
+		txtStock.setText("");
+		txtPrecioUnit.setText("");
 
 		txtCodigo.requestFocus();
 		txtCodigo.selectAll();
