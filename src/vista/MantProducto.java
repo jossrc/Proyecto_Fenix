@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,7 +49,7 @@ public class MantProducto extends JPanel {
 		tblProducto = new JTable();
 		scrollPane.setViewportView(tblProducto);
 		
-		JLabel lblDescripcion = new JLabel("Descrcipción");
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
 		lblDescripcion.setBounds(37, 70, 62, 14);
 		panelProducto.add(lblDescripcion);
 		
@@ -59,9 +60,7 @@ public class MantProducto extends JPanel {
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setBounds(37, 120, 46, 14);
 		panelProducto.add(lblMarca);
-		
-		
-		
+
 		txtCodigo = new JTextField();
 		txtCodigo.setBounds(109, 42, 323, 20);
 		panelProducto.add(txtCodigo);
@@ -176,4 +175,87 @@ public class MantProducto extends JPanel {
 		});
 
 	}
+	
+	private String leerCodigo() {
+		String codigo = txtCodigo.getText().toUpperCase().trim();
+		
+		if (codigo.isEmpty()) {
+			aviso("El campo Código está vacío");
+			return null;
+		}
+		
+		if (codigo.matches("PROD[0-9]{4}")) {
+			aviso("Ingrese un código válido (PRODXXXX)");
+			return null;
+		}
+		
+		return codigo;
+	}
+	
+	private String leerDescripcion() {
+		String descripcion = txtDescripcion.getText().trim();
+		
+		if(descripcion.isEmpty()) {
+			aviso("El campo Descripción está vacío");
+			return null;
+		}
+		
+		return descripcion;
+	}
+	
+	private int stock() {
+		String stock = txtStock.getText().trim();
+		
+		if (stock.isEmpty()) {
+			aviso("El campo Stock está vacío");
+			return -1;
+		}
+		
+		if (stock.matches("[0-9]{1,3}")) {
+			aviso("Ingrese un valor válido para el Stock");
+			return -1;
+		}		
+		
+		return Integer.parseInt(stock);
+		
+	}
+	
+	private int leerMarca() {
+		int marca = cboMarca.getSelectedIndex();
+		
+		if (marca == -1 || marca == 0) {
+			aviso("Seleccione una Marca válida");
+			return -1;
+		}
+		
+		return marca;
+	}
+	
+	private int leerTipo() {
+		int tipo = cboMarca.getSelectedIndex();
+		
+		if (tipo == -1 || tipo == 0) {
+			aviso("Seleccione un Tipo válido");
+			return -1;
+		}
+		
+		return tipo;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
+	}
+	
+	private void limpiar() {
+		txtCodigo.setText("");
+		txtDescripcion.setText("");
+		txtStock.setText("");
+		cboMarca.setSelectedIndex(0);
+		cboTipo.setSelectedIndex(0);
+		
+		txtCodigo.requestFocus();
+		txtCodigo.selectAll();
+	}
+	
+	
 }
