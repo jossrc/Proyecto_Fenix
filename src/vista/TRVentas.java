@@ -2,6 +2,7 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -11,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -36,6 +38,7 @@ public class TRVentas extends JPanel {
 	private JTextField txtSubtotal;
 	private JTextField txtDescuento;
 	private JTextField txtTotalAPagar;
+	private JDateChooser txtFecha;
 
 	public TRVentas() {
 		setLayout(null);
@@ -77,7 +80,7 @@ public class TRVentas extends JPanel {
 		lblFecha.setBounds(474, 19, 33, 14);
 		pDatosVenta.add(lblFecha);
 		
-		JDateChooser txtFecha = new JDateChooser();
+		txtFecha = new JDateChooser();
 		txtFecha.setBounds(467, 44, 128, 20);
 		pDatosVenta.add(txtFecha);
 		
@@ -260,4 +263,26 @@ public class TRVentas extends JPanel {
 		
 		return titled;
 	}
+	
+	private String leerCliente() {
+		
+		String cliente = txtCliente.getText().trim();
+		
+		if (cliente.isEmpty()) {
+			return null;
+		}
+		
+		return cliente;
+	}
+	
+	private String leerFechaBoleta() {
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+			return sdf.format(txtFecha.getDate());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 }
