@@ -285,4 +285,72 @@ public class TRVentas extends JPanel {
 		}
 	}
 	
+	private String leerCodigoProducto() {
+		String codigo = txtCodigo.getText().trim();
+		
+		if (codigo.isEmpty()) {
+			return null;
+		}
+		
+		return codigo;
+	}
+	
+	private String leerDescripcionProducto() {
+		String descripcion = txtDescripcionProducto.getText().trim();
+		
+		if (descripcion.isEmpty()) {
+			return null;
+		}
+		
+		return descripcion;
+	}
+	
+	private int leerStock() {
+		
+		String stock = txtStock.getText().trim();
+		
+		if (stock.isEmpty()) {
+			return -1;
+		}
+		
+		return Integer.parseInt(stock);
+	}
+	
+	private int leerCantidadAComprar() {
+		String cantidad = txtCantidad.getText().trim();
+		
+		if (cantidad.isEmpty()) {
+			aviso("El campo Cantidad está vacío");
+			return -1;
+		}
+		
+		if (cantidad.matches("[0-9]+")) {
+			aviso("Ingrese una Cantidad válidad");
+			return -1;
+		}
+		
+		int numCantidad = Integer.parseInt(cantidad);
+		
+		if (numCantidad > leerStock()) {
+			aviso("Ingrese una cantidad menor o igual al Stock");
+			return -1;
+		}
+		
+		return numCantidad;
+	}
+	
+	private double leerPrecioProducto() {
+		String precio = txtPrecio.getText().trim();
+		
+		if (precio.isEmpty()) {
+			return -1;
+		}
+		
+		return Double.parseDouble(precio);
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
+	}
+	
 }
