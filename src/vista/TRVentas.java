@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TRVentas extends JPanel {
 
@@ -186,7 +188,7 @@ public class TRVentas extends JPanel {
 		lblCambio.setBounds(109, 11, 40, 14);
 		pCambio.add(lblCambio);
 		
-		JButton btnCalcularCambio = new JButton("Calcular");
+		JButton btnCalcularCambio = new JButton("Calcular");		
 		btnCalcularCambio.setBounds(214, 21, 77, 37);
 		pCambio.add(btnCalcularCambio);
 		
@@ -255,6 +257,7 @@ public class TRVentas extends JPanel {
 		tblVenta.getColumnModel().getColumn(3).setPreferredWidth(77);
 		tblVenta.getColumnModel().getColumn(4).setPreferredWidth(77);
 		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
+		
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
@@ -350,15 +353,49 @@ public class TRVentas extends JPanel {
 	}
 	
 	private double leerSubTotal() {
-		return -1;
+		
+		String subTotal = txtSubtotal.getText().trim();
+		
+		if (subTotal.isEmpty()) {
+			return -1;
+		}
+
+		return Double.parseDouble(subTotal);
 	}
 	
 	private double leerDescuento() {
-		return -1;
+		
+		String descuento = txtSubtotal.getText().trim();
+		
+		if (descuento.isEmpty()) {
+			aviso("El campo Descuento está vacío");
+			return -1;
+		}
+		
+		if (!descuento.matches("[0-9]+([.][0-9]{1,2})?")) {
+			aviso("Ingrese un Descuento válido");
+			return -1;
+		}
+		
+		double desc = Double.parseDouble(descuento);
+		double maxDesc = 0.15*leerSubTotal();
+		
+		if (desc > maxDesc) {
+			aviso("Descuento máximo permitido es del 15%");
+			return -1;
+		}
+		
+		return desc;
 	}
 	
 	private double leerTotalPagar() {
-		return -1;
+		String totalPagar = txtTotalAPagar.getText().trim();
+		
+		if (totalPagar.isEmpty()) {
+			return -1;
+		}
+		
+		return Double.parseDouble(totalPagar);
 	}
 	
 	private double leerPagaCon() {
