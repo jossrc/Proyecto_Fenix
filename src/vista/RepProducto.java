@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -14,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RepProducto extends JPanel {
 
@@ -21,6 +24,8 @@ public class RepProducto extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtCodigo;
 	private JTable tblProductos;
+	private JComboBox<String> cboMarca;
+	private JComboBox<String> cboTipoProducto;
 
 	public RepProducto() {
 		setLayout(null);
@@ -38,7 +43,7 @@ public class RepProducto extends JPanel {
 		scrollPane.setViewportView(tblProductos);
 		
 		JPanel pProducto = new JPanel();
-		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Busqueda por Tipo", TitledBorder.LEADING, TitledBorder.TOP, null, null);
+		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccione Producto", TitledBorder.LEADING, TitledBorder.TOP, null, null);
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		pProducto.setBorder(titled);
 		pProducto.setLayout(null);
@@ -65,16 +70,17 @@ public class RepProducto extends JPanel {
 		lblTipo.setBounds(23, 101, 28, 19);
 		pProducto.add(lblTipo);
 		
-		JComboBox<String> cboMarca = new JComboBox<String>();
+		cboMarca = new JComboBox<String>();
+		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Ejemplo"}));
 		cboMarca.setBounds(111, 60, 241, 20);
 		pProducto.add(cboMarca);
 		
-		JComboBox<String> cboTipoProducto = new JComboBox<String>();
-		cboTipoProducto.setModel(new DefaultComboBoxModel<String>(new String[] {"Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
+		cboTipoProducto = new JComboBox<String>();
+		cboTipoProducto.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
 		cboTipoProducto.setBounds(111, 102, 241, 20);
 		pProducto.add(cboTipoProducto);
 		
-		JButton btnConsultar = new JButton("CONSULTAR");
+		JButton btnConsultar = new JButton("CONSULTAR");		
 		btnConsultar.setBounds(466, 21, 117, 43);
 		pProducto.add(btnConsultar);
 		btnConsultar.setForeground(Color.WHITE);
@@ -85,7 +91,7 @@ public class RepProducto extends JPanel {
 		btnConsultar.setBorder(null);
 		btnConsultar.setBackground(Color.GRAY);
 		
-		JButton btnImprimir = new JButton("IMPRIMIR");
+		JButton btnImprimir = new JButton("IMPRIMIR");		
 		btnImprimir.setBounds(466, 89, 117, 43);
 		pProducto.add(btnImprimir);
 		btnImprimir.setForeground(Color.WHITE);
@@ -95,6 +101,59 @@ public class RepProducto extends JPanel {
 		btnImprimir.setOpaque(true);
 		btnImprimir.setBorder(null);
 		btnImprimir.setBackground(Color.GRAY);
+		
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	private String leerCodigo() {
+		String codigo = txtCodigo.getText().toUpperCase().trim();
 
+		if (codigo.isEmpty()) {
+			aviso("El campo Código está vacío");
+			return null;
+		}
+
+		if (!codigo.matches("PROD[0-9]{4}")) {
+			aviso("Ingrese un código válido (PRODXXXX)");
+			return null;
+		}
+
+		return codigo;
+	}
+	
+	private int leerMarca() {
+		int marca = cboMarca.getSelectedIndex();
+
+		if (marca == -1 || marca == 0) {
+			aviso("Seleccione una Marca válida");
+			return -1;
+		}
+
+		return marca;
+	}
+	
+	private int leerTipo() {
+		int tipo = cboTipoProducto.getSelectedIndex();
+
+		if (tipo == -1 || tipo == 0) {
+			aviso("Seleccione un Tipo válido");
+			return -1;
+		}
+
+		return tipo;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
 }
