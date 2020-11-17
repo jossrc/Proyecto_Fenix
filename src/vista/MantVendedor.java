@@ -187,10 +187,10 @@ private static final long serialVersionUID = 1L;
 					telefono = leerTelefono();
 					if (telefono != null) {
 						direccion = leerDireccion();
-						if (direccion != null) {							
+						if (direccion != null) {			
 							JOptionPane.showMessageDialog(this, "Nuevo Vendedor agregado");
 							limpiar();
-							// TODO: Crea un objeto Vendedor y lo retorna							
+							// TODO: Crea un objeto Vendedor y lo retorna
 						}
 					}
 				}
