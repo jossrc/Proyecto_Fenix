@@ -324,7 +324,7 @@ public class TRVentas extends JPanel {
 			return -1;
 		}
 		
-		if (cantidad.matches("[0-9]+")) {
+		if (!cantidad.matches("[0-9]+")) {
 			aviso("Ingrese una Cantidad válidad");
 			return -1;
 		}
@@ -347,6 +347,42 @@ public class TRVentas extends JPanel {
 		}
 		
 		return Double.parseDouble(precio);
+	}
+	
+	private double leerSubTotal() {
+		return -1;
+	}
+	
+	private double leerDescuento() {
+		return -1;
+	}
+	
+	private double leerTotalPagar() {
+		return -1;
+	}
+	
+	private double leerPagaCon() {
+		String pagaCon = txtPagaCon.getText().trim();
+		
+		if (pagaCon.isEmpty()) {
+			aviso("El campo Pagar Con está vacío");
+			return -1;
+		}
+		
+		if (!pagaCon.matches("[0-9]+([.][0-9]{1,2})?")) {
+			aviso("Ingrese un Valor válido en el Campo Pagar");
+			return -1;
+		}
+		
+		double pagarD = Double.parseDouble(pagaCon);
+		
+		if (pagarD < leerTotalPagar()) {
+			aviso("El monto a pagar debe ser mayor o igual al total");
+			return -1;
+		}
+		
+		return pagarD;
+		
 	}
 	
 	private void aviso(String mensaje) {
