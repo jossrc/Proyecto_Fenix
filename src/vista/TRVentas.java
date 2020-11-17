@@ -156,6 +156,18 @@ public class TRVentas extends JPanel {
 		tblVenta = new JTable();		
 		model = new DefaultTableModel();
 		tblVenta.setModel(model);
+		model.addColumn("C\u00F3digo");
+		model.addColumn("Tipo");
+		model.addColumn("Descripci\u00F3n");
+		model.addColumn("Cantidad");
+		model.addColumn("Precio");
+		model.addColumn("Importe");
+		tblVenta.getColumnModel().getColumn(0).setPreferredWidth(113);
+		tblVenta.getColumnModel().getColumn(1).setPreferredWidth(113);
+		tblVenta.getColumnModel().getColumn(2).setPreferredWidth(226);
+		tblVenta.getColumnModel().getColumn(3).setPreferredWidth(77);
+		tblVenta.getColumnModel().getColumn(4).setPreferredWidth(77);
+		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
 		scrollPane.setViewportView(tblVenta);
 		
 		JButton btnAdicionarProducto = new JButton("+");
@@ -242,22 +254,55 @@ public class TRVentas extends JPanel {
 		txtTotalAPagar.setBounds(212, 36, 125, 20);
 		pPagar.add(txtTotalAPagar);
 		
-		JButton btnCalcularPagoTotal = new JButton("Calcular");
+		JButton btnCalcularPagoTotal = new JButton("Calcular");		
 		btnCalcularPagoTotal.setBounds(357, 23, 89, 35);
 		pPagar.add(btnCalcularPagoTotal);
-		model.addColumn("C\u00F3digo");
-		model.addColumn("Tipo");
-		model.addColumn("Descripci\u00F3n");
-		model.addColumn("Cantidad");
-		model.addColumn("Precio");
-		model.addColumn("Importe");
-		tblVenta.getColumnModel().getColumn(0).setPreferredWidth(113);
-		tblVenta.getColumnModel().getColumn(1).setPreferredWidth(113);
-		tblVenta.getColumnModel().getColumn(2).setPreferredWidth(226);
-		tblVenta.getColumnModel().getColumn(3).setPreferredWidth(77);
-		tblVenta.getColumnModel().getColumn(4).setPreferredWidth(77);
-		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
 		
+		btnCalcularPagoTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calcularPagoTotalConDescuento();				
+			}
+		});
+		
+		btnCalcularCambio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				calcularCambio();
+			}
+		});
+
+	}
+	
+	private void calcularPagoTotalConDescuento() {
+
+		double subtotal = leerSubTotal();
+
+		if (subtotal == -1) {
+			aviso("El campo subtotal está vacío");			
+		} else {			
+			
+			double descuento = leerDescuento();
+			
+			if (descuento != -1) {
+				double total = subtotal - descuento;					
+				txtTotalAPagar.setText(total+ "");
+			}
+
+		}
+	}
+
+	private void calcularCambio() {
+		
+		double pagacon = leerPagaCon();		
+		if (pagacon != -1 ) {
+			double total = leerTotalPagar();
+			
+			if (total == -1) {
+				aviso("Oops!! No existe Total a Pagar");
+			} else {
+				double cambio = leerTotalPagar() - pagacon;
+				txtCambio.setText(cambio+"");
+			}
+		}
 	}
 	
 	private TitledBorder crearBordeTitulo(String titulo) {
