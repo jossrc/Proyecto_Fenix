@@ -22,9 +22,10 @@ public class MantProducto extends JPanel {
 	private JTextField txtCodigo;
 	private JTextField txtDescripcion;
 	private JTextField txtStock;
-	private JTextField txtMarca;
 	
 	private JTable tblProducto;
+	private JComboBox<String> cboMarca;
+	private JComboBox<String> cboTipo;
 
 	
 	public MantProducto() {
@@ -75,15 +76,8 @@ public class MantProducto extends JPanel {
 		txtStock.setBounds(109, 92, 323, 20);
 		txtStock.setColumns(10);
 		panelProducto.add(txtStock);
-		
-		txtMarca = new JTextField();
-		txtMarca.setBounds(109, 117, 323, 20);
-		txtMarca.setColumns(10);
-		panelProducto.add(txtMarca);
-		
-		
-		
-		JButton btnLimpiar = new JButton("Limpiar");
+
+		JButton btnLimpiar = new JButton("Limpiar");		
 		btnLimpiar.setBounds(477, 45, 122, 53);
 		btnLimpiar.setForeground(Color.WHITE);
 		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -102,14 +96,10 @@ public class MantProducto extends JPanel {
 		btnVerTodo.setContentAreaFilled(false);
 		btnVerTodo.setOpaque(true);
 		btnVerTodo.setBorder(null);
-		btnVerTodo.setBackground(Color.LIGHT_GRAY);
-		btnVerTodo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnVerTodo.setBackground(Color.LIGHT_GRAY);		
 		panelProducto.add(btnVerTodo);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("Agregar");		
 		btnAgregar.setBounds(633, 189, 122, 53);
 		btnAgregar.setForeground(Color.WHITE);
 		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -157,10 +147,33 @@ public class MantProducto extends JPanel {
 		lblTipo.setBounds(37, 145, 46, 14);
 		panelProducto.add(lblTipo);
 		
-		JComboBox<String> cmbTipo = new JComboBox<String>();
-		cmbTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
-		cmbTipo.setBounds(109, 148, 323, 20);
-		panelProducto.add(cmbTipo);
+		cboTipo = new JComboBox<String>();
+		cboTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
+		cboTipo.setBounds(109, 148, 323, 20);
+		panelProducto.add(cboTipo);
+		
+		cboMarca = new JComboBox<String>();
+		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Probando"}));
+		cboMarca.setBounds(109, 117, 323, 20);
+		panelProducto.add(cboMarca);
+		
+		btnVerTodo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 
 	}
 }
