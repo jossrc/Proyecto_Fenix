@@ -332,7 +332,7 @@ public class OpcDescuentos extends JPanel {
 			return -1;
 		}
 		
-		if (descuento.matches("[0-9]+([.][0-9]{1,2})?")) {
+		if (!descuento.matches("[0-9]+([.][0-9]{1,2})?")) {
 			aviso("Ingrese un Descuento válido");
 			txt.requestFocus();
 			return -1;
