@@ -199,7 +199,7 @@ public class OpTasaCambios extends JPanel {
 			return -1;
 		}
 		
-		if (!tasa.matches("")) {
+		if (!tasa.matches("[0-9]+([.][0-9]{1,2})?")) {
 			aviso("Ingrese un valor válido para la tasa Original");
 			return -1;
 		}
@@ -215,7 +215,7 @@ public class OpTasaCambios extends JPanel {
 			return -1;
 		}
 		
-		if (!tasa.matches("")) {
+		if (!tasa.matches("[0-9]+([.][0-9]{1,2})?")) {
 			aviso("Ingrese un valor válido para la tasa Final");
 			return -1;
 		}
