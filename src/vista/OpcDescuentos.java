@@ -5,6 +5,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -26,6 +27,12 @@ public class OpcDescuentos extends JPanel {
 	private JTextField txtDescuento2;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtDescuento3;
+	private JComboBox<String> cboTipoDescuento1;
+	private JComboBox<String> cboTipoDescuento2;
+	private JComboBox<String> cboTipoDescuento3;
+	private JComboBox<String> cboLista;
+	private JRadioButton rdbtnTipoProducto;
+	private JRadioButton rdbtnMarcaProducto;
 
 	public OpcDescuentos() {
 		setLayout(null);
@@ -89,7 +96,7 @@ public class OpcDescuentos extends JPanel {
 		txtDescuento1.setBounds(317, 100, 115, 20);
 		pProducto.add(txtDescuento1);
 		
-		JComboBox<String> cboTipoDescuento1 = new JComboBox<String>();
+		cboTipoDescuento1 = new JComboBox<String>();
 		cboTipoDescuento1.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento1.setBounds(470, 31, 136, 24);
 		pProducto.add(cboTipoDescuento1);
@@ -115,7 +122,7 @@ public class OpcDescuentos extends JPanel {
 		lblSeleccionar1.setBounds(22, 21, 70, 14);
 		pTipoMarca.add(lblSeleccionar1);
 		
-		JComboBox<String> cboTipoDescuento2 = new JComboBox<String>();
+		cboTipoDescuento2 = new JComboBox<String>();
 		cboTipoDescuento2.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento2.setBounds(22, 46, 136, 24);
 		pTipoMarca.add(cboTipoDescuento2);
@@ -124,7 +131,7 @@ public class OpcDescuentos extends JPanel {
 		lblTipoProducto.setBounds(194, 23, 81, 14);
 		pTipoMarca.add(lblTipoProducto);
 		
-		JRadioButton rdbtnTipoProducto = new JRadioButton("");
+		rdbtnTipoProducto = new JRadioButton("");
 		buttonGroup.add(rdbtnTipoProducto);
 		rdbtnTipoProducto.setSelected(true);
 		rdbtnTipoProducto.setBounds(281, 19, 21, 21);
@@ -134,7 +141,7 @@ public class OpcDescuentos extends JPanel {
 		lblMarcaProducto.setBounds(194, 53, 75, 14);
 		pTipoMarca.add(lblMarcaProducto);
 		
-		JRadioButton rdbtnMarcaProducto = new JRadioButton("");
+		rdbtnMarcaProducto = new JRadioButton("");
 		buttonGroup.add(rdbtnMarcaProducto);
 		rdbtnMarcaProducto.setBounds(281, 49, 21, 21);
 		pTipoMarca.add(rdbtnMarcaProducto);
@@ -143,7 +150,7 @@ public class OpcDescuentos extends JPanel {
 		lblSeleccionar2.setBounds(327, 21, 70, 14);
 		pTipoMarca.add(lblSeleccionar2);
 		
-		JComboBox<String> cboLista = new JComboBox<String>();
+		cboLista = new JComboBox<String>();
 		cboLista.setModel(new DefaultComboBoxModel<String>(new String[] {"Lista de Tipos...","Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
 		cboLista.setBounds(327, 46, 136, 24);
 		pTipoMarca.add(cboLista);
@@ -199,7 +206,7 @@ public class OpcDescuentos extends JPanel {
 		lblSeleccionar3.setBounds(20, 41, 70, 14);
 		pTodo.add(lblSeleccionar3);
 		
-		JComboBox<String> cboTipoDescuento3 = new JComboBox<String>();
+		cboTipoDescuento3 = new JComboBox<String>();
 		cboTipoDescuento3.setModel(new DefaultComboBoxModel<String>(new String[] {"Tipo de descuento...", "Num\u00E9rico", "Porcentual"}));
 		cboTipoDescuento3.setBounds(20, 64, 136, 24);
 		pTodo.add(cboTipoDescuento3);
@@ -234,10 +241,122 @@ public class OpcDescuentos extends JPanel {
 
 	}
 	
+	private String leerCodigoProducto() {
+		String codigo = txtCodigo.getText().trim();
+		
+		if (codigo.isEmpty()) {
+			return null;
+		}
+		
+		return codigo;
+	}
+	
+	private String leerDescripcion() {
+		String descuento = txtDescripcion.getText().trim();
+		
+		if (descuento.isEmpty()) {
+			return null;
+		}
+		
+		return descuento;
+	}
+	
+	private double leerPrecioActual() {
+		String precio = txtPrecioActual.getText().trim();
+		
+		if (precio.isEmpty()) {
+			return -1;
+		}
+		
+		return Double.parseDouble(precio);
+	}
+	
+	private double leerDescuento01() {
+		return verificarObtenerDescuento(txtDescuento1);
+	}
+	
+	private int leerTipoDescuento01() {
+		int tipo = cboTipoDescuento1.getSelectedIndex();
+		
+		if (tipo == -1 || tipo == 0) {
+			return -1;
+		}
+		
+		return tipo;
+	}
+	
+	private int leerTipoDescuento02() {
+		int tipo = cboTipoDescuento2.getSelectedIndex();
+		
+		if (tipo == -1 || tipo == 0) {
+			return -1;
+		}
+		
+		return tipo;
+	}
+	
+	private double leerDescuento02() {
+		return verificarObtenerDescuento(txtDescuento2);
+	}
+	
+	private int leerLista() {
+		int tipoLista = cboLista.getSelectedIndex();
+		
+		if (tipoLista == -1 || tipoLista == 0) {
+			return -1;
+		}
+		
+		return tipoLista;
+	}
+	
+	private int leerTipoDescuento03() {
+		int tipo = cboTipoDescuento3.getSelectedIndex();
+		
+		if (tipo == -1 || tipo == 0) {
+			return -1;
+		}
+		
+		return tipo;
+	}
+	
+	private double leerDescuento03() {
+		return verificarObtenerDescuento(txtDescuento3);
+	}
+	
+	private double verificarObtenerDescuento(JTextField txt) {
+		String descuento = txt.getText().trim();
+		
+		if (descuento.isEmpty()) {
+			aviso("El Campo Descuento está vacío");
+			txt.requestFocus();
+			return -1;
+		}
+		
+		if (descuento.matches("[0-9]+([.][0-9]{1,2})?")) {
+			aviso("Ingrese un Descuento válido");
+			txt.requestFocus();
+			return -1;
+		}
+		
+		double desc = Double.parseDouble(descuento);
+		
+		if (desc >= leerPrecioActual()) {
+			aviso("El descuento no puede ser mayor que el precio Actual o Promedio");
+			txt.requestFocus();
+			return -1;
+		}
+		
+		return desc;
+	}
+	
 	private TitledBorder crearBordeTitulo(String titulo) {
 		TitledBorder titled = new TitledBorder(UIManager.getBorder("TitledBorder.border"), titulo, TitledBorder.LEADING, TitledBorder.TOP, null, null);
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		return titled;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
 }
