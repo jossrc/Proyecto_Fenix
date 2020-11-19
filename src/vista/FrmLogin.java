@@ -17,6 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FrmLogin extends JFrame {
 
@@ -72,7 +76,7 @@ public class FrmLogin extends JFrame {
 		sep01.setBounds(40, 251, 316, 7);
 		panel.add(sep01);
 		
-		txtUserName = new JTextField();
+		txtUserName = new JTextField();		
 		txtUserName.setForeground(Color.WHITE);
 		txtUserName.setBorder(null);
 		txtUserName.setBackground(principalColor);
@@ -85,7 +89,7 @@ public class FrmLogin extends JFrame {
 		sep02.setBounds(40, 341, 316, 7);
 		panel.add(sep02);
 		
-		txtPassword = new JPasswordField();
+		txtPassword = new JPasswordField();		
 		txtPassword.setForeground(Color.WHITE);
 		txtPassword.setBorder(null);
 		txtPassword.setBackground(principalColor);
@@ -109,13 +113,14 @@ public class FrmLogin extends JFrame {
 		panel.add(lblIconClave);
 		
 		btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
+		btnIniciarSesion.setEnabled(false);
 		btnIniciarSesion.setForeground(Color.WHITE);
 		btnIniciarSesion.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnIniciarSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIniciarSesion.setContentAreaFilled(false);
 		btnIniciarSesion.setOpaque(true);
 		btnIniciarSesion.setBorder(null);
-		btnIniciarSesion.setBackground(Color.GRAY);
+		btnIniciarSesion.setBackground(new Color(211,211,211));
 		btnIniciarSesion.setBounds(40, 387, 316, 42);
 		panel.add(btnIniciarSesion);
 		
@@ -123,6 +128,51 @@ public class FrmLogin extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(FrmLogin.class.getResource("/img/fenixLoginIcon.png")));
 		lblNewLabel.setBounds(125, 41, 150, 150);
 		panel.add(lblNewLabel);
+		
+		txtUserName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				int lngUsername = txtUserName.getText().trim().length();
+				int lngPassword = String.valueOf(txtPassword.getPassword()).trim().length();
+				
+				boolean verificar = lngUsername >= 4 && lngPassword >= 6;
+				btnIniciarSesion.setEnabled(verificar);
+				
+				if (verificar) {					
+					btnIniciarSesion.setBackground(Color.GRAY);
+				} else {
+					btnIniciarSesion.setBackground(new Color(211,211,211));
+				}
+
+			}
+		});
+	
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				
+				int lngUsername = txtUserName.getText().trim().length();
+				int lngPassword = String.valueOf(txtPassword.getPassword()).trim().length();
+				
+				boolean verificar = lngUsername >= 4 && lngPassword >= 6;
+				btnIniciarSesion.setEnabled(verificar);
+				
+				if (verificar) {					
+					btnIniciarSesion.setBackground(Color.GRAY);
+				} else {
+					btnIniciarSesion.setBackground(new Color(211,211,211));
+				}
+			}
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char espacio = e.getKeyChar();
+				if (espacio == 32) {
+					e.consume();
+				}
+			}
+		});
 	}
 	
 	private String leerUserName() {
@@ -149,7 +199,7 @@ public class FrmLogin extends JFrame {
 			return null;
 		}
 		
-		clave = String.valueOf(txtPassword.getPassword());
+		clave = String.valueOf(txtPassword.getPassword()).trim();
 		
 		if (clave.isEmpty()) {
 			aviso("La clave está vacía");
