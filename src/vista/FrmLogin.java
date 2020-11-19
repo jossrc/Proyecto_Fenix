@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Toolkit;
@@ -123,4 +124,48 @@ public class FrmLogin extends JFrame {
 		lblNewLabel.setBounds(125, 41, 150, 150);
 		panel.add(lblNewLabel);
 	}
+	
+	private String leerUserName() {
+		String userName = txtUserName.getText().toLowerCase().trim();
+		
+		if (userName.isEmpty()) {
+			aviso("El userName está vacío");
+			return null;
+		}
+		
+		if (!userName.matches("[a-z0-9]{4,15}")) {
+			aviso("Ingrese un userName válido");
+			return null;
+		}
+		
+		return userName;
+	}
+	
+	private String leerPassword() {
+		String clave;
+		
+		if (txtPassword.getPassword().length == 0) {
+			aviso("La clave está vacía");
+			return null;
+		}
+		
+		clave = String.valueOf(txtPassword.getPassword());
+		
+		if (clave.isEmpty()) {
+			aviso("La clave está vacía");
+			return null;
+		}
+		
+		if (clave.length() < 6) {
+			aviso("Ingrese una clave válida");
+			return null;
+		}
+		
+		return clave;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
+	}
+	
 }
