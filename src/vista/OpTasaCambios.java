@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -24,6 +25,8 @@ public class OpTasaCambios extends JPanel {
 	private JTextField txtCantidadMonedaFinal;
 	private JTextField txtTasaOriginal;
 	private JTextField txtTasaFinal;
+	private JComboBox<String> cboMonedaOrigen;
+	private JComboBox<String> cboMonedaFinal;
 
 	/**
 	 * Create the panel.
@@ -55,12 +58,12 @@ public class OpTasaCambios extends JPanel {
 		lblA.setBounds(276, 32, 46, 14);
 		pMoneda.add(lblA);
 		
-		JComboBox<String> cboMonedaOrigen = new JComboBox<String>();
+		cboMonedaOrigen = new JComboBox<String>();
 		cboMonedaOrigen.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
 		cboMonedaOrigen.setBounds(28, 58, 153, 20);
 		pMoneda.add(cboMonedaOrigen);
 		
-		JComboBox<String> cboMonedaFinal = new JComboBox<String>();
+		cboMonedaFinal = new JComboBox<String>();
 		cboMonedaFinal.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "D\u00F3lares", "Euros", "Libras Esterlinas", "Pesos Argentinos", "Bitcoin"}));
 		cboMonedaFinal.setBounds(276, 57, 153, 20);
 		pMoneda.add(cboMonedaFinal);
@@ -133,9 +136,91 @@ public class OpTasaCambios extends JPanel {
 		btnCambiar.setBorder(null);
 		btnCambiar.setBackground(new Color(19, 205, 210));
 		pTasa.add(btnCambiar);
+
+	}
+	
+	private int leerMonedaOrigen() {
+		int tipo = cboMonedaOrigen.getSelectedIndex();
 		
+		if (tipo == -1 || tipo == 0) {
+			return -1;
+		}
 		
+		return tipo;		
+	}
+	
+	private int leerMonedaFinal() {
+		int tipo = cboMonedaFinal.getSelectedIndex();
 		
+		if (tipo == -1 || tipo == 0) {
+			return -1;
+		}
+		
+		return tipo;
+	}
+	
+	private int leerCantidadMonedaOriginal() {
+		String cantidad = txtCantidadMonedaOriginal.getText().trim();
+		
+		if (cantidad.isEmpty()) {
+			aviso("La Cantidad 01 está vacía");
+			return -1;
+		}
+		
+		if (!cantidad.matches("[1-9]+")) {
+			aviso("Ingrese un número válido para la Cantidad 01");
+			return -1;
+		}
+		
+		return Integer.parseInt(cantidad);
+	}
+	
+	private int leerCantidadMonedaFinal() {
+		String cantidad = txtCantidadMonedaFinal.getText().trim();
+		
+		if (cantidad.isEmpty()) {
+			aviso("La Cantidad Final está vacía");
+			return -1;
+		}
+		
+		if (!cantidad.matches("[1-9]+")) {
+			aviso("Ingrese un número válido para la Cantidad Final");
+			return -1;
+		}
+		
+		return Integer.parseInt(cantidad);
+	}
+	
+	private double leerTasaOriginal() {
+		String tasa = txtTasaOriginal.getText().trim();
+		
+		if (tasa.isEmpty()) {
+			aviso("La Tasa Original está vacía");
+			return -1;
+		}
+		
+		if (!tasa.matches("")) {
+			aviso("Ingrese un valor válido para la tasa Original");
+			return -1;
+		}
+		
+		return Double.parseDouble(tasa);
+	}
+	
+	private double leerTasaFinal() {
+		String tasa = txtTasaFinal.getText().trim();
+		
+		if (tasa.isEmpty()) {
+			aviso("La Tasa Final está vacía");
+			return -1;
+		}
+		
+		if (!tasa.matches("")) {
+			aviso("Ingrese un valor válido para la tasa Final");
+			return -1;
+		}
+		
+		return Double.parseDouble(tasa);
 	}
 
 	private TitledBorder crearBordeTitulo(String titulo) {
@@ -143,5 +228,9 @@ public class OpTasaCambios extends JPanel {
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		return titled;
+	}
+	
+	private void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
 }
