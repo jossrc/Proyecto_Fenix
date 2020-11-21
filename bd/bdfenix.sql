@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS bdfenix;
+CREATE DATABASE bdfenix;
+
+USE bdfenix;
