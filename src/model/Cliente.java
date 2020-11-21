@@ -7,7 +7,7 @@ public class Cliente {
 	private String ape_cli;
 	private String direc_cli;
 	private String telef_cli;
-	private int estado_cli;
+	private int estado_cli = 1;
 	
 	public Cliente(int id_cli, String dni_cli, String nom_cli, String ape_cli, String direc_cli, String telef_cli,
 			int estado_cli) {
@@ -21,6 +21,20 @@ public class Cliente {
 		this.estado_cli = estado_cli;
 	}
 	
+	
+	
+	public Cliente(int id_cli, String dni_cli, String nom_cli, String ape_cli, String direc_cli, String telef_cli) {
+		super();
+		this.id_cli = id_cli;
+		this.dni_cli = dni_cli;
+		this.nom_cli = nom_cli;
+		this.ape_cli = ape_cli;
+		this.direc_cli = direc_cli;
+		this.telef_cli = telef_cli;
+	}
+
+
+
 	public Cliente() {
 		
 	}
