@@ -22,7 +22,7 @@ public class GestionMarcaProducto implements MarcaProductoInterface {
 		
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "";
+			String sql = "SELECT * FROM MARCA_PRODUCTO";
 
 			pst = con.prepareStatement(sql);		
 
