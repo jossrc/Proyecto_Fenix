@@ -9,11 +9,9 @@ public class Cliente {
 	private String telef_cli;
 	private int estado_cli;
 	
-	
-	
 	public Cliente(int id_cli, String dni_cli, String nom_cli, String ape_cli, String direc_cli, String telef_cli,
 			int estado_cli) {
-		super();
+		
 		this.id_cli = id_cli;
 		this.dni_cli = dni_cli;
 		this.nom_cli = nom_cli;
