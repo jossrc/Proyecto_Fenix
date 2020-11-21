@@ -1,13 +1,13 @@
 package model;
 
-public class Marca_Producto {
+public class MarcaProducto {
 	
 	private int id_marc_pro;
 	private String desc_marca;
 	
 	
 	
-	public Marca_Producto(int id_marc_pro, String desc_marca) {
+	public MarcaProducto(int id_marc_pro, String desc_marca) {
 		super();
 		this.id_marc_pro = id_marc_pro;
 		this.desc_marca = desc_marca;
@@ -15,7 +15,7 @@ public class Marca_Producto {
 	
 	
 	
-	public Marca_Producto() {
+	public MarcaProducto() {
 		
 	}
 

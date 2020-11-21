@@ -2,10 +2,10 @@ package interfaces;
 
 import java.util.ArrayList;
 
-import model.Marca_Producto;
+import model.MarcaProducto;
 
 public interface MarcaProductoInterface {
 
-	public ArrayList<Marca_Producto> listado();
+	public ArrayList<MarcaProducto> listado();
 	
 }
