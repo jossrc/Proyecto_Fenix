@@ -24,7 +24,7 @@ public class Vendedor {
 	}
 	
 	public Vendedor() {
-		super();
+		
 	}
 	
 	public int getId_vend() {

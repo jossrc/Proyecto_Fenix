@@ -16,7 +16,7 @@ public class Marca_Producto {
 	
 	
 	public Marca_Producto() {
-		super();
+		
 	}
 
 

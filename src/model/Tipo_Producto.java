@@ -15,7 +15,7 @@ public class Tipo_Producto {
 		
 		
 		public Tipo_Producto() {
-			super();
+			
 		}
 
 		

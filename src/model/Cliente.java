@@ -24,7 +24,7 @@ public class Cliente {
 	}
 	
 	public Cliente() {
-		super();
+		
 	}
 	
 	public int getId_cli() {
