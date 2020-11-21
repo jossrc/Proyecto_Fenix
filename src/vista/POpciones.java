@@ -49,19 +49,19 @@ public class POpciones extends JPanel {
 		pSubmenu.add(btnDescuentos);
 		
 		JPanel pContenidoOpciones = new JPanel();
-		pContenidoOpciones.setBounds(0, 51, 828, 611);
+		pContenidoOpciones.setBounds(0, 51, 827, 570);
 		add(pContenidoOpciones);
 		pContenidoOpciones.setLayout(new CardLayout(0, 0));
 		
 		btnTasaCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoOpciones, content);
+				new CambiaPanel(pContenidoOpciones, new OpTasaCambios());
 			}
 		});
 		
 		btnDescuentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoOpciones, content);
+				new CambiaPanel(pContenidoOpciones, new OpcDescuentos());
 			}
 		});
 

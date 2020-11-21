@@ -54,7 +54,7 @@ public class FrmPrincipal extends JFrame {
 		setResizable(false);
 		setTitle("F\u00e9nix");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 760);
+		setBounds(100, 100, 1024, 722);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,7 +62,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pPrincipal = new JPanel();
 		pPrincipal.setBackground(new Color(240,240,240));
-		pPrincipal.setBounds(0, 0, 1018, 731);
+		pPrincipal.setBounds(0, 0, 1018, 693);
 		contentPane.add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
@@ -89,7 +89,7 @@ public class FrmPrincipal extends JFrame {
 		
 		JPanel pLateral = new JPanel();
 		pLateral.setBackground(new Color(143,143,143));
-		pLateral.setBounds(0, 69, 192, 662);
+		pLateral.setBounds(0, 69, 192, 624);
 		pPrincipal.add(pLateral);
 		pLateral.setLayout(null);
 		
@@ -119,7 +119,7 @@ public class FrmPrincipal extends JFrame {
 		btnReporte.setColorNormal(new Color(143, 143, 143));
 		btnReporte.setColorHover(new Color(153,153,153));
 		btnReporte.setText("Reporte");
-		btnReporte.setBounds(0, 192, 190, 30);
+		btnReporte.setBounds(0, 226, 190, 30);
 		pLateral.add(btnReporte);
 		
 		RSButtonMetro btnOpciones = new RSButtonMetro();		
@@ -127,7 +127,7 @@ public class FrmPrincipal extends JFrame {
 		btnOpciones.setColorNormal(new Color(143, 143, 143));
 		btnOpciones.setColorHover(new Color(153,153,153));		
 		btnOpciones.setText("Opciones");
-		btnOpciones.setBounds(0, 238, 190, 30);
+		btnOpciones.setBounds(0, 272, 190, 30);
 		pLateral.add(btnOpciones);
 		
 		RSButtonMetro btnAyuda = new RSButtonMetro();
@@ -135,7 +135,7 @@ public class FrmPrincipal extends JFrame {
 		btnAyuda.setColorNormal(new Color(143, 143, 143));
 		btnAyuda.setColorHover(new Color(153,153,153));		
 		btnAyuda.setText("Ayuda");
-		btnAyuda.setBounds(0, 283, 190, 30);
+		btnAyuda.setBounds(0, 317, 190, 30);
 		pLateral.add(btnAyuda);
 		
 		RSButtonMetro btnCerrarSesion = new RSButtonMetro();		
@@ -143,12 +143,20 @@ public class FrmPrincipal extends JFrame {
 		btnCerrarSesion.setColorNormal(new Color(143, 143, 143));
 		btnCerrarSesion.setColorHover(new Color(153,153,153));		
 		btnCerrarSesion.setText("Cerrar Sesi\u00f3n");
-		btnCerrarSesion.setBounds(0, 621, 190, 30);
+		btnCerrarSesion.setBounds(0, 532, 190, 30);
 		pLateral.add(btnCerrarSesion);
+		
+		RSButtonMetro btnTransacciones = new RSButtonMetro();		
+		btnTransacciones.setText("Transacciones");
+		btnTransacciones.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnTransacciones.setColorNormal(new Color(143, 143, 143));
+		btnTransacciones.setColorHover(new Color(153, 153, 153));
+		btnTransacciones.setBounds(2, 185, 188, 30);
+		pLateral.add(btnTransacciones);
 		
 		JPanel pContenido = new JPanel();
 		pContenido.setBackground(new Color(240,240,240));
-		pContenido.setBounds(190, 69, 828, 662);
+		pContenido.setBounds(191, 69, 827, 624);
 		pPrincipal.add(pContenido);
 		pContenido.setLayout(new CardLayout(0, 0));
 		
@@ -166,6 +174,12 @@ public class FrmPrincipal extends JFrame {
 		btnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new CambiaPanel(pContenido, new PMantenimiento());
+			}
+		});
+		
+		btnTransacciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CambiaPanel(pContenido, new PTransacciones());
 			}
 		});
 		

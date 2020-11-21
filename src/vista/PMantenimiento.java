@@ -21,7 +21,7 @@ public class PMantenimiento extends JPanel {
 		
 		JPanel pSubmenu = new JPanel();
 		pSubmenu.setBackground(Color.LIGHT_GRAY);
-		pSubmenu.setBounds(0, 0, 828, 51);
+		pSubmenu.setBounds(0, 0, 827, 51);
 		add(pSubmenu);
 		pSubmenu.setLayout(null);
 		
@@ -36,16 +36,16 @@ public class PMantenimiento extends JPanel {
 		btnCliente.setBounds(122, 11, 117, 29);
 		pSubmenu.add(btnCliente);
 		
-		JButton btnVentas = new JButton("Ventas");		
-		btnVentas.setForeground(Color.WHITE);
-		btnVentas.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVentas.setContentAreaFilled(false);
-		btnVentas.setOpaque(true);
-		btnVentas.setBorder(null);
-		btnVentas.setBackground(Color.LIGHT_GRAY);		
-		btnVentas.setBounds(322, 11, 117, 29);
-		pSubmenu.add(btnVentas);
+		JButton btnVendedores = new JButton("Vendedores");		
+		btnVendedores.setForeground(Color.WHITE);
+		btnVendedores.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnVendedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVendedores.setContentAreaFilled(false);
+		btnVendedores.setOpaque(true);
+		btnVendedores.setBorder(null);
+		btnVendedores.setBackground(Color.LIGHT_GRAY);		
+		btnVendedores.setBounds(340, 11, 117, 29);
+		pSubmenu.add(btnVendedores);
 		
 		JButton btnProductos = new JButton("Productos");		
 		btnProductos.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -55,29 +55,32 @@ public class PMantenimiento extends JPanel {
 		btnProductos.setOpaque(true);
 		btnProductos.setBorder(null);
 		btnProductos.setBackground(Color.LIGHT_GRAY);
-		btnProductos.setBounds(516, 11, 117, 29);
+		btnProductos.setBounds(580, 11, 117, 29);
 		pSubmenu.add(btnProductos);
 		
 		JPanel pContenidoMantenimiento = new JPanel();
-		pContenidoMantenimiento.setBounds(0, 50, 828, 612);
+		pContenidoMantenimiento.setBounds(0, 50, 827, 570);
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
 		
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CambiaPanel(pContenidoMantenimiento, content);
+				new CambiaPanel(pContenidoMantenimiento, new MantClientes());
 			}
 		});
 		
-		btnVentas.addActionListener(new ActionListener() {
+		btnVendedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new CambiaPanel(pContenidoMantenimiento, content);
+				//new CambiaPanel(pContenidoMantenimiento, new MantVentas());
+				new CambiaPanel(pContenidoMantenimiento, new MantVendedor());
 			}
 		});
 		
 		btnProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//new CambiaPanel(pContenidoMantenimiento, content);
+				new CambiaPanel(pContenidoMantenimiento, new MantProducto());
 			}
 		});
 	}
