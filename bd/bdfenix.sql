@@ -107,5 +107,20 @@ INSERT INTO MARCA_PRODUCTO VALUES (null, 'Nerf');
 
 SELECT * FROM MARCA_PRODUCTO;
 
-
-
+-- Procedure : Actualizar Producto
+delimiter $$
+CREATE PROCEDURE usp_actualizarProducto(
+  cod CHAR(8), descripcion VARCHAR(50),
+  marca INT, tipo INT, stock INT,
+  precio DECIMAL(10,2)
+)
+BEGIN
+  UPDATE PRODUCTO
+  SET DESC_PRO = descripcion,
+     ID_MARC_PRO = marca,
+     ID_TIPO_PRO = tipo,
+     STOCK_PRO = stock,
+     PREC_UNIT_PRO = precio     
+  where COD_PRO = cod;
+END $$
+delimiter ;
