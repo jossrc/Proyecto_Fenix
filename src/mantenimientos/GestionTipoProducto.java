@@ -22,7 +22,7 @@ public class GestionTipoProducto implements TipoProductoInterface {
 		
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "";
+			String sql = "SELECT * FROM TIPO_PRODUCTO";
 
 			pst = con.prepareStatement(sql);		
 
