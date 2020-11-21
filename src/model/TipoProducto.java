@@ -1,37 +1,34 @@
 package model;
 
 public class TipoProducto {
-		private int id_tipo_pro;
-		private String desc_tipo;
+	
+		private int idTipo;
+		private String descripcion;		
 		
-		
-		
-		public TipoProducto(int id_tipo_pro, String desc_tipo) {
+		public TipoProducto(int idTipo, String descripcion) {
 			super();
-			this.id_tipo_pro = id_tipo_pro;
-			this.desc_tipo = desc_tipo;
+			this.idTipo = idTipo;
+			this.descripcion = descripcion;
 		}
-		
-		
-		
+
 		public TipoProducto() {
 			
 		}
 
-		
+		public int getIdTipo() {
+			return idTipo;
+		}
 
-		public int getId_tipo_pro() {
-			return id_tipo_pro;
+		public void setIdTipo(int idTipo) {
+			this.idTipo = idTipo;
 		}
-		public void setId_tipo_pro(int id_tipo_pro) {
-			this.id_tipo_pro = id_tipo_pro;
+
+		public String getDescripcion() {
+			return descripcion;
 		}
-		public String getDesc_tipo() {
-			return desc_tipo;
+
+		public void setDescripcion(String descripcion) {
+			this.descripcion = descripcion;
 		}
-		public void setDesc_tipo(String desc_tipo) {
-			this.desc_tipo = desc_tipo;
-		}
-	
-	
+
 }
