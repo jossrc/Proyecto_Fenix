@@ -2,37 +2,32 @@ package model;
 
 public class MarcaProducto {
 	
-	private int id_marc_pro;
-	private String desc_marca;
+	private int idMarca;
+	private String descripcion;
 	
-	
-	
-	public MarcaProducto(int id_marc_pro, String desc_marca) {
-		super();
-		this.id_marc_pro = id_marc_pro;
-		this.desc_marca = desc_marca;
+	public MarcaProducto(int idMarca, String descripcion) {		
+		this.idMarca = idMarca;
+		this.descripcion = descripcion;
 	}
-	
-	
-	
+
 	public MarcaProducto() {
 		
 	}
 
+	public int getIdMarca() {
+		return idMarca;
+	}
 
-	public int getId_marc_pro() {
-		return id_marc_pro;
+	public void setIdMarca(int idMarca) {
+		this.idMarca = idMarca;
 	}
-	public void setId_marc_pro(int id_marc_pro) {
-		this.id_marc_pro = id_marc_pro;
+
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public String getDesc_marca() {
-		return desc_marca;
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public void setDesc_marca(String desc_marca) {
-		this.desc_marca = desc_marca;
-	}
-	
-	
 
 }
