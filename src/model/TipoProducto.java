@@ -6,7 +6,7 @@ public class TipoProducto {
 		private String descripcion;		
 		
 		public TipoProducto(int idTipo, String descripcion) {
-			super();
+			
 			this.idTipo = idTipo;
 			this.descripcion = descripcion;
 		}
