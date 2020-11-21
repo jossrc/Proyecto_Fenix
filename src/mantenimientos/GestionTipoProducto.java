@@ -3,12 +3,12 @@ package mantenimientos;
 import java.util.ArrayList;
 
 import interfaces.TipoProductoInterface;
-import model.Tipo_Producto;
+import model.TipoProducto;
 
 public class GestionTipoProducto implements TipoProductoInterface {
 
 	@Override
-	public ArrayList<Tipo_Producto> listado() {
+	public ArrayList<TipoProducto> listado() {
 		
 		return null;
 	}

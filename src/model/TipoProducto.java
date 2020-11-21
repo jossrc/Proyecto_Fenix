@@ -1,12 +1,12 @@
 package model;
 
-public class Tipo_Producto {
+public class TipoProducto {
 		private int id_tipo_pro;
 		private String desc_tipo;
 		
 		
 		
-		public Tipo_Producto(int id_tipo_pro, String desc_tipo) {
+		public TipoProducto(int id_tipo_pro, String desc_tipo) {
 			super();
 			this.id_tipo_pro = id_tipo_pro;
 			this.desc_tipo = desc_tipo;
@@ -14,7 +14,7 @@ public class Tipo_Producto {
 		
 		
 		
-		public Tipo_Producto() {
+		public TipoProducto() {
 			
 		}
 
