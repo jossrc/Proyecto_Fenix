@@ -55,9 +55,37 @@ public class GestionProductos implements ProductoInterface {
 	}
 
 	@Override
-	public int actualizar(Producto producto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int actualizar(Producto p) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_actualizarProducto(?,?,?,?,?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, p.getCodigo());
+			pst.setString(2, p.getDescripcion());
+			pst.setInt(3, p.getIdMarca());
+			pst.setInt(4, p.getIdTipo());			
+			pst.setInt(5, p.getStock());
+			pst.setDouble(6, p.getPrecioUnitario());
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en actualizar Producto: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
 	}
 
 	@Override
