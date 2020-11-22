@@ -128,7 +128,7 @@ public class MantProducto extends JPanel {
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnEditar);
 
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -139,7 +139,7 @@ public class MantProducto extends JPanel {
 		btnBuscar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnBuscar);
 
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnEliminar = new JButton("Eliminar");		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -219,6 +219,18 @@ public class MantProducto extends JPanel {
 				actualizarProducto();
 			}
 		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarProducto();
+			}
+		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarProducto();
+			}
+		});
 
 	}
 	
@@ -262,8 +274,30 @@ public class MantProducto extends JPanel {
 			
 			Producto p = new GestionProductos().buscar(codigo);
 			
-			
+			if (p == null) {
+				aviso("Oops no se pudo encontrar Producto");
+			} else {
+				txtCodigo.setText(p.getCodigo());
+				txtDescripcion.setText(p.getDescripcion());
+				cboMarca.setSelectedIndex(p.getIdMarca());
+				cboTipo.setSelectedIndex(p.getIdTipo());
+				txtStock.setText(p.getStock()+"");
+				txtPrecioUnit.setText(p.getPrecioUnitario()+"");	
+			}
 		}
+	}
+	
+	private void eliminarProducto() {
+		String codigo = leerCodigo();
+		
+		if (codigo != null) {
+			int ok = new GestionProductos().eliminar(codigo);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo eliminar producto");
+			}
+		}
+		
 	}
 
 	private Producto crearProducto() {
