@@ -11,6 +11,12 @@ import model.Producto;
 import util.MySQLConexion8;
 
 public class GestionProductos implements ProductoInterface {
+	
+	@Override
+	public String generarCodigo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public int registrar(Producto p) {
@@ -194,5 +200,4 @@ public class GestionProductos implements ProductoInterface {
 
 		return lista;
 	}
-
 }

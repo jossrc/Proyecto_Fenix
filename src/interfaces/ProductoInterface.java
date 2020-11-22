@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import model.Producto;
 
 public interface ProductoInterface {
+	
+	public String generarCodigo();
 
 	public int registrar(Producto producto);
 	
