@@ -19,6 +19,7 @@ import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
 import mantenimientos.GestionTipoProducto;
 import model.MarcaProducto;
+import model.Producto;
 import model.TipoProducto;
 
 import javax.swing.JComboBox;
@@ -70,11 +71,12 @@ public class MantProducto extends JPanel {
 
 		txtCodigo = new JTextField();
 		txtCodigo.setBounds(109, 42, 323, 20);
+		txtCodigo.setText(generarCodigoProducto());
 		panelProducto.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(109, 67, 323, 20);
+		txtDescripcion.setBounds(109, 67, 323, 20);		
 		txtDescripcion.setColumns(10);
 		panelProducto.add(txtDescripcion);
 
@@ -190,8 +192,8 @@ public class MantProducto extends JPanel {
 		btnCancelar.setBorder(null);
 		btnCancelar.setBackground(Color.LIGHT_GRAY);
 		btnCancelar.setBounds(622, 106, 122, 53);
-		panelProducto.add(btnCancelar);
-		
+		panelProducto.add(btnCancelar);		
+				
 		llenarCboMarca();
 		llenarCboTipos();
 
@@ -209,13 +211,30 @@ public class MantProducto extends JPanel {
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearProducto();
+				registrarProducto();
 			}
 		});
 
 	}
+	
+	private void registrarProducto() {
+		Producto producto = crearProducto();
+		
+		if (producto != null) {
+			int ok = new GestionProductos().registrar(producto);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Producto registrado");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
+			}
+		}
+		
+	}
 
-	private void crearProducto() {
+	private Producto crearProducto() {
 		String codigo = leerCodigo();
 		String descripcion;
 		int stock, marca, tipo;
@@ -231,10 +250,8 @@ public class MantProducto extends JPanel {
 						stock = leerStock();
 						if (stock != -1) {
 							precioUnit = leerPrecioUnit();
-							if (precioUnit != -1) {
-								JOptionPane.showMessageDialog(this, "Nuevo Producto agregado");
-								limpiar();
-								// TODO: Crear un objeto producto y retornarlo
+							if (precioUnit != -1) {								
+								return new Producto(codigo, descripcion, marca, tipo, stock, precioUnit);
 							}
 						}
 					}
@@ -242,10 +259,10 @@ public class MantProducto extends JPanel {
 			}
 		}
 
-		// return null;
+		return null;
 
 	}
-	
+
 	private void llenarCboMarca() {
 		
 		cboMarca.addItem("Seleccione Marca...");
@@ -272,6 +289,10 @@ public class MantProducto extends JPanel {
 				cboTipo.addItem(tipo.getIdTipo()+".- " + tipo.getDescripcion());
 			}
 		}
+	}
+	
+	private String generarCodigoProducto() {
+		return new GestionProductos().generarCodigo();
 	}
 
 	private String leerCodigo() {
