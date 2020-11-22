@@ -32,7 +32,6 @@ public class MantProducto extends JPanel {
 	public MantProducto() {
 		setLayout(null);
 
-		// Dando Forma al Panel
 		JPanel panelProducto = new JPanel();
 		panelProducto.setBounds(0, 0, 817, 470);
 		add(panelProducto);
@@ -147,14 +146,10 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblTipo);
 
 		cboTipo = new JComboBox<String>();
-		cboTipo.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Seleccione...", "Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa",
-						"Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios" }));
 		cboTipo.setBounds(109, 129, 323, 20);
 		panelProducto.add(cboTipo);
 
 		cboMarca = new JComboBox<String>();
-		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] { "Seleccione...", "Probando" }));
 		cboMarca.setBounds(109, 98, 323, 20);
 		panelProducto.add(cboMarca);
 
