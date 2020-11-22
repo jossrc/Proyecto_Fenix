@@ -23,7 +23,6 @@ import model.Producto;
 import model.TipoProducto;
 
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class MantProducto extends JPanel {
 
@@ -118,7 +117,7 @@ public class MantProducto extends JPanel {
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnAgregar);
 
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -214,6 +213,12 @@ public class MantProducto extends JPanel {
 				registrarProducto();
 			}
 		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actualizarProducto();
+			}
+		});
 
 	}
 	
@@ -232,6 +237,22 @@ public class MantProducto extends JPanel {
 			}
 		}
 		
+	}
+	
+	private void actualizarProducto() {
+		Producto producto = crearProducto();
+		
+		if (producto != null) {
+			int ok = new GestionProductos().actualizar(producto);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo actualizar Producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Producto actualizado correctamente");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
+			}
+		}
 	}
 
 	private Producto crearProducto() {
