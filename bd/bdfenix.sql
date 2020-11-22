@@ -124,3 +124,13 @@ BEGIN
   where COD_PRO = cod;
 END $$
 delimiter ;
+
+-- Procedure : Generar Codigo Producto
+delimiter $$
+CREATE PROCEDURE usp_generarCodigoProducto()
+BEGIN
+  SELECT SUBSTRING(COD_PRO, 5)
+  FROM PRODUCTO ORDER BY COD_PRO DESC LIMIT 1;
+END $$
+delimiter ;
+
