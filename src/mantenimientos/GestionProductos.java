@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import interfaces.ProductoInterface;
@@ -14,8 +15,33 @@ public class GestionProductos implements ProductoInterface {
 	
 	@Override
 	public String generarCodigo() {
-		// TODO Auto-generated method stub
-		return null;
+		String codigo = "PROD0001";
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_generarCodigoProducto()}";
+			pst = con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				DecimalFormat df = new DecimalFormat("0000");
+				codigo = "PROD" + df.format(Integer.parseInt(rs.getString(1)) + 1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en generar codigo Producto : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return codigo;
 	}
 
 	@Override
