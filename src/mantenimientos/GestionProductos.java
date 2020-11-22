@@ -99,7 +99,7 @@ public class GestionProductos implements ProductoInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "SELECT * FROM PRODUCTO WHERE COD_PRO = ?";
+			String sql = "SELECT * FROM PRODUCTO WHERE COD_PRO = ? AND ESTADO = 1";
 			pst = con.prepareStatement(sql);
 
 			pst.setInt(1, codProducto);
@@ -134,8 +134,41 @@ public class GestionProductos implements ProductoInterface {
 
 	@Override
 	public ArrayList<Producto> listado() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT * FROM PRODUCTO WHERE ESTADO = 1";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				String codigo = rs.getString(1);
+				String descripcion = rs.getString(2);
+				int idMarca = rs.getInt(3);
+				int idTipo = rs.getInt(4);
+				int stock = rs.getInt(5);
+				double precioUnitario = rs.getDouble(6);
+				int estado = rs.getInt(7);
+
+				Producto producto = new Producto(codigo, descripcion, idMarca, idTipo, stock, precioUnitario, estado);
+				lista.add(producto);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en listado : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return lista;
 	}
 
 }
