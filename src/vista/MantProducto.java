@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import mantenimientos.GestionMarcaProducto;
+import mantenimientos.GestionProductos;
+import mantenimientos.GestionTipoProducto;
+import model.MarcaProducto;
+import model.TipoProducto;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -161,6 +169,9 @@ public class MantProducto extends JPanel {
 		txtPrecioUnit.setColumns(10);
 		txtPrecioUnit.setBounds(317, 160, 115, 20);
 		panelProducto.add(txtPrecioUnit);
+		
+		llenarCboMarca();
+		llenarCboTipos();
 
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,6 +222,34 @@ public class MantProducto extends JPanel {
 
 		// return null;
 
+	}
+	
+	private void llenarCboMarca() {
+		
+		cboMarca.addItem("Seleccione Marca...");
+		ArrayList<MarcaProducto> lista = new GestionMarcaProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de marcas");
+		} else {
+			for (MarcaProducto marca : lista) {
+				cboMarca.addItem(marca.getIdMarca()+".- " + marca.getDescripcion());
+			}
+		}
+		
+	}
+	
+	private void llenarCboTipos() {
+		cboTipo.addItem("Seleccione Tipo...");
+		ArrayList<TipoProducto> lista = new GestionTipoProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de tipos");
+		} else {
+			for (TipoProducto tipo : lista) {
+				cboTipo.addItem(tipo.getIdTipo()+".- " + tipo.getDescripcion());
+			}
+		}
 	}
 
 	private String leerCodigo() {
