@@ -295,6 +295,10 @@ public class MantProducto extends JPanel {
 			
 			if (ok == 0) {
 				aviso("Oops algo salió mal. No se pudo eliminar producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminó correctamente el producto");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
 			}
 		}
 		
