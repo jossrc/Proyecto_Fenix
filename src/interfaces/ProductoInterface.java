@@ -10,11 +10,11 @@ public interface ProductoInterface {
 
 	public int registrar(Producto producto);
 	
-	public int eliminar(int codigo);
+	public int eliminar(String codigo);
 	
 	public int actualizar(Producto producto);
 	
-	public Producto buscar(int codigo);
+	public Producto buscar(String codigo);
 	
 	public ArrayList<Producto> listado();
 	

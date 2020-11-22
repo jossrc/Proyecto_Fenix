@@ -254,6 +254,17 @@ public class MantProducto extends JPanel {
 			}
 		}
 	}
+	
+	private void buscarProducto() {
+		String codigo = leerCodigo();
+		
+		if (codigo != null) {
+			
+			Producto p = new GestionProductos().buscar(codigo);
+			
+			
+		}
+	}
 
 	private Producto crearProducto() {
 		String codigo = leerCodigo();

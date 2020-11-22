@@ -82,7 +82,7 @@ public class GestionProductos implements ProductoInterface {
 	}
 
 	@Override
-	public int eliminar(int codigoProducto) {
+	public int eliminar(String codigoProducto) {
 		int rs = 0;
 
 		Connection con = null;
@@ -94,7 +94,7 @@ public class GestionProductos implements ProductoInterface {
 			String sql = "UPDATE PRODUCTO SET ESTADO = 0 WHERE COD_PRO = ?";
 			pst = con.prepareStatement(sql);
 
-			pst.setInt(1, codigoProducto);
+			pst.setString(1, codigoProducto);
 
 			rs = pst.executeUpdate();
 
@@ -146,7 +146,7 @@ public class GestionProductos implements ProductoInterface {
 	}
 
 	@Override
-	public Producto buscar(int codProducto) {
+	public Producto buscar(String codProducto) {
 		Producto p = null;
 
 		Connection con = null;
@@ -158,7 +158,7 @@ public class GestionProductos implements ProductoInterface {
 			String sql = "SELECT * FROM PRODUCTO WHERE COD_PRO = ? AND ESTADO = 1";
 			pst = con.prepareStatement(sql);
 
-			pst.setInt(1, codProducto);
+			pst.setString(1, codProducto);
 
 			rs = pst.executeQuery();
 
