@@ -8,15 +8,13 @@ import model.Cliente;
 
 public interface ClientesInterface {
 	
-	public String generarCodigo();
-
 	public int registrar(Cliente cliente);
 	
-	public int eliminar(String codigo);
+	public int eliminar(int id);
 	
 	public int actualizar(Cliente cliente);
 	
-	public Cliente buscar(String codigo);
+	public Cliente buscar(String dni);
 	
 	public ArrayList<Cliente> listado();
 
