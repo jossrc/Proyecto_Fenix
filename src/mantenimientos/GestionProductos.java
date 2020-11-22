@@ -50,9 +50,33 @@ public class GestionProductos implements ProductoInterface {
 	}
 
 	@Override
-	public int eliminar(int codigo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int eliminar(int codigoProducto) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+
+			con = MySQLConexion8.getConexion();
+			String sql = "UPDATE PRODUCTO SET ESTADO = 0 WHERE COD_PRO = ?";
+			pst = con.prepareStatement(sql);
+
+			pst.setInt(1, codigoProducto);
+
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en Eliminar : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
 	}
 
 	@Override
@@ -159,7 +183,7 @@ public class GestionProductos implements ProductoInterface {
 				lista.add(producto);
 			}
 		} catch (Exception e) {
-			System.out.println("Error en listado : " + e.getMessage());
+			System.out.println("Error en listado Producto : " + e.getMessage());
 		} finally {
 			try {
 				con.close();
