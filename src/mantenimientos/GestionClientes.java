@@ -52,7 +52,7 @@ public class GestionClientes implements ClientesInterface {
 	}
 
 	@Override
-	public int eliminar(int id) {
+	public int eliminar(String dni) {
 		int rs = 0;
 
 		Connection con = null;
@@ -61,10 +61,10 @@ public class GestionClientes implements ClientesInterface {
 		try {
 
 			con = MySQLConexion8.getConexion();
-			String sql = "UPDATE CLIENTE SET ESTADO = 0 WHERE ID_CLI = ?";
+			String sql = "UPDATE CLIENTE SET ESTADO = 0 WHERE DNI_CLI = ?";
 			pst = con.prepareStatement(sql);
 
-			pst.setInt(1, id);
+			pst.setString(1, dni);
 
 			rs = pst.executeUpdate();
 

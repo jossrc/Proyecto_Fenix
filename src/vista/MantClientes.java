@@ -5,8 +5,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionClientes;
+import mantenimientos.GestionProductos;
+import model.Cliente;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -23,6 +30,7 @@ public class MantClientes extends JPanel {
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTable tblCliente;
+	private DefaultTableModel model;
 
 	public MantClientes() {
 		setLayout(null);
@@ -42,7 +50,14 @@ public class MantClientes extends JPanel {
 		panelClientes.add(scrollPane);
 
 		tblCliente = new JTable();
+		model = new DefaultTableModel();
+		tblCliente.setModel(model);
 		scrollPane.setViewportView(tblCliente);
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("DNI");
+		model.addColumn("Dirección");
+		model.addColumn("Teléfono");
 
 		JLabel lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(37, 92, 46, 14);
@@ -141,6 +156,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");
+		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -157,7 +173,7 @@ public class MantClientes extends JPanel {
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				crearCliente();
+				registrarCliente();
 			}
 		});
 		
@@ -169,14 +185,76 @@ public class MantClientes extends JPanel {
 
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				listado();
 
 			}
 		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminarCliente();
+			}
+		});
+	}
+	
+		protected void eliminarCliente() {
+			String dni = leerDNI();
+			
+			if (dni != null) {
+				int ok = new GestionClientes().eliminar(dni);
+				
+				if (ok == 0) {
+					aviso("Oops algo salió mal. No se pudo eliminar Cliente");
+				} else {
+					JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Cliente");
+					limpiar();
+					
+				}
+			}
+		
 	}
 
-	private void crearCliente() {
+		void listado() {
+		ArrayList<Cliente> lista = new GestionClientes().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Cliente c : lista){
+				insertarNuevaFila(c);
+				
+			}
+		}
+	}
+
+	private void registrarCliente(){
+		Cliente cliente = crearCliente();
+		if (cliente != null) {
+			int ok = new GestionClientes().registrar(cliente);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Cliente");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Cliente registrado");
+				limpiar();
+				
+			}
+		}
+		
+	}
+
+	private void insertarNuevaFila(Cliente cliente) {
+		Object datos[] = {cliente.getNom_cli(), cliente.getApe_cli(), cliente.getDni_cli(), cliente.getDirec_cli(), cliente.getTelef_cli()};
+		model.addRow(datos);
+		
+	}
+
+	private Cliente crearCliente() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
+		
+		
 		
 		if (dni != null) {
 			nombre = leerNombre();
@@ -189,14 +267,14 @@ public class MantClientes extends JPanel {
 						if (direccion != null) {							
 							JOptionPane.showMessageDialog(this, "Nuevo Cliente agregado");
 							limpiar();
-							// TODO: Crea un objeto cliente y lo retorna							
+							return new Cliente (0, dni, nombre, apellido, direccion, telefono);							
 						}
 					}
 				}
 			}
 		}
 		
-		//return null
+		return null;
 	}
 
 	private String leerDNI() {

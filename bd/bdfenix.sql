@@ -134,3 +134,12 @@ BEGIN
 END $$
 delimiter ;
 
+INSERT INTO CLIENTE VALUES (1, '12345678', 'Marcos', 'Szeigfer', 's/n Avebury rd, Londres, Reino Unido', '555-000', 1);
+INSERT INTO CLIENTE VALUES (2, '87654321', 'Alan', 'Travis', 's/n Avebury rd, Londres, Reino Unido', '555-001', 1);
+INSERT INTO CLIENTE VALUES (3, '00100234', 'James', 'Harker', 's/n Avebury rd, Londres, Reino Unido', '555-002', 1);
+INSERT INTO CLIENTE VALUES (4, '17171717', 'Faith', 'Jones', 's/n Avebury rd, Londres, Reino Unido', '555-003', 1);
+INSERT INTO CLIENTE VALUES (5, '00100567', 'Diane', 'Leigh', 'Adolfo Alsina 323, C1002ABA CABA, Argentina', '555-004', 0);
+INSERT INTO CLIENTE VALUES (6, '00200666', 'Steven', 'Doherty', 'Florida 328, C1005AAH CABA, Argentina', '555-005', 0);
+
+SELECT * FROM CLIENTE;
+

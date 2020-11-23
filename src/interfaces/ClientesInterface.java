@@ -10,7 +10,7 @@ public interface ClientesInterface {
 	
 	public int registrar(Cliente cliente);
 	
-	public int eliminar(int id);
+	public int eliminar(String dni);
 	
 	public int actualizar(Cliente cliente);
 	
