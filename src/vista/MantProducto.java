@@ -16,9 +16,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import mantenimientos.GestionClientes;
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
 import mantenimientos.GestionTipoProducto;
+import model.Cliente;
 import model.MarcaProducto;
 import model.Producto;
 import model.TipoProducto;
@@ -210,7 +212,7 @@ public class MantProducto extends JPanel {
 
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				listado();
 			}
 		});
 
@@ -246,6 +248,27 @@ public class MantProducto extends JPanel {
 
 	}
 	
+	protected void listado() {
+		ArrayList<Producto> lista = new GestionProductos().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Producto p : lista){
+				insertarNuevaFila(p);
+				
+			}
+		}
+		
+	}
+
+	private void insertarNuevaFila(Producto p) {
+		Object datos[] = {p.getCodigo(), p.getDescripcion(), p.getIdMarca(), p.getIdTipo(), p.getStock(), p.getPrecioUnitario()};
+		model.addRow(datos);
+		
+	}
+
 	private void registrarProducto() {
 		Producto producto = crearProducto();
 		
