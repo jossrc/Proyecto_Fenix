@@ -19,10 +19,12 @@ import javax.swing.table.DefaultTableModel;
 import mantenimientos.GestionClientes;
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
+import mantenimientos.GestionReporteProducto;
 import mantenimientos.GestionTipoProducto;
 import model.Cliente;
 import model.MarcaProducto;
 import model.Producto;
+import model.ReporteProducto;
 import model.TipoProducto;
 
 import javax.swing.JComboBox;
@@ -249,22 +251,22 @@ public class MantProducto extends JPanel {
 	}
 	
 	protected void listado() {
-		ArrayList<Producto> lista = new GestionProductos().listado();
+		ArrayList<ReporteProducto> lista = new GestionReporteProducto().listado();
 		
 		if (lista == null){
 			JOptionPane.showMessageDialog(this, "Listado vacio");
 		} else{
 			model.setRowCount(0);
-			for (Producto p : lista){
-				insertarNuevaFila(p);
+			for (ReporteProducto r : lista){
+				insertarNuevaFila(r);
 				
 			}
 		}
 		
 	}
 
-	private void insertarNuevaFila(Producto p) {
-		Object datos[] = {p.getCodigo(), p.getDescripcion(), p.getIdMarca(), p.getIdTipo(), p.getStock(), p.getPrecioUnitario()};
+	private void insertarNuevaFila(ReporteProducto r) {
+		Object datos[] = {r.getCod(), r.getDesc(), r.getMarca(), r.getTipo(), r.getStock(), r.getPrecio()};
 		model.addRow(datos);
 		
 	}
