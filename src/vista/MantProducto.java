@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
@@ -36,6 +37,7 @@ public class MantProducto extends JPanel {
 	private JComboBox<String> cboMarca;
 	private JComboBox<String> cboTipo;
 	private JTextField txtPrecioUnit;
+	private DefaultTableModel model;
 
 	public MantProducto() {
 		setLayout(null);
@@ -54,7 +56,17 @@ public class MantProducto extends JPanel {
 		panelProducto.add(scrollPane);
 
 		tblProducto = new JTable();
+		model = new DefaultTableModel();
+		tblProducto.setModel(model);
 		scrollPane.setViewportView(tblProducto);
+		model.addColumn("Código");
+		model.addColumn("Descripción");
+		model.addColumn("Marca");
+		model.addColumn("Tipo");
+		model.addColumn("Stock");
+		model.addColumn("Precio");
+		
+		
 
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
 		lblDescripcion.setBounds(37, 70, 62, 14);
