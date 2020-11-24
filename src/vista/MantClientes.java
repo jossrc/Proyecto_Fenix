@@ -253,9 +253,7 @@ public class MantClientes extends JPanel {
 	private Cliente crearCliente() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
-		
-		
-		
+
 		if (dni != null) {
 			nombre = leerNombre();
 			if (nombre != null) {
@@ -264,9 +262,7 @@ public class MantClientes extends JPanel {
 					telefono = leerTelefono();
 					if (telefono != null) {
 						direccion = leerDireccion();
-						if (direccion != null) {							
-							JOptionPane.showMessageDialog(this, "Nuevo Cliente agregado");
-							limpiar();
+						if (direccion != null) {
 							return new Cliente (0, dni, nombre, apellido, direccion, telefono);							
 						}
 					}
