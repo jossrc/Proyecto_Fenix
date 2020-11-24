@@ -16,12 +16,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import mantenimientos.GestionClientes;
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
 import mantenimientos.GestionReporteProducto;
 import mantenimientos.GestionTipoProducto;
-import model.Cliente;
+
 import model.MarcaProducto;
 import model.Producto;
 import model.ReporteProducto;
@@ -258,17 +257,15 @@ public class MantProducto extends JPanel {
 		} else{
 			model.setRowCount(0);
 			for (ReporteProducto r : lista){
-				insertarNuevaFila(r);
-				
+				insertarNuevaFila(r);				
 			}
 		}
 		
 	}
 
 	private void insertarNuevaFila(ReporteProducto r) {
-		Object datos[] = {r.getCod(), r.getDesc(), r.getMarca(), r.getTipo(), r.getStock(), r.getPrecio()};
+		Object datos[] = {r.getCodigo(), r.getDescripcion(), r.getMarca(), r.getTipo(), r.getStock(), r.getPrecio()};
 		model.addRow(datos);
-		
 	}
 
 	private void registrarProducto() {
