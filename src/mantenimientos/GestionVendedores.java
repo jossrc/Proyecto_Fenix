@@ -126,8 +126,32 @@ public class GestionVendedores implements VendedorInterface {
 
 	@Override
 	public int eliminar(String dni) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+
+			con = MySQLConexion8.getConexion();
+			String sql = "UPDATE VENDEDOR SET ESTADO = 0 WHERE DNI_VEND = ?";
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, dni);
+
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en Eliminar Vendedor: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
 	}
 
 	@Override
