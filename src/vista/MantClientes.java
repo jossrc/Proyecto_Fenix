@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import mantenimientos.GestionClientes;
-import mantenimientos.GestionProductos;
 import model.Cliente;
 
 import javax.swing.JButton;
@@ -144,7 +143,7 @@ public class MantClientes extends JPanel {
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelClientes.add(btnEditar);
 
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -174,6 +173,12 @@ public class MantClientes extends JPanel {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				registrarCliente();
+			}
+		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buscarCliente();
 			}
 		});
 		
@@ -207,8 +212,7 @@ public class MantClientes extends JPanel {
 					aviso("Oops algo salió mal. No se pudo eliminar Cliente");
 				} else {
 					JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Cliente");
-					limpiar();
-					
+					limpiar();					
 				}
 			}
 		
@@ -222,12 +226,28 @@ public class MantClientes extends JPanel {
 		} else{
 			model.setRowCount(0);
 			for (Cliente c : lista){
-				insertarNuevaFila(c);
-				
+				insertarNuevaFila(c);				
 			}
 		}
 	}
 
+	private void buscarCliente() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			Cliente cliente = new GestionClientes().buscar(dni);
+			
+			if (cliente == null) {
+				aviso("Oops no se pudo encontrar Cliente");
+			} else {
+				txtNombres.setText(cliente.getNom_cli());
+				txtApellidos.setText(cliente.getApe_cli());
+				txtTelefono.setText(cliente.getTelef_cli());
+				txtDireccion.setText(cliente.getDirec_cli());
+			}
+		}
+	}
+		
 	private void registrarCliente(){
 		Cliente cliente = crearCliente();
 		if (cliente != null) {
