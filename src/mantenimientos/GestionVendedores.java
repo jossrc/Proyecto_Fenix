@@ -57,7 +57,7 @@ public class GestionVendedores implements VendedorInterface {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}";
+			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}"; // TODO
 			
 			pst = con.prepareStatement(sql);
 
@@ -156,8 +156,41 @@ public class GestionVendedores implements VendedorInterface {
 
 	@Override
 	public ArrayList<Vendedor> listado() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Vendedor> lista = new ArrayList<Vendedor>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT * FROM VENDEDOR WHERE ESTADO = 1";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String dni = rs.getString(2);
+				String nombre = rs.getString(3);
+				String apellido = rs.getString(4);
+				String direccion = rs.getString(5);
+				String telefono = rs.getString(6);
+				int estado = rs.getInt(7);
+
+				Vendedor vendedor = new Vendedor(id, dni, nombre, apellido, direccion, telefono, estado);
+				lista.add(vendedor);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en listado Vendedores : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return lista;
 	}
 
 }
