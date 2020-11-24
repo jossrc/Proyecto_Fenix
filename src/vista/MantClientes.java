@@ -18,6 +18,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MantClientes extends JPanel {
 
@@ -48,7 +50,7 @@ public class MantClientes extends JPanel {
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelClientes.add(scrollPane);
 
-		tblCliente = new JTable();
+		tblCliente = new JTable();		
 		model = new DefaultTableModel();
 		tblCliente.setModel(model);
 		scrollPane.setViewportView(tblCliente);
@@ -204,6 +206,19 @@ public class MantClientes extends JPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				eliminarCliente();
+			}
+		});
+		
+		tblCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fila = tblCliente.getSelectedRow();
+				
+				if (fila != -1) {
+					String dni = tblCliente.getValueAt(fila, 2).toString();
+					txtDNI.setText(dni);
+					buscarCliente();					
+				}
 			}
 		});
 	}
