@@ -16,7 +16,7 @@ public class Vendedor {
 		this.apellido = apellido;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		this.estado = 1;
+		this.estado = estado;
 	}
 
 	public Vendedor(int id, String dni, String nombre, String apellido, String direccion, String telefono) {
