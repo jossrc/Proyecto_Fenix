@@ -49,8 +49,35 @@ public class GestionVendedores implements VendedorInterface {
 
 	@Override
 	public int actualizar(Vendedor vendedor) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rs = 0;
+		Connection con = null;
+		PreparedStatement pst = null;
+		try {
+
+			con = MySQLConexion8.getConexion();
+
+			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}";
+			
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, vendedor.getDni());
+			pst.setString(2, vendedor.getNombre());
+			pst.setString(3, vendedor.getApellido());
+			pst.setString(4, vendedor.getDireccion());
+			pst.setString(5, vendedor.getTelefono());
+			pst.setInt(6, vendedor.getEstado());
+
+			rs = pst.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("Error en actualizar Vendedor : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+		return rs;
 	}
 
 	@Override
