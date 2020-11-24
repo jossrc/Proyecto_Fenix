@@ -79,29 +79,25 @@ public class GestionClientes implements ClientesInterface {
 	}
 
 	@Override
-	/* Corresponde a Editar el CRUD */
 	public int actualizar(Cliente cliente) {
-		int rs = 0; // returns result of operation
-		// Database format
-		Connection con = null; // for connecting
-		PreparedStatement pst = null; // for sentencing
+		int rs = 0;
+		Connection con = null;
+		PreparedStatement pst = null;
 		try {
-			// 1. obtain connection with DB
+			
 			con = MySQLConexion8.getConexion();
-			// 2.Create sentence to be used
-			String sql = "update CLIENTE set DNI_CLI = ?, NOM_CLI = ?, APE_CLI = ?, DIREC_CLI = ?, TELEF_CLI = ?, ESTADO = ? WHERE ID_CLI = ?";
-			// 3. Prepare sentence to be executed
+			
+			String sql = "update CLIENTE SET NOM_CLI = ?, APE_CLI = ?, DIREC_CLI = ?, TELEF_CLI = ?, ESTADO = ? WHERE DNI_CLI = ?";
+			
 			pst = con.prepareStatement(sql);
-			// set the strings
 
-			pst.setString(1, cliente.getDni_cli());
-			pst.setString(2, cliente.getNom_cli());
-			pst.setString(3, cliente.getApe_cli());
-			pst.setString(4, cliente.getDirec_cli());
-			pst.setString(5, cliente.getTelef_cli());
-			pst.setInt(6, cliente.getEstado_cli());
-			pst.setInt(7, cliente.getId_cli());
-			// 4. Execute the sentence and save the result
+			pst.setString(1, cliente.getNom_cli());
+			pst.setString(2, cliente.getApe_cli());
+			pst.setString(3, cliente.getDirec_cli());
+			pst.setString(4, cliente.getTelef_cli());
+			pst.setInt(5, cliente.getEstado_cli());
+			pst.setString(6, cliente.getDni_cli());
+
 			rs = pst.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("Error en actualizar cliente : " + e.getMessage());
