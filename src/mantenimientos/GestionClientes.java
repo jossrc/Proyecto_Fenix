@@ -134,13 +134,13 @@ public class GestionClientes implements ClientesInterface {
 
 			if (rs.next()) {
 
-				String dni_cli = rs.getString(1);
-				String nom = rs.getString(2);
-				String ape = rs.getString(3);
-				String dir = rs.getString(4);
-				String tel = rs.getString(5);
-				int estado = rs.getInt(6);
-				int id = rs.getInt(7);
+				int id = rs.getInt(1);
+				String dni_cli = rs.getString(2);
+				String nom = rs.getString(3);
+				String ape = rs.getString(4);
+				String dir = rs.getString(5);
+				String tel = rs.getString(6);
+				int estado = rs.getInt(7);
 
 				cliente = new Cliente(id, dni_cli, nom, ape, dir, tel, estado);
 
