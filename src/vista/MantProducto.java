@@ -27,6 +27,8 @@ import model.ReporteProducto;
 import model.TipoProducto;
 
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MantProducto extends JPanel {
 
@@ -58,7 +60,7 @@ public class MantProducto extends JPanel {
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelProducto.add(scrollPane);
 
-		tblProducto = new JTable();
+		tblProducto = new JTable();		
 		model = new DefaultTableModel();
 		tblProducto.setModel(model);
 		scrollPane.setViewportView(tblProducto);
@@ -68,8 +70,6 @@ public class MantProducto extends JPanel {
 		model.addColumn("Tipo");
 		model.addColumn("Stock");
 		model.addColumn("Precio");
-		
-		
 
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
 		lblDescripcion.setBounds(37, 70, 62, 14);
@@ -244,6 +244,20 @@ public class MantProducto extends JPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eliminarProducto();
+			}
+		});
+		
+		tblProducto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int fila = tblProducto.getSelectedRow();
+				
+				if (fila != -1) {
+					String codigo = tblProducto.getValueAt(fila, 0).toString();
+					
+					txtCodigo.setText(codigo);
+					buscarProducto();
+				}
 			}
 		});
 
