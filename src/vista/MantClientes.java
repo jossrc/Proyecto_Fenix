@@ -132,7 +132,7 @@ public class MantClientes extends JPanel {
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelClientes.add(btnAgregar);
 
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -173,6 +173,12 @@ public class MantClientes extends JPanel {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				registrarCliente();
+			}
+		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editarCliente();
 			}
 		});
 		
@@ -244,6 +250,20 @@ public class MantClientes extends JPanel {
 				txtApellidos.setText(cliente.getApe_cli());
 				txtTelefono.setText(cliente.getTelef_cli());
 				txtDireccion.setText(cliente.getDirec_cli());
+			}
+		}
+	}
+	
+	private void editarCliente() {
+		Cliente cliente = crearCliente();
+		
+		if (cliente != null) {
+			int ok = new GestionClientes().actualizar(cliente);
+			
+			if (ok == 0) {
+				aviso("Oops no se pudo actualizar Cliente");
+			} else {
+				JOptionPane.showMessageDialog(this, "El cliente ah sido actualizado exitosamente");
 			}
 		}
 	}
