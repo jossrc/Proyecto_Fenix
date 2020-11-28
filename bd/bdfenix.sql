@@ -175,7 +175,6 @@ INSERT INTO MARCA_PRODUCTO VALUES (NULL, 'Sega');
 INSERT INTO MARCA_PRODUCTO VALUES (NULL, 'Atari');
 INSERT INTO MARCA_PRODUCTO VALUES (NULL, 'Sony');
 
-
 SELECT * FROM MARCA_PRODUCTO;
 SELECT * FROM TIPO_PRODUCTO;
 
@@ -197,3 +196,18 @@ INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 
 
 SELECT * FROM VENDEDOR;
 
+-- Procedure : Actualizar Vendedor
+delimiter $$
+CREATE PROCEDURE usp_actualizarVendedor(
+  dni CHAR(8), nombre VARCHAR(50), apellido VARCHAR(50),
+  direccion VARCHAR(80), telefono VARCHAR(15)
+)
+BEGIN
+  UPDATE VENDEDOR
+  SET NOM_VEND = nombre,
+	  APE_VEND = apellido,
+      DIREC_VEND = direccion,
+      TELEF_VEND = telefono
+  WHERE DNI_VEND = dni;
+END $$
+delimiter ;
