@@ -156,7 +156,7 @@ private static final long serialVersionUID = 1L;
 		btnBuscar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnBuscar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnEliminar = new JButton("Eliminar");		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -201,6 +201,12 @@ private static final long serialVersionUID = 1L;
 			}
 		});
 		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarVendedor();
+			}
+		});
+		
 		tblVendedor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -214,6 +220,21 @@ private static final long serialVersionUID = 1L;
 				}
 			}
 		});
+	}
+	
+	private void eliminarVendedor() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			int ok = new GestionVendedores().eliminar(dni);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo eliminar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Vendedor");
+				limpiar();
+			}
+		}
 	}
 	
 	private void actualizarVendedor() {
