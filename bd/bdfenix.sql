@@ -135,12 +135,12 @@ BEGIN
 END $$
 delimiter ;
 
-INSERT INTO CLIENTE VALUES (1, '12345678', 'Marcos', 'Szeigfer', 's/n Avebury rd, Londres, Reino Unido', '555-000', 1);
-INSERT INTO CLIENTE VALUES (2, '87654321', 'Alan', 'Travis', 's/n Avebury rd, Londres, Reino Unido', '555-001', 1);
-INSERT INTO CLIENTE VALUES (3, '00100234', 'James', 'Harker', 's/n Avebury rd, Londres, Reino Unido', '555-002', 1);
-INSERT INTO CLIENTE VALUES (4, '17171717', 'Faith', 'Jones', 's/n Avebury rd, Londres, Reino Unido', '555-003', 1);
-INSERT INTO CLIENTE VALUES (5, '00100567', 'Diane', 'Leigh', 'Adolfo Alsina 323, C1002ABA CABA, Argentina', '555-004', 0);
-INSERT INTO CLIENTE VALUES (6, '00200666', 'Steven', 'Doherty', 'Florida 328, C1005AAH CABA, Argentina', '555-005', 0);
+INSERT INTO CLIENTE VALUES (1, '12345678', 'Marcos', 'Szeigfer', 's/n Avebury rd, Londres, Reino Unido', '555000', 1);
+INSERT INTO CLIENTE VALUES (2, '87654321', 'Alan', 'Travis', 's/n Avebury rd, Londres, Reino Unido', '555001', 1);
+INSERT INTO CLIENTE VALUES (3, '00100234', 'James', 'Harker', 's/n Avebury rd, Londres, Reino Unido', '555002', 1);
+INSERT INTO CLIENTE VALUES (4, '17171717', 'Faith', 'Jones', 's/n Avebury rd, Londres, Reino Unido', '555003', 1);
+INSERT INTO CLIENTE VALUES (5, '00100567', 'Diane', 'Leigh', 'Adolfo Alsina 323, C1002ABA CABA, Argentina', '555004', 0);
+INSERT INTO CLIENTE VALUES (6, '00200666', 'Steven', 'Doherty', 'Florida 328, C1005AAH CABA, Argentina', '555005', 0);
 
 SELECT * FROM CLIENTE;
 
@@ -191,8 +191,8 @@ INSERT INTO PRODUCTO VALUES ('PROD0010', 'Sega Genesis', 17, 6, 1, 4500, 1);
 
 SELECT * FROM PRODUCTO;
 
-INSERT INTO VENDEDOR VALUES (1, '77416188', 'Jose', 'Atuncar', '701 Brickell Ave #1550, Miami, FL', '111-7777', 1, 0);
-INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 Sicuani-Ate', '666-5555', 1, 1);
+INSERT INTO VENDEDOR VALUES (1, '77416188', 'Jose', 'Atuncar', '701 Brickell Ave #1550, Miami, FL', '1117777', 1, 0);
+INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 Sicuani-Ate', '6665555', 1, 1);
 
 SELECT * FROM VENDEDOR;
 
@@ -200,14 +200,15 @@ SELECT * FROM VENDEDOR;
 delimiter $$
 CREATE PROCEDURE usp_actualizarVendedor(
   dni CHAR(8), nombre VARCHAR(50), apellido VARCHAR(50),
-  direccion VARCHAR(80), telefono VARCHAR(15)
+  direccion VARCHAR(80), telefono VARCHAR(15), est INT
 )
 BEGIN
   UPDATE VENDEDOR
   SET NOM_VEND = nombre,
 	  APE_VEND = apellido,
       DIREC_VEND = direccion,
-      TELEF_VEND = telefono
+      TELEF_VEND = telefono,
+      ESTADO = est
   WHERE DNI_VEND = dni AND TIPO = 1;
 END $$
 delimiter ;

@@ -15,11 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import mantenimientos.GestionProductos;
-import mantenimientos.GestionReporteProducto;
 import mantenimientos.GestionVendedores;
-import model.Producto;
-import model.ReporteProducto;
 import model.Vendedor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -138,7 +134,7 @@ private static final long serialVersionUID = 1L;
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnAgregar);
 		
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -193,6 +189,12 @@ private static final long serialVersionUID = 1L;
 			}
 		});
 		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				actualizarVendedor();
+			}
+		});
+		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				buscarVendedor();
@@ -214,6 +216,21 @@ private static final long serialVersionUID = 1L;
 		});
 	}
 	
+	private void actualizarVendedor() {
+		Vendedor vendedor = crearVendedor();
+		
+		if (vendedor != null) {
+			int ok = new GestionVendedores().actualizar(vendedor);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo actualizar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Vendedor actualizado correctamente");
+				limpiar();
+			}
+		}
+	}
+	
 	private void buscarVendedor() {
 		String dni = leerDNI();
 		
@@ -222,7 +239,7 @@ private static final long serialVersionUID = 1L;
 			Vendedor v = new GestionVendedores().buscar(dni);
 			
 			if (v == null) {
-				aviso("Oops no se pudo encontrar Producto");
+				aviso("Oops no se pudo encontrar Vendedor");
 			} else {
 				txtNombres.setText(v.getNombre());
 				txtApellidos.setText(v.getApellido());

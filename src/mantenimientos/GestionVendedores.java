@@ -57,7 +57,7 @@ public class GestionVendedores implements VendedorInterface {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}";
+			String sql = "{call usp_actualizarVendedor(?,?,?,?,?,?)}";
 			
 			pst = con.prepareStatement(sql);
 
