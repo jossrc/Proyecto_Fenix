@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Animacion.Animacion;
+import model.Vendedor;
 import rsbutton.RSButtonMetro;
 import util.CambiaPanel;
 
@@ -29,6 +30,10 @@ public class FrmPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel pContenido;
+	
+	private JLabel lblNombreDelVendedor;
+	private JLabel lblApellidoDelVendedor;
+	private JLabel lblTipovendedorAsistente;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -188,32 +193,32 @@ public class FrmPrincipal extends JFrame {
 		lblIconLogueo.setIcon(iconoVendedor);
 		pImagenLogueo.add(lblIconLogueo);
 		
-		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lblUsuario.setBounds(10, 129, 85, 21);
-		pLogueo.add(lblUsuario);
+		JLabel lblVendedorNombre = new JLabel("Nombre :");
+		lblVendedorNombre.setFont(new Font("SansSerif", Font.BOLD, 16));
+		lblVendedorNombre.setBounds(10, 129, 85, 21);
+		pLogueo.add(lblVendedorNombre);
 
-		JLabel lblUsuarioDelVendedor = new JLabel("Usuario del vendedor");
-		lblUsuarioDelVendedor.setFont(new Font("Verdana", Font.ITALIC, 15));
-		lblUsuarioDelVendedor.setBounds(10, 161, 172, 21);
-		pLogueo.add(lblUsuarioDelVendedor);
-
-		JLabel lblVendedor = new JLabel("Vendedor :");
-		lblVendedor.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lblVendedor.setBounds(10, 207, 85, 21);
-		pLogueo.add(lblVendedor);
-
-		JLabel lblNombreDelVendedor = new JLabel("Nombre del vendedor");
+		lblNombreDelVendedor = new JLabel("Nombre del vendedor");
 		lblNombreDelVendedor.setFont(new Font("Verdana", Font.ITALIC, 15));
-		lblNombreDelVendedor.setBounds(10, 239, 176, 20);
+		lblNombreDelVendedor.setBounds(10, 161, 172, 21);
 		pLogueo.add(lblNombreDelVendedor);
+
+		JLabel lblVendedorApellido = new JLabel("Apellido :");
+		lblVendedorApellido.setFont(new Font("SansSerif", Font.BOLD, 16));
+		lblVendedorApellido.setBounds(10, 207, 85, 21);
+		pLogueo.add(lblVendedorApellido);
+
+		lblApellidoDelVendedor = new JLabel("Apellido del vendedor");
+		lblApellidoDelVendedor.setFont(new Font("Verdana", Font.ITALIC, 15));
+		lblApellidoDelVendedor.setBounds(10, 239, 176, 20);
+		pLogueo.add(lblApellidoDelVendedor);
 
 		JLabel lblTipo = new JLabel("Tipo :");
 		lblTipo.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lblTipo.setBounds(10, 285, 44, 21);
 		pLogueo.add(lblTipo);
 
-		JLabel lblTipovendedorAsistente = new JLabel("Tipo Vendedor");
+		lblTipovendedorAsistente = new JLabel("Tipo Vendedor");
 		lblTipovendedorAsistente.setFont(new Font("Verdana", Font.ITALIC, 15));
 		lblTipovendedorAsistente.setBounds(10, 317, 172, 21);
 		pLogueo.add(lblTipovendedorAsistente);
@@ -273,5 +278,27 @@ public class FrmPrincipal extends JFrame {
 				}
 			}
 		});
+		
+		cargarDatosVendedor();
+		
 	}
+	
+	
+	private void cargarDatosVendedor() {
+		
+		Vendedor v = FrmLogin.vendedorLogueado;
+		
+		if (v != null) {			
+			lblApellidoDelVendedor.setText(v.getNombre());
+			lblNombreDelVendedor.setText(v.getApellido());
+			
+			if (v.getTipo() == 0) {
+				lblTipovendedorAsistente.setText("Administrador");
+			} else {
+				lblTipovendedorAsistente.setText("Vendedor Asistente");
+			}
+
+		}
+	}
+	
 }

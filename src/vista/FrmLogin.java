@@ -192,7 +192,13 @@ public class FrmLogin extends JFrame {
 	private void iniciarSesion() {
 		if (vendedorLogueado == null) {
 			cargarVendedor();
-			JOptionPane.showMessageDialog(this, "Bienvenido " + vendedorLogueado.getNombre() + " " + vendedorLogueado.getApellido());
+			
+			FrmPrincipal principal = new FrmPrincipal();
+			principal.setLocationRelativeTo(null);
+			principal.setVisible(true);
+			
+			dispose();
+			// JOptionPane.showMessageDialog(this, "Bienvenido " + vendedorLogueado.getNombre() + " " + vendedorLogueado.getApellido());
 		}
 	}
 	
