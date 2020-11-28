@@ -10,7 +10,8 @@ CREATE TABLE VENDEDOR(
   APE_VEND    VARCHAR(50)  NOT NULL,
   DIREC_VEND  VARCHAR(80)  NOT NULL,
   TELEF_VEND  VARCHAR(15)  NOT NULL UNIQUE,
-  ESTADO      INT          NOT NULL
+  ESTADO      INT          NOT NULL,
+  TIPO        INT          NOT NULL # 0 -> admi , # 1 -> vendedor
 );
 
 CREATE TABLE USUARIO(
@@ -189,5 +190,10 @@ INSERT INTO PRODUCTO VALUES ('PROD0008', 'Atari Flashback 8 Gold Deluxe', 18, 6,
 INSERT INTO PRODUCTO VALUES ('PROD0009', 'PlayStation Classic', 19, 6, 3, 5500, 1);
 INSERT INTO PRODUCTO VALUES ('PROD0010', 'Sega Genesis', 17, 6, 1, 4500, 1);
 
-select * from PRODUCTO;
+SELECT * FROM PRODUCTO;
+
+INSERT INTO VENDEDOR VALUES (1, '77416188', 'Jose', 'Atuncar', '701 Brickell Ave #1550, Miami, FL', '111-7777', 1, 0);
+INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 Sicuani-Ate', '666-5555', 1, 1);
+
+SELECT * FROM VENDEDOR;
 
