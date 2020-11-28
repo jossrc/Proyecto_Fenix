@@ -208,6 +208,6 @@ BEGIN
 	  APE_VEND = apellido,
       DIREC_VEND = direccion,
       TELEF_VEND = telefono
-  WHERE DNI_VEND = dni;
+  WHERE DNI_VEND = dni AND TIPO = 1;
 END $$
 delimiter ;

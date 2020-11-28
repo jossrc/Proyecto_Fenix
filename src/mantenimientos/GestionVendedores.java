@@ -23,7 +23,7 @@ public class GestionVendedores implements VendedorInterface {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "INSERT INTO VENDEDOR VALUES (null, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO VENDEDOR VALUES (null, ?, ?, ?, ?, ?, ?, 1)";
 
 			pst = con.prepareStatement(sql);
 
@@ -57,7 +57,7 @@ public class GestionVendedores implements VendedorInterface {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}"; // TODO
+			String sql = "{usp_actualizarVendedor(?,?,?,?,?,?)}";
 			
 			pst = con.prepareStatement(sql);
 
@@ -91,7 +91,7 @@ public class GestionVendedores implements VendedorInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "SELECT * FROM VENDEDOR WHERE DNI_VEND = ? AND ESTADO = 1";
+			String sql = "SELECT * FROM VENDEDOR WHERE DNI_VEND = ? AND ESTADO = 1 AND TIPO = 1";
 			pst = con.prepareStatement(sql);
 
 			pst.setString(1, dni);
@@ -134,7 +134,7 @@ public class GestionVendedores implements VendedorInterface {
 		try {
 
 			con = MySQLConexion8.getConexion();
-			String sql = "UPDATE VENDEDOR SET ESTADO = 0 WHERE DNI_VEND = ?";
+			String sql = "UPDATE VENDEDOR SET ESTADO = 0 WHERE DNI_VEND = ? AND TIPO = 1";
 			pst = con.prepareStatement(sql);
 
 			pst.setString(1, dni);
@@ -163,7 +163,7 @@ public class GestionVendedores implements VendedorInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "SELECT * FROM VENDEDOR WHERE ESTADO = 1";
+			String sql = "SELECT * FROM VENDEDOR WHERE ESTADO = 1 AND TIPO = 1";
 			pst = con.prepareStatement(sql);
 
 			rs = pst.executeQuery();
