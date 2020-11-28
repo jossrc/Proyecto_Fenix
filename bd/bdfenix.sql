@@ -212,3 +212,20 @@ BEGIN
   WHERE DNI_VEND = dni AND TIPO = 1;
 END $$
 delimiter ;
+
+INSERT INTO LOGIN VALUES('admin', 'admin123', 1);
+INSERT INTO LOGIN VALUES('jossrc', 'vend123', 2);
+
+-- Procedure : Obtener vendedor y logueo
+delimiter $$
+CREATE PROCEDURE usp_obtenerVendedorYLogueo(id int)
+BEGIN
+  SELECT V.*
+  FROM LOGIN AS L
+  INNER JOIN VENDEDOR AS V
+    ON L.ID_VEND = V.ID_VEND
+  WHERE V.ID_VEND = id AND V.ESTADO = 1;
+END $$
+delimiter ;
+
+call usp_obtenerVendedorYLogueo(1);
