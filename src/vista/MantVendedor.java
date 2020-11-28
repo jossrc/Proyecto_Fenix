@@ -15,8 +15,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import mantenimientos.GestionProductos;
 import mantenimientos.GestionReporteProducto;
 import mantenimientos.GestionVendedores;
+import model.Producto;
 import model.ReporteProducto;
 import model.Vendedor;
 import java.awt.event.MouseAdapter;
@@ -147,7 +149,7 @@ private static final long serialVersionUID = 1L;
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnEditar);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -191,12 +193,43 @@ private static final long serialVersionUID = 1L;
 			}
 		});
 		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buscarVendedor();
+			}
+		});
+		
 		tblVendedor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				int fila = tblVendedor.getSelectedRow();
 				
+				if (fila != -1) {
+					String dni = tblVendedor.getValueAt(fila, 0).toString();
+					
+					txtDNI.setText(dni);
+					buscarVendedor();
+				}
 			}
 		});
+	}
+	
+	private void buscarVendedor() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			
+			Vendedor v = new GestionVendedores().buscar(dni);
+			
+			if (v == null) {
+				aviso("Oops no se pudo encontrar Producto");
+			} else {
+				txtNombres.setText(v.getNombre());
+				txtApellidos.setText(v.getApellido());
+				txtTelefono.setText(v.getTelefono());
+				txtDireccion.setText(v.getDireccion());
+			}
+		}
 	}
 	
 	private void listado() {
