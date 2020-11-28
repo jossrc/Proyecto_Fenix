@@ -13,6 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionReporteProducto;
+import mantenimientos.GestionVendedores;
+import model.ReporteProducto;
+import model.Vendedor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MantVendedor extends JPanel {
 private static final long serialVersionUID = 1L;
@@ -23,6 +32,7 @@ private static final long serialVersionUID = 1L;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTable tblVendedor;
+	private DefaultTableModel model;
 
 	
 	public MantVendedor() {
@@ -42,8 +52,15 @@ private static final long serialVersionUID = 1L;
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelVendedor.add(scrollPane);
 		
-		tblVendedor = new JTable();
-		scrollPane.setViewportView(tblVendedor);
+		tblVendedor = new JTable();		
+		model = new DefaultTableModel();
+		tblVendedor.setModel(model);
+		model.addColumn("DNI");
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("Dirección");
+		model.addColumn("Telefono");		
+		scrollPane.setViewportView(tblVendedor);		
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(37, 92, 46, 14);
@@ -164,18 +181,53 @@ private static final long serialVersionUID = 1L;
 		
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listado();
 			}
 		});
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearVendedor();
+				registrarVendedor();
+			}
+		});
+		
+		tblVendedor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
 			}
 		});
 	}
 	
-	private void crearVendedor() {
+	private void listado() {
+		ArrayList<Vendedor> lista = new GestionVendedores().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Vendedor v : lista){
+				insertarNuevaFila(v);				
+			}
+		}
+	}
+	
+	private void registrarVendedor() {
+		Vendedor vendedor = crearVendedor();
+		
+		if (vendedor != null) {
+			int ok = new GestionVendedores().registrar(vendedor);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Vendedor registrado");
+				limpiar();
+			}
+		}
+	}
+	
+	private Vendedor crearVendedor() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
 		
@@ -188,16 +240,14 @@ private static final long serialVersionUID = 1L;
 					if (telefono != null) {
 						direccion = leerDireccion();
 						if (direccion != null) {			
-							JOptionPane.showMessageDialog(this, "Nuevo Vendedor agregado");
-							limpiar();
-							// TODO: Crea un objeto Vendedor y lo retorna
+							return new Vendedor(0, dni, nombre, apellido, direccion, telefono);
 						}
 					}
 				}
 			}
 		}
 		
-		//return null
+		return null;
 	}
 
 	private String leerDNI() {
@@ -279,6 +329,11 @@ private static final long serialVersionUID = 1L;
 		return direccion;
 	}
 
+	private void insertarNuevaFila(Vendedor v) {
+		Object datos[] = {v.getDni(), v.getNombre(), v.getApellido(), v.getDireccion(), v.getTelefono()};
+		model.addRow(datos);
+	}
+	
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
