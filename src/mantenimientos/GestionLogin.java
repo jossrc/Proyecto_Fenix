@@ -62,7 +62,7 @@ public class GestionLogin implements LoginInterface{
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "SELECT * FROM VENDEDOR WHERE ID_VEND = ? AND ESTADO = 1";
+			String sql = "{CALL usp_obtenerVendedorYLogueo(?)}";
 			pst = con.prepareStatement(sql);
 
 			pst.setInt(1, idVend);
