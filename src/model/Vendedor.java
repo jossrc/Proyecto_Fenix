@@ -8,6 +8,18 @@ public class Vendedor {
 	private String direccion;
 	private String telefono;
 	private int estado;
+	private int tipo;
+	
+	public Vendedor(int id, String dni, String nombre, String apellido, String direccion, String telefono, int estado, int tipo) {
+		this.id = id;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.estado = estado;
+		this.tipo = tipo;
+	}
 
 	public Vendedor(int id, String dni, String nombre, String apellido, String direccion, String telefono, int estado) {
 		this.id = id;
@@ -17,6 +29,7 @@ public class Vendedor {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.estado = estado;
+		this.tipo = 1;
 	}
 
 	public Vendedor(int id, String dni, String nombre, String apellido, String direccion, String telefono) {
@@ -27,6 +40,7 @@ public class Vendedor {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.estado = 1;
+		this.tipo = 1;
 	}
 
 	public Vendedor() {
@@ -88,4 +102,13 @@ public class Vendedor {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
 }
