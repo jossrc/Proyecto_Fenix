@@ -288,9 +288,10 @@ public class FrmPrincipal extends JFrame {
 		
 		Vendedor v = FrmLogin.vendedorLogueado;
 		
-		if (v != null) {			
-			lblApellidoDelVendedor.setText(v.getNombre());
-			lblNombreDelVendedor.setText(v.getApellido());
+		if (v != null) {
+			
+			lblNombreDelVendedor.setText(v.getNombre());
+			lblApellidoDelVendedor.setText(v.getApellido());
 			
 			if (v.getTipo() == 0) {
 				lblTipovendedorAsistente.setText("Administrador");
