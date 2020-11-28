@@ -87,7 +87,7 @@ public class TRVentas extends JPanel {
 		pDatosVenta.add(txtFecha);
 		
 		JButton btnBuscarCliente = new JButton("");
-		btnBuscarCliente.setBounds(250, 44, 26, 20);
+		btnBuscarCliente.setBounds(250, 41, 25, 25);
 		pDatosVenta.add(btnBuscarCliente);
 		
 		JPanel pDatosProducto = new JPanel();
@@ -107,7 +107,7 @@ public class TRVentas extends JPanel {
 		pDatosProducto.add(txtCodigo);
 		
 		JButton btnBuscarProducto = new JButton("");
-		btnBuscarProducto.setBounds(250, 44, 26, 20);
+		btnBuscarProducto.setBounds(250, 41, 25, 25);
 		pDatosProducto.add(btnBuscarProducto);
 		
 		JLabel lblCantidad = new JLabel("CANTIDAD");
