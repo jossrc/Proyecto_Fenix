@@ -2,6 +2,7 @@ package mantenimientos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import interfaces.VentasInterface;
@@ -11,6 +12,37 @@ import model.Venta;
 import util.MySQLConexion8;
 
 public class GestionVentas implements VentasInterface {
+	
+	@Override
+	public int obtenerNumBoleta() {
+		int numero = -1;
+		
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT (MAX(NUM_BOL) + 1) AS 'NUM' FROM BOLETA";
+			pst = con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				numero = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en obtener Num Boleta : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e2) {
+				System.out.println("Error al cerrar : " + e2.getMessage());
+			}
+		}
+
+		return numero;
+	}
 
 	@Override
 	public int realizarVentaCompleta(Venta venta, ArrayList<DetalleBoleta> detalle, Boleta boleta) {
@@ -104,6 +136,5 @@ public class GestionVentas implements VentasInterface {
 		
 		return ok;
 	}
-	
-	
+
 }
