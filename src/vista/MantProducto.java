@@ -448,7 +448,7 @@ public class MantProducto extends JPanel {
 			return -1;
 		}
 
-		if (!stock.matches("[0-9]{1,3}")) {
+		if (!stock.matches("[1-9]+[0-9]*")) {
 			aviso("Ingrese un valor válido para el Stock");
 			return -1;
 		}

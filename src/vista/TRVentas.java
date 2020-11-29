@@ -512,7 +512,7 @@ public class TRVentas extends JPanel {
 			return -1;
 		}
 		
-		if (!cantidad.matches("[0-9]+")) {
+		if (!cantidad.matches("[1-9]+[0-9]*")) {
 			aviso("Ingrese una Cantidad válidad");
 			return -1;
 		}
