@@ -429,7 +429,7 @@ public class TRVentas extends JPanel {
 			if (total == -1) {
 				aviso("Oops!! No existe Total a Pagar");
 			} else {
-				double cambio = leerTotalPagar() - pagacon;
+				double cambio = pagacon - total;
 				txtCambio.setText(cambio+"");
 			}
 		}
