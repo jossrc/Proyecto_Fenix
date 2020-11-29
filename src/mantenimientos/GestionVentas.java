@@ -84,7 +84,22 @@ public class GestionVentas implements VentasInterface {
 			con.commit();			
 			
 		} catch (Exception e) {
+			System.out.println("Error al efectuar la venta : " + e.getMessage());
+			ok = -1;
 			
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				System.out.println("Error al restaurar : " + e.getMessage());
+			}			
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception e3) {
+				System.out.println("Error al cerrar: " + e3.getMessage());
+			}
 		}
 		
 		return ok;
