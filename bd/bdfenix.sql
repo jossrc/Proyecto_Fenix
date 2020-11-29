@@ -229,3 +229,14 @@ END $$
 delimiter ;
 
 call usp_obtenerVendedorYLogueo(1);
+
+-- Procedure : Comprar productos
+
+delimiter $$
+CREATE PROCEDURE usp_compraProducto(cant int, cod char(8))
+BEGIN
+  UPDATE PRODUCTO
+  SET STOCK_PRO = STOCK_PRO - cant
+  WHERE COD_PRO = cod;
+END $$
+delimiter ;
