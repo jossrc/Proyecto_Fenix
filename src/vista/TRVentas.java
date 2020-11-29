@@ -350,12 +350,42 @@ public class TRVentas extends JPanel {
 				
 				Object[] datos = {codigoProd, tipo, descripcion, cantidad, precio, importe};
 				model.addRow(datos);
+				
+				estableciendoSubTotal();
 			}
 			
 		} else {
 			aviso("Busque un producto para agregar");
 		}
 
+	}
+	
+	private void estableciendoSubTotal() {
+
+		double subTotal = calcularSubTotal();
+		
+		if (subTotal != -1 || subTotal != 0) {
+			txtSubtotal.setText(subTotal+"");
+		}
+	}
+	
+	private double calcularSubTotal() {
+		
+		int cantidadFilas = model.getRowCount();
+		double importe = 0;
+		double subTotal = 0;
+		
+		if (cantidadFilas == -1 || cantidadFilas == 0) {
+			return -1;
+		}
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			importe = Double.parseDouble(tblVenta.getValueAt(i, 5).toString());
+			subTotal += importe;
+		}
+		
+		return subTotal;
+		
 	}
 	
 	private Producto abrirBusquedaProducto() {
