@@ -11,7 +11,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import mantenimientos.GestionProductoXMarcaTipo;
 import model.Producto;
+import model.ProductoXMarcaTipo;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -195,7 +197,7 @@ public class TRVentas extends JPanel {
 		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
 		scrollPane.setViewportView(tblVenta);
 		
-		JButton btnAdicionarProducto = new JButton("+");
+		JButton btnAdicionarProducto = new JButton("+");		
 		btnAdicionarProducto.setBounds(647, 125, 57, 36);
 		panelVentas.add(btnAdicionarProducto);
 		
@@ -304,6 +306,12 @@ public class TRVentas extends JPanel {
 			}
 		});
 		
+		btnAdicionarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				agregarProductoAlCarrito();
+			}
+		});
+		
 		btnCalcularPagoTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				calcularPagoTotalConDescuento();				
@@ -315,6 +323,38 @@ public class TRVentas extends JPanel {
 				calcularCambio();
 			}
 		});
+
+	}
+	
+	private void agregarProductoAlCarrito() {
+		String codigoProd = leerCodigoProducto();
+		String tipo = null;
+		String descripcion = leerDescripcionProducto();
+		double precio = leerPrecioProducto();
+		
+		int cantidad;
+		
+		ProductoXMarcaTipo aux = new GestionProductoXMarcaTipo().buscarProductoMarcaTipo(codigoProd);
+		
+		if (aux != null) {
+			tipo = aux.getTipo();
+		}
+		
+		if (codigoProd != null && tipo != null && descripcion != null && precio != -1) {
+			
+			cantidad = leerCantidadAComprar();
+			
+			if (cantidad != -1) {
+				
+				double importe = cantidad * precio;
+				
+				Object[] datos = {codigoProd, tipo, descripcion, cantidad, precio, importe};
+				model.addRow(datos);
+			}
+			
+		} else {
+			aviso("Busque un producto para agregar");
+		}
 
 	}
 	
