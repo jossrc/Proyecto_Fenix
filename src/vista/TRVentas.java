@@ -550,7 +550,7 @@ public class TRVentas extends JPanel {
 	
 	private double leerDescuento() {
 		
-		String descuento = txtSubtotal.getText().trim();
+		String descuento = txtDescuento.getText().trim();
 		
 		if (descuento.isEmpty()) {
 			aviso("El campo Descuento está vacío");
