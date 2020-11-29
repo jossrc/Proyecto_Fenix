@@ -154,9 +154,11 @@ SELECT
 	T.DESC_TIPO,
 	P.STOCK_PRO,
 	P.PREC_UNIT_PRO
-	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t on p.ID_TIPO_PRO = t.ID_TIPO_PRO join
-    MARCA_PRODUCTO m on p.ID_MARC_PRO = m.ID_MARC_PRO;
-    END $$
+	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t 
+      on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
+	join MARCA_PRODUCTO m 
+      on p.ID_MARC_PRO = m.ID_MARC_PRO;
+END $$
 delimiter ; 
 
 CALL usp_ReporteProductoListado(); 
@@ -240,3 +242,25 @@ BEGIN
   WHERE COD_PRO = cod;
 END $$
 delimiter ;
+
+-- Procedure:Busca un producto con su tipo y marca
+delimiter $$
+CREATE PROCEDURE usp_buscarProductoTipoMarca(cod char(8))
+BEGIN
+	SELECT 
+    p.COD_PRO,  
+	p.DESC_PRO,
+	m.DESC_MARCA,
+	T.DESC_TIPO,
+	P.STOCK_PRO,
+	P.PREC_UNIT_PRO
+	FROM PRODUCTO p
+    JOIN  TIPO_PRODUCTO t 
+      on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
+	join MARCA_PRODUCTO m 
+      on p.ID_MARC_PRO = m.ID_MARC_PRO
+	WHERE p.COD_PRO = cod;
+END $$
+delimiter ;
+
+call usp_buscarProductoTipoMarca('PROD0001');
