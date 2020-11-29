@@ -27,7 +27,6 @@ import java.awt.event.ActionEvent;
 public class TRVentas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCliente;
 	private JTextField txtBoleta;
 	private JTextField txtCodigo;
 	private JTextField txtCantidad;
@@ -43,6 +42,10 @@ public class TRVentas extends JPanel {
 	private JTextField txtDescuento;
 	private JTextField txtTotalAPagar;
 	private JDateChooser txtFecha;
+	
+	// GLOBAL
+	public static JTextField txtIDCliente;
+	public static JTextField txtCliente;
 
 	public TRVentas() {
 		setLayout(null);
@@ -58,8 +61,8 @@ public class TRVentas extends JPanel {
 		panelVentas.add(pDatosVenta);
 		pDatosVenta.setLayout(null);
 		
-		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(21, 19, 46, 14);
+		JLabel lblCliente = new JLabel("CLIENTE COMPRADOR");
+		lblCliente.setBounds(21, 19, 109, 14);
 		pDatosVenta.add(lblCliente);
 		
 		txtCliente = new JTextField();
@@ -97,6 +100,12 @@ public class TRVentas extends JPanel {
 		btnBuscarCliente.setBorder(null);
 		btnBuscarCliente.setBounds(250, 41, 25, 25);
 		pDatosVenta.add(btnBuscarCliente);
+		
+		txtIDCliente = new JTextField();
+		txtIDCliente.setEditable(false);
+		txtIDCliente.setColumns(10);
+		txtIDCliente.setBounds(170, 16, 70, 20);
+		pDatosVenta.add(txtIDCliente);
 		
 		JPanel pDatosProducto = new JPanel();
 		pDatosProducto.setBorder(crearBordeTitulo("Datos del Producto"));
@@ -274,7 +283,7 @@ public class TRVentas extends JPanel {
 		
 		btnBuscarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				abrirBusquedaCliente();
 			}
 		});
 		
@@ -296,6 +305,12 @@ public class TRVentas extends JPanel {
 			}
 		});
 
+	}
+	
+	private void abrirBusquedaCliente() {
+		DlgBuscarCliente buscar = new DlgBuscarCliente();
+		buscar.setLocationRelativeTo(this);
+		buscar.setVisible(true);
 	}
 	
 	private void calcularPagoTotalConDescuento() {
@@ -336,6 +351,16 @@ public class TRVentas extends JPanel {
 		titled.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		return titled;
+	}
+	
+	private int leerIDCliente() {
+		String id = txtIDCliente.getText().trim();
+		
+		if (id.isEmpty()) {
+			return -1;
+		}
+		
+		return Integer.parseInt(id);
 	}
 	
 	private String leerCliente() {
@@ -496,5 +521,4 @@ public class TRVentas extends JPanel {
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
-	
 }
