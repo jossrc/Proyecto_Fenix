@@ -12,9 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -86,7 +88,26 @@ public class TRVentas extends JPanel {
 		txtFecha.setBounds(467, 44, 128, 20);
 		pDatosVenta.add(txtFecha);
 		
+		/*
+		 * JButton btnAgregarCarrito = new JButton("");		
+		btnAgregarCarrito.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAgregarCarrito.setRolloverIcon(new ImageIcon(FrmBoleta.class.getResource("/img/cartph.png")));
+		btnAgregarCarrito.setIcon(new ImageIcon(FrmBoleta.class.getResource("/img/cartp.png")));
+		btnAgregarCarrito.setContentAreaFilled(false);
+		btnAgregarCarrito.setBorderPainted(false);
+		btnAgregarCarrito.setBorder(null);
+		btnAgregarCarrito.setBounds(397, 86, 37, 34);
+		pProducto.add(btnAgregarCarrito);
+		 * 
+		 * */
+		
 		JButton btnBuscarCliente = new JButton("");
+		btnBuscarCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarCliente.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
+		btnBuscarCliente.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
+		btnBuscarCliente.setContentAreaFilled(false);
+		btnBuscarCliente.setBorderPainted(false);
+		btnBuscarCliente.setBorder(null);
 		btnBuscarCliente.setBounds(250, 41, 25, 25);
 		pDatosVenta.add(btnBuscarCliente);
 		
@@ -107,6 +128,12 @@ public class TRVentas extends JPanel {
 		pDatosProducto.add(txtCodigo);
 		
 		JButton btnBuscarProducto = new JButton("");
+		btnBuscarProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarProducto.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
+		btnBuscarProducto.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
+		btnBuscarProducto.setContentAreaFilled(false);
+		btnBuscarProducto.setBorderPainted(false);
+		btnBuscarProducto.setBorder(null);
 		btnBuscarProducto.setBounds(250, 41, 25, 25);
 		pDatosProducto.add(btnBuscarProducto);
 		
