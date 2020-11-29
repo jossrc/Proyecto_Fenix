@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import model.Producto;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.text.SimpleDateFormat;
@@ -290,6 +292,15 @@ public class TRVentas extends JPanel {
 		btnBuscarProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				Producto producto = abrirBusquedaProducto();
+				
+				if (producto != null) {
+					txtCodigo.setText(producto.getCodigo());
+					txtDescripcionProducto.setText(producto.getDescripcion());
+					txtStock.setText(producto.getStock()+"");
+					txtPrecio.setText(producto.getPrecioUnitario()+"");
+				}
+				
 			}
 		});
 		
@@ -305,6 +316,14 @@ public class TRVentas extends JPanel {
 			}
 		});
 
+	}
+	
+	private Producto abrirBusquedaProducto() {
+		DlgBuscarProducto buscar = new DlgBuscarProducto();
+		buscar.setLocationRelativeTo(this);
+		Producto p = buscar.showDialog();
+		
+		return p;
 	}
 	
 	private void abrirBusquedaCliente() {

@@ -5,14 +5,24 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionProductos;
+
+import model.Producto;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class DlgBuscarProducto extends JDialog {
 
@@ -20,6 +30,9 @@ public class DlgBuscarProducto extends JDialog {
 	private JTable tblProductos;
 	private JButton btnSeleccionar;
 	private DefaultTableModel model;
+	
+	// GLOBAL
+	//public static Producto productoEncontrado = null;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,6 +56,7 @@ public class DlgBuscarProducto extends JDialog {
 	}
 
 	public DlgBuscarProducto() {
+		setModal(true);
 		setResizable(false);
 		setTitle("Buscar Producto");
 		setBounds(100, 100, 455, 444);
@@ -75,9 +89,56 @@ public class DlgBuscarProducto extends JDialog {
 		model.addColumn("Precio Unit.");
 		scrollPane.setViewportView(tblProductos);
 		
-		btnSeleccionar = new JButton("SELECCIONAR");
+		btnSeleccionar = new JButton("SELECCIONAR");		
 		btnSeleccionar.setBounds(174, 357, 103, 23);
 		panel.add(btnSeleccionar);
+		
+		listado();
 
+		btnSeleccionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				dispose();
+			}
+		});
+		
 	}
+	
+	private void listado() {
+		ArrayList<Producto> lista = new GestionProductos().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Producto p : lista){
+				insertarNuevaFila(p);				
+			}
+		}
+	}
+	
+	public Producto showDialog() {
+		setVisible(true);
+		
+		return obtenerProducto();
+	}
+	
+	private Producto obtenerProducto() {
+		
+		int fila = tblProductos.getSelectedRow();
+		
+		if (fila == -1) {
+			return null;
+		}
+		
+		String codigo = tblProductos.getValueAt(fila, 0).toString();
+		
+		return new GestionProductos().buscar(codigo);
+	}
+	
+	private void insertarNuevaFila(Producto p) {
+		Object datos[] = {p.getCodigo(), p.getDescripcion(), p.getStock(), p.getPrecioUnitario()};
+		model.addRow(datos);
+	}
+	
 }
