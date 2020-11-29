@@ -87,21 +87,8 @@ public class TRVentas extends JPanel {
 		txtFecha = new JDateChooser();
 		txtFecha.setBounds(467, 44, 128, 20);
 		pDatosVenta.add(txtFecha);
-		
-		/*
-		 * JButton btnAgregarCarrito = new JButton("");		
-		btnAgregarCarrito.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAgregarCarrito.setRolloverIcon(new ImageIcon(FrmBoleta.class.getResource("/img/cartph.png")));
-		btnAgregarCarrito.setIcon(new ImageIcon(FrmBoleta.class.getResource("/img/cartp.png")));
-		btnAgregarCarrito.setContentAreaFilled(false);
-		btnAgregarCarrito.setBorderPainted(false);
-		btnAgregarCarrito.setBorder(null);
-		btnAgregarCarrito.setBounds(397, 86, 37, 34);
-		pProducto.add(btnAgregarCarrito);
-		 * 
-		 * */
-		
-		JButton btnBuscarCliente = new JButton("");
+
+		JButton btnBuscarCliente = new JButton("");		
 		btnBuscarCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscarCliente.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
 		btnBuscarCliente.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
@@ -127,7 +114,7 @@ public class TRVentas extends JPanel {
 		txtCodigo.setBounds(21, 44, 219, 20);
 		pDatosProducto.add(txtCodigo);
 		
-		JButton btnBuscarProducto = new JButton("");
+		JButton btnBuscarProducto = new JButton("");		
 		btnBuscarProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscarProducto.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
 		btnBuscarProducto.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
@@ -284,6 +271,18 @@ public class TRVentas extends JPanel {
 		JButton btnCalcularPagoTotal = new JButton("Calcular");		
 		btnCalcularPagoTotal.setBounds(357, 23, 89, 35);
 		pPagar.add(btnCalcularPagoTotal);
+		
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		
+		btnBuscarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		btnCalcularPagoTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
