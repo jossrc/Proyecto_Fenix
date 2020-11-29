@@ -4,6 +4,6 @@ import model.ProductoXMarcaTipo;
 
 public interface ProductoXMarcaTipoInterface {
 
-	public ProductoXMarcaTipo buscarProductoMarcaTipo();
+	public ProductoXMarcaTipo buscarProductoMarcaTipo(String codProd);
 	
 }
