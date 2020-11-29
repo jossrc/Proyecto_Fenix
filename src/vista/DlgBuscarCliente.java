@@ -72,4 +72,9 @@ public class DlgBuscarCliente extends JDialog {
 			}
 		});
 	}
+	
+	private void listadoClientes() {
+		
+	}
+	
 }

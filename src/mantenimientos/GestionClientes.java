@@ -193,4 +193,43 @@ public class GestionClientes implements ClientesInterface {
 		return lista;
 	}
 
+	@Override
+	public ArrayList<Cliente> listadoDesc() {
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT * FROM CLIENTE WHERE ESTADO = 1 ORDER BY ID_CLI DESC";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String dni_cli = rs.getString(2);
+				String nom = rs.getString(3);
+				String ape = rs.getString(4);
+				String dir = rs.getString(5);
+				String tel = rs.getString(6);
+				int estado = rs.getInt(7);
+
+				Cliente cliente = new Cliente(id, dni_cli, nom, ape, dir, tel, estado);
+				lista.add(cliente);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en listado Cliente : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return lista;
+	}
+
 }

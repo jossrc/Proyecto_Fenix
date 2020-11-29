@@ -17,5 +17,7 @@ public interface ClientesInterface {
 	public Cliente buscar(String dni);
 	
 	public ArrayList<Cliente> listado();
+	
+	public ArrayList<Cliente> listadoDesc();
 
 }
