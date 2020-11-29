@@ -46,8 +46,10 @@ public class GestionVentas implements VentasInterface {
 			// Registrando el detalle
 
 			String sql2 = "INSERT INTO DETALLE_BOLETA VALUES (?,?,?,?)";
-			
+
 			for (DetalleBoleta d : detalle) {
+				pst2 = con.prepareStatement(sql2);
+				
 				pst2.setInt(1, boleta.getNumeroBoleta());
 				pst2.setString(2, d.getCodigoProducto());
 				pst2.setDouble(3, d.getImporte());
@@ -59,6 +61,7 @@ public class GestionVentas implements VentasInterface {
 			// Confirmando la venta
 
 			String sql3 = "INSERT INTO VENTA VALUES (null, ?,?)";
+			pst3 = con.prepareStatement(sql3);
 			
 			pst3.setInt(1, venta.getIdVendedor());
 			pst3.setInt(2, boleta.getNumeroBoleta());
@@ -67,7 +70,7 @@ public class GestionVentas implements VentasInterface {
 			
 			// Realizando compra de productos
 			
-			String sql4 = "{call usp_compraProducto(?,?)}";
+			String sql4 = "{call usp_compraProducto(?,?)}";			
 			
 			for (DetalleBoleta d : detalle) {
 				pst4 = con.prepareStatement(sql4);
