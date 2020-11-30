@@ -274,4 +274,46 @@ SELECT * FROM BOLETA;
 SELECT * FROM DETALLE_BOLETA;
 SELECT * FROM VENTA;
 
+-- PROCEDURES PARA VENTAS CONCRETADAS
+
+-- Cantidad de ventas en un rango de fecha
+delimiter $$
+CREATE PROCEDURE usp_buscarCantidadVentasEnFechas(fech1 DATE, fech2 DATE)
+BEGIN	
+	SELECT COUNT(DISTINCT(B.NUM_BOL)) AS 'Cantidad'
+    FROM BOLETA AS B
+    INNER JOIN CLIENTE AS C
+      ON B.ID_CLI = C.ID_CLI
+	INNER JOIN DETALLE_BOLETA AS D
+      ON B.NUM_BOL = D.NUM_BOL
+    WHERE B.FECH_BOL BETWEEN fech1 AND fech2;
+END $$
+delimiter ;
+
+call usp_buscarCantidadVentasEnFechas('2020/11/29', '2020/11/30');
+
+-- Buscar ventas en un rango de fecha
+delimiter $$
+CREATE PROCEDURE usp_buscarVentasEnFechas(fech1 DATE, fech2 DATE, canti INT)
+BEGIN
+	-- Nro Boleta, Cliente, Compras, Total
+	SELECT B.NUM_BOL AS 'Numero',
+           concat(C.NOM_CLI, ' ', C.APE_CLI) AS 'Cliente',
+           sum(D.CANT_COMP_BOL) AS 'Compras',
+           B.TOT_BOL AS 'Total'
+    FROM BOLETA AS B
+    INNER JOIN CLIENTE AS C
+      ON B.ID_CLI = C.ID_CLI
+	INNER JOIN DETALLE_BOLETA AS D
+      ON B.NUM_BOL = D.NUM_BOL
+    WHERE B.FECH_BOL BETWEEN fech1 AND fech2
+    GROUP BY B.NUM_BOL, concat(C.NOM_CLI, ' ', C.APE_CLI)
+    LIMIT canti;
+END $$
+delimiter ;
+
+CALL usp_buscarVentasEnFechas('2020/11/29', '2020/11/30', 2)
+
+
+
 
