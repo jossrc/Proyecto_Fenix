@@ -240,7 +240,7 @@ public class RepVentConcretadas extends JPanel {
 			return -1;
 		}
 		
-		if (!cantidad.matches("[1-9]+")) {
+		if (!cantidad.matches("[0-9]+")) {
 			aviso("Ingrese una Cantidad Válida");
 			return -1;
 		}
