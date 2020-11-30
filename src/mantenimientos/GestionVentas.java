@@ -15,7 +15,7 @@ public class GestionVentas implements VentasInterface {
 	
 	@Override
 	public int obtenerNumBoleta() {
-		int numero = -1;
+		int numero = 1;
 		
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -67,11 +67,11 @@ public class GestionVentas implements VentasInterface {
 			pst1 = con.prepareStatement(sql1);
 			
 			pst1.setInt(1, boleta.getNumeroBoleta());
-			pst1.setString(1, boleta.getFecha());
-			pst1.setDouble(2, boleta.getSubtotal());
-			pst1.setDouble(3, boleta.getDescuento());
-			pst1.setDouble(4, boleta.getTotal());
-			pst1.setInt(5, boleta.getIdCliente());
+			pst1.setString(2, boleta.getFecha());
+			pst1.setDouble(3, boleta.getSubtotal());
+			pst1.setDouble(4, boleta.getDescuento());
+			pst1.setDouble(5, boleta.getTotal());
+			pst1.setInt(6, boleta.getIdCliente());
 			
 			ok = pst1.executeUpdate();
 			
