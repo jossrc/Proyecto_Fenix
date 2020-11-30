@@ -185,28 +185,6 @@ public class MantProducto extends JPanel {
 		txtPrecioUnit.setColumns(10);
 		txtPrecioUnit.setBounds(317, 160, 115, 20);
 		panelProducto.add(txtPrecioUnit);
-		
-		JButton btnNuevo = new JButton("Nuevo");
-		btnNuevo.setForeground(Color.WHITE);
-		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNuevo.setContentAreaFilled(false);
-		btnNuevo.setOpaque(true);
-		btnNuevo.setBorder(null);
-		btnNuevo.setBackground(Color.LIGHT_GRAY);
-		btnNuevo.setBounds(622, 45, 122, 53);
-		panelProducto.add(btnNuevo);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(Color.WHITE);
-		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCancelar.setContentAreaFilled(false);
-		btnCancelar.setOpaque(true);
-		btnCancelar.setBorder(null);
-		btnCancelar.setBackground(Color.LIGHT_GRAY);
-		btnCancelar.setBounds(622, 106, 122, 53);
-		panelProducto.add(btnCancelar);		
 				
 		llenarCboMarca();
 		llenarCboTipos();
