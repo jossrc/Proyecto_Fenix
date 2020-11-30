@@ -12,12 +12,18 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import mantenimientos.GestionProductoXMarcaTipo;
+import mantenimientos.GestionVentas;
+import model.Boleta;
+import model.DetalleBoleta;
 import model.Producto;
 import model.ProductoXMarcaTipo;
+import model.Venta;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -50,6 +56,8 @@ public class TRVentas extends JPanel {
 	// GLOBAL
 	public static JTextField txtIDCliente;
 	public static JTextField txtCliente;
+
+	private ArrayList<DetalleBoleta> listaDetalleBoleta = new ArrayList<DetalleBoleta>();
 
 	public TRVentas() {
 		setLayout(null);
@@ -205,7 +213,7 @@ public class TRVentas extends JPanel {
 		btnQuitarProducto.setBounds(647, 182, 57, 36);
 		panelVentas.add(btnQuitarProducto);
 		
-		JButton btnGenerarVenta = new JButton("GENERAR");
+		JButton btnGenerarVenta = new JButton("GENERAR");		
 		btnGenerarVenta.setBounds(703, 296, 102, 36);
 		panelVentas.add(btnGenerarVenta);
 		
@@ -285,6 +293,8 @@ public class TRVentas extends JPanel {
 		btnCalcularPagoTotal.setBounds(357, 23, 89, 35);
 		pPagar.add(btnCalcularPagoTotal);
 		
+		generarFechaActual();
+		
 		btnBuscarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				abrirBusquedaCliente();
@@ -323,10 +333,84 @@ public class TRVentas extends JPanel {
 				calcularCambio();
 			}
 		});
+		
+		btnGenerarVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				generarVenta();
+			}
+		});
 
 	}
 	
+	private void generarVenta() {
+		if (FrmLogin.vendedorLogueado == null) {
+			aviso("Inicie Sesión antes de empezar a vender");
+			return;
+		}
+		
+		int idCliente = leerIDCliente();
+		
+		if (idCliente == -1 ) {
+			aviso("Seleccione a un cliente");
+			return;
+		}
+		
+		int cantidadFilas = model.getRowCount();
+		
+		if (cantidadFilas == -1 || cantidadFilas == 0) {
+			aviso("Seleccione productos a vender");
+			return;
+		}
+		
+		double totalAPagar = leerTotalPagar();
+		
+		if (totalAPagar == -1) {
+			aviso("Falta Calcular el Total a Pagar");
+			return;
+		}
+		
+		String fecha = leerFechaBoleta();
+		
+		if (fecha != null) {
+			int numBoleta = new GestionVentas().obtenerNumBoleta();
+			
+			Venta venta = new Venta(0, FrmLogin.vendedorLogueado.getId(), numBoleta);
+			
+			double subtotal = leerSubTotal();
+			double descuento = leerDescuento();
+			
+			if (descuento != -1) {
+				Boleta boleta = new Boleta(numBoleta, fecha, subtotal, descuento, totalAPagar, idCliente);
+				
+				int ok = new GestionVentas().realizarVentaCompleta(venta, listaDetalleBoleta, boleta);
+				
+				if (ok == -1) {
+					aviso("Oops algo salió mal. No se pudo generar la venta");
+				} else {
+					JOptionPane.showMessageDialog(this, "Venta realizada exitosamente");
+				}
+				
+			}
+	
+		}
+
+	}
+	
+	
 	private void agregarProductoAlCarrito() {
+		
+		if (FrmLogin.vendedorLogueado == null) {
+			aviso("Inicie Sesión antes de empezar a vender");
+			return;
+		}
+		
+		int idCliente = leerIDCliente();
+		
+		if (idCliente == -1 ) {
+			aviso("Seleccione a un cliente");
+			return;
+		}
+		
 		String codigoProd = leerCodigoProducto();
 		String tipo = null;
 		String descripcion = leerDescripcionProducto();
@@ -350,6 +434,11 @@ public class TRVentas extends JPanel {
 				
 				Object[] datos = {codigoProd, tipo, descripcion, cantidad, precio, importe};
 				model.addRow(datos);
+				
+				int numBol = new GestionVentas().obtenerNumBoleta();
+				
+				DetalleBoleta det = new DetalleBoleta(numBol, codigoProd, importe, cantidad);
+				listaDetalleBoleta.add(det);
 				
 				estableciendoSubTotal();
 			}
@@ -452,15 +541,9 @@ public class TRVentas extends JPanel {
 		return Integer.parseInt(id);
 	}
 	
-	private String leerCliente() {
-		
-		String cliente = txtCliente.getText().trim();
-		
-		if (cliente.isEmpty()) {
-			return null;
-		}
-		
-		return cliente;
+	private void generarFechaActual() {
+		Date fechaActual = new Date();
+		txtFecha.setDate(fechaActual);  
 	}
 	
 	private String leerFechaBoleta() {
@@ -469,6 +552,7 @@ public class TRVentas extends JPanel {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtFecha.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una fecha válida");
 			return null;
 		}
 	}
