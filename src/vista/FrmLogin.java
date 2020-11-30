@@ -198,7 +198,6 @@ public class FrmLogin extends JFrame {
 			principal.setVisible(true);
 			
 			dispose();
-			// JOptionPane.showMessageDialog(this, "Bienvenido " + vendedorLogueado.getNombre() + " " + vendedorLogueado.getApellido());
 		}
 	}
 	
