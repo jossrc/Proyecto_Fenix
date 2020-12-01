@@ -5,6 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
+
+import mantenimientos.GestionVentasConcretadas;
+import model.VentaConcretada;
+
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -14,6 +18,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -181,13 +186,13 @@ public class RepVentConcretadas extends JPanel {
 		
 		btnBuscarVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				buscarVentas();
 			}
 		});
 		
 		btnGenerarReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				generarReporte();
 			}
 		});
 		
@@ -204,11 +209,79 @@ public class RepVentConcretadas extends JPanel {
 		});
 	}
 	
+	private void generarReporte() {
+		String fech1 = leerFechaInicial();		
+		if (fech1 == null) return;
+		
+		String fech2 = leerFechaFinal();
+		if (fech2 == null) return;
+		
+		int cantidadAVisualizar = leerCantidadAVisualizar();
+		if (cantidadAVisualizar == -1) return;
+		
+		ArrayList<VentaConcretada> lista = new GestionVentasConcretadas().buscarVentasEnFechas(fech1, fech2, cantidadAVisualizar);
+		
+		mostrarRegistrosEnTabla(lista);
+		
+		double gananciaTotal = calcularGananciaTotal();
+		
+		if (gananciaTotal != -1) {
+			txtGananciaTotal.setText(gananciaTotal+"");
+		}
+		
+	}
+	
+	private void mostrarRegistrosEnTabla(ArrayList<VentaConcretada> lista) {
+		model.setRowCount(0);
+		for (VentaConcretada v : lista) {
+			insertarRegistroTabla(v);
+		}
+	}
+	
+	private void insertarRegistroTabla(VentaConcretada v) {
+		Object[] datos = {v.getNumBoleta(), v.getCliente(), v.getComprasRealizadas(), v.getTotal()};
+		model.addRow(datos);
+	}
+	
+	private void buscarVentas() {
+		
+		String fech1 = leerFechaInicial();
+		if (fech1 == null) return;
+		
+		String fech2 = leerFechaFinal();
+		if (fech2 == null) return;
+		
+		int cantidad = new GestionVentasConcretadas().cantidadVentas(fech1, fech2);
+		
+		if (cantidad == 0) {
+			aviso("No se encontraron ventas concretadas");
+		} else {
+			txtCantidadEncontrada.setText(cantidad + "");
+		}
+
+	}
+	
+	private double calcularGananciaTotal() {
+		int cantidadFilas = model.getRowCount();
+		double importe = 0;
+		double gananciaTotal = 0;
+		
+		if (cantidadFilas == 0 || cantidadFilas == -1) return -1;
+		
+		for (int i = 0; i < cantidadFilas; i++) {
+			importe = Double.parseDouble(tblReporte.getValueAt(i, 3).toString());
+			gananciaTotal += importe;
+		}
+		
+		return gananciaTotal;
+	}
+	
 	private String leerFechaInicial() {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtDesde.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una Fecha inicial válida");
 			return null;
 		}
 	}
@@ -218,6 +291,7 @@ public class RepVentConcretadas extends JPanel {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtHasta.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una Fecha final válida");
 			return null;
 		}
 	}
