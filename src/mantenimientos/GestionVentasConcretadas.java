@@ -89,4 +89,16 @@ public class GestionVentasConcretadas implements VentasConcretadasInterface {
 		return lista;
 	}
 
+	@Override
+	public int obtenerHistorialVentas() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double obtenerHistorialGanancia() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
