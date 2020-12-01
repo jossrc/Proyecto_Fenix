@@ -122,8 +122,33 @@ public class GestionVentasConcretadas implements VentasConcretadasInterface {
 
 	@Override
 	public double obtenerHistorialGanancia() {
-		// TODO Auto-generated method stub
-		return 0;
+		double historial = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{usp_historialGanancia()}";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {						
+				historial = rs.getDouble(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en obtener el Historial de Ganancia: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return historial;
 	}
 
 }
