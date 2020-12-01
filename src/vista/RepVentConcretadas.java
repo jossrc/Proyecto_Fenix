@@ -12,6 +12,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.mysql.cj.util.StringUtils;
 import com.toedter.calendar.JDateChooser;
 
 import mantenimientos.GestionVentasConcretadas;
@@ -326,6 +327,13 @@ public class RepVentConcretadas extends JPanel {
 					table.addCell(v.getTotal()+"");
 				}
 				document.add(table);
+				
+				document.add(new Paragraph(" "));
+				String espacios = String.format("%0" + 30 + "d", 0).replace("0", " ");
+				
+				p = new Paragraph("Ganancia Total : " + leerGananciaTotal() +  espacios );
+				p.setAlignment(Chunk.ALIGN_RIGHT);
+				document.add(p);
 			}
 
 			document.close();
