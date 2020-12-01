@@ -91,8 +91,33 @@ public class GestionVentasConcretadas implements VentasConcretadasInterface {
 
 	@Override
 	public int obtenerHistorialVentas() {
-		// TODO Auto-generated method stub
-		return 0;
+		int historial = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{usp_historialVentasTotales()}";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {						
+				historial = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en obtener el Historial de ventas: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return historial;
 	}
 
 	@Override
