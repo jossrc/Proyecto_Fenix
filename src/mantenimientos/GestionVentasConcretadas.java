@@ -99,7 +99,7 @@ public class GestionVentasConcretadas implements VentasConcretadasInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "{usp_historialVentasTotales()}";
+			String sql = "{call usp_historialVentasTotales()}";
 			pst = con.prepareStatement(sql);
 
 			rs = pst.executeQuery();
@@ -130,7 +130,7 @@ public class GestionVentasConcretadas implements VentasConcretadasInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "{usp_historialGanancia()}";
+			String sql = "{call usp_historialGanancia()}";
 			pst = con.prepareStatement(sql);
 
 			rs = pst.executeQuery();

@@ -184,6 +184,9 @@ public class RepVentConcretadas extends JPanel {
 		btnImprimirReporte.setBounds(657, 315, 130, 39);
 		panelVentasConcretadas.add(btnImprimirReporte);
 		
+		cargarHistorialVentas();
+		cargarHistorialGanancia();
+		
 		btnBuscarVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarVentas();
@@ -207,6 +210,17 @@ public class RepVentConcretadas extends JPanel {
 				
 			}
 		});
+	}
+	
+	private void cargarHistorialVentas() {
+		int historial = new GestionVentasConcretadas().obtenerHistorialVentas();
+		
+		txtHistorialVentas.setText(historial+"");
+	}
+	
+	private void cargarHistorialGanancia() {
+		double historial = new GestionVentasConcretadas().obtenerHistorialGanancia();
+		txtHistorialGanancia.setText(historial + "");
 	}
 	
 	private void generarReporte() {
