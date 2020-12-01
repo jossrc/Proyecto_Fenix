@@ -325,5 +325,13 @@ delimiter ;
 
 CALL usp_historialVentasTotales();
 
+-- Historial de ganancia
+delimiter $$
+CREATE PROCEDURE usp_historialGanancia()
+BEGIN
+	SELECT sum(TOT_BOL) AS 'Ganancia Total'
+    FROM BOLETA;
+END $$
+delimiter ;
 
-
+call usp_historialGanancia();
