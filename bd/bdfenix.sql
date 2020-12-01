@@ -314,6 +314,16 @@ delimiter ;
 
 CALL usp_buscarVentasEnFechas('2020/11/29', '2020/11/30', 2)
 
+-- Historial de Ventas Totales
+delimiter $$
+CREATE PROCEDURE usp_historialVentasTotales()
+BEGIN
+	SELECT count(*) AS 'Cantidad Ventas'
+    FROM VENTA;
+END $$
+delimiter ;
+
+CALL usp_historialVentasTotales();
 
 
 
