@@ -190,7 +190,7 @@ public class FrmLogin extends JFrame {
 	}
 	
 	private void iniciarSesion() {
-		if (vendedorLogueado == null) {
+		if (vendedorLogueado == null) { // TODO: Evitar que se abra el Principal en caso que no coincida
 			cargarVendedor();
 			
 			FrmPrincipal principal = new FrmPrincipal();
@@ -201,7 +201,7 @@ public class FrmLogin extends JFrame {
 		}
 	}
 	
-	private void cargarVendedor() {
+	private void cargarVendedor() { // TODO: Corregir debe retornar bool 
 		Login login = cargarLogin();
 		
 		if (login != null ) {
