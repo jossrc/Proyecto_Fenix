@@ -24,6 +24,9 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class RepProducto extends JPanel {
 
@@ -33,6 +36,7 @@ public class RepProducto extends JPanel {
 	private JTable tblProductos;
 	private JComboBox<String> cboMarca;
 	private JComboBox<String> cboTipoProducto;
+	private JCheckBox chkActivarTipoBusqueda;
 
 	public RepProducto() {
 		setLayout(null);
@@ -78,10 +82,12 @@ public class RepProducto extends JPanel {
 		pProducto.add(lblTipo);
 		
 		cboMarca = new JComboBox<String>();
+		cboMarca.setEnabled(false);
 		cboMarca.setBounds(111, 60, 241, 20);
 		pProducto.add(cboMarca);
 		
 		cboTipoProducto = new JComboBox<String>();
+		cboTipoProducto.setEnabled(false);
 		cboTipoProducto.setBounds(111, 102, 241, 20);
 		pProducto.add(cboTipoProducto);
 		
@@ -107,8 +113,29 @@ public class RepProducto extends JPanel {
 		btnImprimir.setBorder(null);
 		btnImprimir.setBackground(Color.GRAY);
 		
+		chkActivarTipoBusqueda = new JCheckBox("");		
+		chkActivarTipoBusqueda.setSelected(true);
+		chkActivarTipoBusqueda.setBounds(363, 21, 28, 23);
+		pProducto.add(chkActivarTipoBusqueda);
+		
 		llenarCboMarca();
 		llenarCboTipos();
+		
+		chkActivarTipoBusqueda.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				if (arg0.getStateChange() == ItemEvent.DESELECTED) {					
+					txtCodigo.setEnabled(false);
+					cboMarca.setEnabled(true);
+					cboTipoProducto.setEnabled(true);
+				} else {
+					txtCodigo.setEnabled(true);
+					cboMarca.setEnabled(false);
+					cboTipoProducto.setEnabled(false);
+				}
+				
+			}
+		});
 		
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
