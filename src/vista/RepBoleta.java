@@ -23,17 +23,22 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class RepBoleta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tblBoleta;
 	private JTextField txtNumBoleta;
-	private JTextField txtDNI_RUC;
+	private JTextField txtDNI;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JDateChooser txtFechInicial;
 	private JDateChooser txtFechFinal;
 	private DefaultTableModel model;
+	private JRadioButton rdbtnBoleta;
+	private JRadioButton rdbtnDocumento;
+	private JRadioButton rdbtnRango;
 
 	public RepBoleta() {
 		setLayout(null);
@@ -114,10 +119,11 @@ public class RepBoleta extends JPanel {
 		lblBuscarDocumento.setBounds(62, 56, 206, 19);
 		pTipoBusqueda.add(lblBuscarDocumento);
 		
-		txtDNI_RUC = new JTextField();
-		txtDNI_RUC.setColumns(10);
-		txtDNI_RUC.setBounds(316, 56, 265, 20);
-		pTipoBusqueda.add(txtDNI_RUC);
+		txtDNI = new JTextField();
+		txtDNI.setEnabled(false);
+		txtDNI.setColumns(10);
+		txtDNI.setBounds(316, 56, 265, 20);
+		pTipoBusqueda.add(txtDNI);
 		
 		JLabel lblBuscarRango = new JLabel("Buscar por Rango de Fechas");
 		lblBuscarRango.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -126,10 +132,12 @@ public class RepBoleta extends JPanel {
 		
 		txtFechInicial = new JDateChooser();
 		txtFechInicial.setBounds(294, 102, 107, 20);
+		txtFechInicial.setEnabled(false);
 		pTipoBusqueda.add(txtFechInicial);
 		
 		txtFechFinal = new JDateChooser();
 		txtFechFinal.setBounds(474, 102, 107, 20);
+		txtFechFinal.setEnabled(false);
 		pTipoBusqueda.add(txtFechFinal);
 		
 		JLabel lblHasta = new JLabel("hasta");
@@ -137,21 +145,55 @@ public class RepBoleta extends JPanel {
 		lblHasta.setBounds(422, 103, 35, 19);
 		pTipoBusqueda.add(lblHasta);
 		
-		JRadioButton rdbtnBoleta = new JRadioButton("");
+		rdbtnBoleta = new JRadioButton("");		
 		buttonGroup.add(rdbtnBoleta);
 		rdbtnBoleta.setSelected(true);
 		rdbtnBoleta.setBounds(28, 17, 28, 23);
 		pTipoBusqueda.add(rdbtnBoleta);
 		
-		JRadioButton rdbtnDocumento = new JRadioButton("");
+		rdbtnDocumento = new JRadioButton("");		
 		buttonGroup.add(rdbtnDocumento);
 		rdbtnDocumento.setBounds(28, 54, 28, 23);
 		pTipoBusqueda.add(rdbtnDocumento);
 		
-		JRadioButton rdbtnRango = new JRadioButton("");
+		rdbtnRango = new JRadioButton("");		
 		buttonGroup.add(rdbtnRango);
 		rdbtnRango.setBounds(28, 98, 28, 23);
 		pTipoBusqueda.add(rdbtnRango);
+		
+		rdbtnBoleta.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+					txtNumBoleta.setEnabled(false);
+				} else {
+					txtNumBoleta.setEnabled(true);
+				}
+				
+			}
+		});
+		
+		rdbtnDocumento.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED) {
+					txtDNI.setEnabled(false);
+				} else {
+					txtDNI.setEnabled(true);
+				}
+			}
+		});
+		
+		rdbtnRango.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED) {
+					txtFechInicial.setEnabled(false);
+					txtFechFinal.setEnabled(false);
+				} else {
+					txtFechInicial.setEnabled(true);
+					txtFechFinal.setEnabled(true);
+				}
+			}
+		});
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -191,7 +233,7 @@ public class RepBoleta extends JPanel {
 	}
 	
 	private String leerDNI_RUC() {
-		String dniRuc = txtDNI_RUC.getText().trim();
+		String dniRuc = txtDNI.getText().trim();
 
 		if (dniRuc.isEmpty()) {
 			aviso("El campo DNI-RUC está vacío");
