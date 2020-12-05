@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
@@ -32,6 +33,7 @@ public class RepBoleta extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JDateChooser txtFechInicial;
 	private JDateChooser txtFechFinal;
+	private DefaultTableModel model;
 
 	public RepBoleta() {
 		setLayout(null);
@@ -46,6 +48,14 @@ public class RepBoleta extends JPanel {
 		pBoleta.add(scrollPane);
 		
 		tblBoleta = new JTable();
+		model = new DefaultTableModel();
+		tblBoleta.setModel(model);
+		model.addColumn("N° Boleta");
+		model.addColumn("DNI Cliente");
+		model.addColumn("Fecha");
+		model.addColumn("SubTotal");
+		model.addColumn("Descuento");
+		model.addColumn("Total");
 		scrollPane.setViewportView(tblBoleta);
 		
 		JButton btnBuscar = new JButton("BUSCAR");		
@@ -99,9 +109,9 @@ public class RepBoleta extends JPanel {
 		txtNumBoleta.setBounds(316, 18, 265, 20);
 		pTipoBusqueda.add(txtNumBoleta);
 		
-		JLabel lblBuscarDocumento = new JLabel("Buscar por N\u00B0 Documento (DNI/RUC)");
+		JLabel lblBuscarDocumento = new JLabel("Buscar por N\u00B0 Documento DNI");
 		lblBuscarDocumento.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblBuscarDocumento.setBounds(62, 56, 233, 19);
+		lblBuscarDocumento.setBounds(62, 56, 206, 19);
 		pTipoBusqueda.add(lblBuscarDocumento);
 		
 		txtDNI_RUC = new JTextField();
