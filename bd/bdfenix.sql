@@ -335,3 +335,62 @@ END $$
 delimiter ;
 
 call usp_historialGanancia();
+
+-- PROCEDURES PARA BUSCAR Y LISTAR BOLETAS
+
+-- Buscar por numero boleta
+delimiter $$
+CREATE PROCEDURE usp_listadoBoletaPorNumero(num INT)
+BEGIN
+	SELECT B.NUM_BOL AS 'Num Boleta',
+           C.DNI_CLI AS 'DNI',
+           B.FECH_BOL AS 'Fecha',
+           B.SUB_TOT_BOL AS 'Subtotal',
+           B.DESCU_BOL AS 'Descuento',
+           B.TOT_BOL AS 'Total'
+    FROM BOLETA AS B
+    INNER JOIN CLIENTE AS C
+      ON B.ID_CLI = C.ID_CLI
+	WHERE B.NUM_BOL = num ;
+END $$
+delimiter ;
+
+CALL usp_listadoBoletaPorNumero(1);
+
+-- Buscar boleta por dni cliente
+delimiter $$
+CREATE PROCEDURE usp_listadoBoletaPorDNI(dni CHAR(8) )
+BEGIN
+	SELECT B.NUM_BOL AS 'Num Boleta',
+           C.DNI_CLI AS 'DNI',
+           B.FECH_BOL AS 'Fecha',
+           B.SUB_TOT_BOL AS 'Subtotal',
+           B.DESCU_BOL AS 'Descuento',
+           B.TOT_BOL AS 'Total'
+    FROM BOLETA AS B
+    INNER JOIN CLIENTE AS C
+      ON B.ID_CLI = C.ID_CLI
+	WHERE C.DNI_CLI = dni ;
+END $$
+delimiter ;
+
+CALL usp_listadoBoletaPorDNI('12345678');
+
+-- Buscar boleta entre rango de fechas
+delimiter $$
+CREATE PROCEDURE usp_listadoBoletaPorRangoFechas(fech1 DATE, fech2 DATE)
+BEGIN
+	SELECT B.NUM_BOL AS 'Num Boleta',
+           C.DNI_CLI AS 'DNI',
+           B.FECH_BOL AS 'Fecha',
+           B.SUB_TOT_BOL AS 'Subtotal',
+           B.DESCU_BOL AS 'Descuento',
+           B.TOT_BOL AS 'Total'
+    FROM BOLETA AS B
+    INNER JOIN CLIENTE AS C
+      ON B.ID_CLI = C.ID_CLI
+	WHERE B.FECH_BOL BETWEEN fech1 AND fech2 ;
+END $$
+delimiter ;
+
+CALL usp_listadoBoletaPorRangoFechas('2020/11/29', '2020/11/30');
