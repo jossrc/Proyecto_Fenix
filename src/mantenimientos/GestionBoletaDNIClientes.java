@@ -14,8 +14,43 @@ public class GestionBoletaDNIClientes implements BoletaDNIClienteInterface {
 
 	@Override
 	public ArrayList<BoletaDNICliente> listadoPorBoleta(int boleta) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<BoletaDNICliente> lista = new ArrayList<BoletaDNICliente>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call }";
+			
+			pst = con.prepareStatement(sql);
+			
+			pst.setInt(1, boleta);
+
+			rs = pst.executeQuery();
+
+			while (rs.next()) {				
+				int numeroBoleta = rs.getInt(1);
+				String dniCliente = rs.getString(2);
+				String fecha = rs.getString(3);
+				double subtotal = rs.getDouble(4);
+				double descuento = rs.getDouble(5);
+				double total = rs.getDouble(6);
+				
+				BoletaDNICliente bol = new BoletaDNICliente(numeroBoleta, dniCliente, fecha, subtotal, descuento, total);
+				lista.add(bol);
+			}
+		} catch (Exception e) {
+			System.out.println("Error en Obtener Boleta por numero de Boleta : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return lista;
 	}
 
 	@Override
