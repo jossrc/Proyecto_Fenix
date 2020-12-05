@@ -6,17 +6,34 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
+
+import mantenimientos.GestionBoletaDNIClientes;
+import model.BoletaDNICliente;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
@@ -24,6 +41,8 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.awt.event.ItemEvent;
 
 public class RepBoleta extends JPanel {
@@ -39,6 +58,9 @@ public class RepBoleta extends JPanel {
 	private JRadioButton rdbtnBoleta;
 	private JRadioButton rdbtnDocumento;
 	private JRadioButton rdbtnRango;
+	
+	private int tipoBusqueda = 0; // 0-> Boleta; 1-> DNI; 2 -> Fechas
+	private ArrayList<BoletaDNICliente> gListadoBoletas = new ArrayList<BoletaDNICliente>();
 
 	public RepBoleta() {
 		setLayout(null);
@@ -74,16 +96,16 @@ public class RepBoleta extends JPanel {
 		btnBuscar.setBounds(665, 225, 117, 43);
 		pBoleta.add(btnBuscar);
 		
-		JButton btnVisualizar = new JButton("VISUALIZAR");		
-		btnVisualizar.setForeground(Color.WHITE);
-		btnVisualizar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnVisualizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVisualizar.setContentAreaFilled(false);
-		btnVisualizar.setOpaque(true);
-		btnVisualizar.setBorder(null);
-		btnVisualizar.setBackground(Color.GRAY);
-		btnVisualizar.setBounds(665, 294, 117, 43);
-		pBoleta.add(btnVisualizar);
+		JButton btnCancelar = new JButton("CANCELAR");		
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(Color.GRAY);
+		btnCancelar.setBounds(665, 294, 117, 43);
+		pBoleta.add(btnCancelar);
 		
 		JButton btnImprimir = new JButton("IMPRIMIR");		
 		btnImprimir.setForeground(Color.WHITE);
@@ -168,6 +190,7 @@ public class RepBoleta extends JPanel {
 					txtNumBoleta.setEnabled(false);
 				} else {
 					txtNumBoleta.setEnabled(true);
+					tipoBusqueda = 0;
 				}
 				
 			}
@@ -179,6 +202,7 @@ public class RepBoleta extends JPanel {
 					txtDNI.setEnabled(false);
 				} else {
 					txtDNI.setEnabled(true);
+					tipoBusqueda = 1;
 				}
 			}
 		});
@@ -191,28 +215,211 @@ public class RepBoleta extends JPanel {
 				} else {
 					txtFechInicial.setEnabled(true);
 					txtFechFinal.setEnabled(true);
+					tipoBusqueda = 2;
 				}
 			}
 		});
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listadoBoletasEnTabla();
+				limpiar();
 			}
 		});
 		
-		btnVisualizar.addActionListener(new ActionListener() {
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				limpiar();
+				model.setRowCount(0);
+				gListadoBoletas = null;
 			}
 		});
 		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				generarReportePDF();
 			}
 		});
 
+	}
+	
+	private void generarReportePDF() {
+		
+		int filas = tblBoleta.getRowCount();
+		
+		if (filas == 0 || filas == -1) {
+			aviso("Oops. Se necesita de registros para generar el PDF");
+			return;
+		}
+		
+		Date date = new Date();
+		int hashCode = date.toString().hashCode();
+		
+		String nombreArchivo = "reporte_Boleta" + hashCode + ".pdf";
+		String ruta = "reportes/";
+		String file = ruta + nombreArchivo;
+		
+		try {
+			Document document = new Document();			
+			FileOutputStream fileStream = new FileOutputStream(file);
+			
+			PdfWriter.getInstance(document, fileStream);
+			
+			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
+			
+			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 36, com.itextpdf.text.Font.BOLDITALIC, BaseColor.RED);
+			Paragraph p = new Paragraph("Reporte de Boletas Realizadas", iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			
+			document.add(p);			
+			document.add(new Paragraph(" "));
+			
+			ArrayList<BoletaDNICliente> lista = gListadoBoletas;
+			
+			if (lista == null || lista.size() == 0) {
+				p = new Paragraph("No se encontraron boletas realizadas");
+				p.setAlignment(Chunk.ALIGN_CENTER);
+				document.add(p);
+			} else {
+				PdfPTable table = new PdfPTable(6);
+				p = new Paragraph("N° Boleta");
+				PdfPCell col1 = new PdfPCell(p);
+				col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col1);
+				
+				p = new Paragraph("DNI Cliente");				
+				PdfPCell col2 = new PdfPCell(p);
+				col2.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col2);
+				
+				p = new Paragraph("Fecha");				
+				PdfPCell col3 = new PdfPCell(p);
+				col3.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col3);
+				
+				p = new Paragraph("SubTotal");				
+				PdfPCell col4 = new PdfPCell(p);
+				col4.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col4);
+				
+				p = new Paragraph("Descuento");				
+				PdfPCell col5 = new PdfPCell(p);
+				col5.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col5.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col5);
+				
+				p = new Paragraph("Total");				
+				PdfPCell col6 = new PdfPCell(p);
+				col6.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col6.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col6);
+				
+				for (BoletaDNICliente b : lista) {
+					table.addCell(b.getNumeroBoleta()+"");
+					table.addCell(b.getDniCliente());
+					table.addCell(b.getFecha());
+					table.addCell(b.getSubtotal()+"");
+					table.addCell(b.getDescuento()+"");
+					table.addCell(b.getTotal()+"");
+				}
+				
+				document.add(table);
+				document.add(new Paragraph(" "));
+				
+				if (tipoBusqueda == 2) {
+					p = new Paragraph("Este reporte está generado entre las fechas de " + txtFechInicial.getDate()+ " y " + txtFechFinal.getDate());
+				}
+			}
+			
+			document.close();
+			Desktop.getDesktop().open(new File(file));
+			
+			
+		} catch (Exception e) {
+			System.out.println("Error al crear archivo PDF : " + e.getMessage());
+		}
+		
+	}
+	
+	private void listadoBoletasEnTabla() {
+		gListadoBoletas = obtenerListaBoletasPor(tipoBusqueda);
+		
+		if (gListadoBoletas == null) {
+			aviso("No se encontró resultados en la busqueda");
+		} else {
+			model.setRowCount(0);
+			for (BoletaDNICliente bol : gListadoBoletas) {
+				
+				Object[] datos = {bol.getNumeroBoleta(), bol.getDniCliente(), bol.getFecha(), bol.getSubtotal(), bol.getDescuento(), bol.getTotal()};				
+				model.addRow(datos);
+			}
+		}
+		
+	}
+	
+	
+	private ArrayList<BoletaDNICliente> obtenerListaBoletasPor(int tipo) {
+		switch (tipo) {
+		case 0:
+			return listadoPorBoleta();
+		case 1:
+			return listadoPorDNI();
+		case 2:
+			return listadoPorFechas();
+		default:
+			return null;
+		}
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorBoleta() {
+		int numBoleta = leerNumBoleta();
+		
+		if (numBoleta == -1) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorBoleta(numBoleta);
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorDNI() {
+		String dni = leerDNI();
+		
+		if (dni == null) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorDNI(dni);
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorFechas() {
+		String fech1 = leerFechaInicial();
+		
+		if (fech1 == null) {
+			return null;
+		}
+		
+		String fech2 = leerFechaFinal();
+		
+		if (fech2 == null) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorRangoFechas(fech1, fech2);
+	}
+	
+	private void limpiar() {
+		txtNumBoleta.setText("");
+		txtDNI.setText("");
+		txtFechInicial.setDate(null);
+		txtFechFinal.setDate(null);
 	}
 	
 	private int leerNumBoleta() {
@@ -232,7 +439,7 @@ public class RepBoleta extends JPanel {
 		
 	}
 	
-	private String leerDNI_RUC() {
+	private String leerDNI() {
 		String dniRuc = txtDNI.getText().trim();
 
 		if (dniRuc.isEmpty()) {
