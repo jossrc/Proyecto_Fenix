@@ -53,6 +53,9 @@ public class OpcDescuentos extends JPanel {
 	private JButton btnBuscarProducto;
 	private JButton btnActivar;
 	private JButton btnCancelar;
+	private JButton btnGenerarDescuentoProducto;
+	private JButton btnGenerarDescuentoTipoMarca;
+	private JButton btnGenerarDescuentoTodo;
 
 	public OpcDescuentos() {
 		setLayout(null);
@@ -117,7 +120,7 @@ public class OpcDescuentos extends JPanel {
 		cboTipoDescuento1.setBounds(470, 31, 136, 24);
 		pProducto.add(cboTipoDescuento1);
 		
-		JButton btnGenerarDescuentoProducto = new JButton("GENERAR");		
+		btnGenerarDescuentoProducto = new JButton("GENERAR");		
 		btnGenerarDescuentoProducto.setEnabled(false);
 		btnGenerarDescuentoProducto.setForeground(Color.WHITE);
 		btnGenerarDescuentoProducto.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -125,7 +128,7 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoProducto.setContentAreaFilled(false);
 		btnGenerarDescuentoProducto.setOpaque(true);
 		btnGenerarDescuentoProducto.setBorder(null);
-		btnGenerarDescuentoProducto.setBackground(new Color(19, 205, 210));
+		btnGenerarDescuentoProducto.setBackground(new Color(128, 212, 214));
 		btnGenerarDescuentoProducto.setBounds(486, 75, 131, 38);
 		pProducto.add(btnGenerarDescuentoProducto);
 		
@@ -190,7 +193,7 @@ public class OpcDescuentos extends JPanel {
 		txtDescuento2.setBounds(327, 90, 115, 20);
 		pTipoMarca.add(txtDescuento2);
 		
-		JButton btnGenerarDescuentoTipoMarca = new JButton("GENERAR");
+		btnGenerarDescuentoTipoMarca = new JButton("GENERAR");
 		btnGenerarDescuentoTipoMarca.setEnabled(false);
 		btnGenerarDescuentoTipoMarca.setForeground(Color.WHITE);
 		btnGenerarDescuentoTipoMarca.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -198,7 +201,7 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoTipoMarca.setContentAreaFilled(false);
 		btnGenerarDescuentoTipoMarca.setOpaque(true);
 		btnGenerarDescuentoTipoMarca.setBorder(null);
-		btnGenerarDescuentoTipoMarca.setBackground(new Color(19, 205, 210));
+		btnGenerarDescuentoTipoMarca.setBackground(new Color(128, 212, 214));
 		btnGenerarDescuentoTipoMarca.setBounds(486, 37, 131, 38);
 		pTipoMarca.add(btnGenerarDescuentoTipoMarca);
 		
@@ -218,7 +221,7 @@ public class OpcDescuentos extends JPanel {
 		txtDescuento3.setBounds(186, 66, 115, 20);
 		pTodo.add(txtDescuento3);
 		
-		JButton btnGenerarDescuentoTodo = new JButton("GENERAR");
+		btnGenerarDescuentoTodo = new JButton("GENERAR");
 		btnGenerarDescuentoTodo.setEnabled(false);
 		btnGenerarDescuentoTodo.setForeground(Color.WHITE);
 		btnGenerarDescuentoTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -226,7 +229,7 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoTodo.setContentAreaFilled(false);
 		btnGenerarDescuentoTodo.setOpaque(true);
 		btnGenerarDescuentoTodo.setBorder(null);
-		btnGenerarDescuentoTodo.setBackground(new Color(19, 205, 210));
+		btnGenerarDescuentoTodo.setBackground(new Color(128, 212, 214));
 		btnGenerarDescuentoTodo.setBounds(486, 41, 131, 38);
 		pTodo.add(btnGenerarDescuentoTodo);
 		
@@ -256,7 +259,7 @@ public class OpcDescuentos extends JPanel {
 		btnActivar.setBounds(200, 487, 130, 42);
 		panelDescuentos.add(btnActivar);
 		
-		btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");		
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -298,14 +301,30 @@ public class OpcDescuentos extends JPanel {
 		});
 		
 		btnActivar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnGenerarDescuentoProducto.setEnabled(true);
-				btnGenerarDescuentoTipoMarca.setEnabled(true);
-				btnGenerarDescuentoTodo.setEnabled(true);
+			public void actionPerformed(ActionEvent e) {				
+				activarBotones(true, new Color(19,205,210));
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				activarBotones(false, new Color(128, 212, 214));
+				limpiar();
 			}
 		});
 		
 
+	}
+	
+	private void activarBotones(boolean activar, Color color) {
+		btnGenerarDescuentoProducto.setEnabled(activar);
+		btnGenerarDescuentoProducto.setBackground(color);
+		
+		btnGenerarDescuentoTipoMarca.setEnabled(activar);
+		btnGenerarDescuentoTipoMarca.setBackground(color);
+		
+		btnGenerarDescuentoTodo.setEnabled(activar);
+		btnGenerarDescuentoTodo.setBackground(color);
 	}
 	
 	private void llenarCboMarca() {
@@ -462,5 +481,20 @@ public class OpcDescuentos extends JPanel {
 	
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
+	}
+	
+	private void limpiar() {
+		txtCodigo.setText("");
+		txtDescripcion.setText("");
+		txtPrecioActual.setText("");
+		txtDescuento1.setText("");
+		cboTipoDescuento1.setSelectedIndex(0);
+		
+		txtDescuento2.setText("");
+		cboLista.setSelectedIndex(0);
+		cboTipoDescuento2.setSelectedIndex(0);
+		
+		txtDescuento3.setText("");
+		cboTipoDescuento3.setSelectedIndex(0);
 	}
 }
