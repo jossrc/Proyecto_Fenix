@@ -8,6 +8,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -30,6 +31,7 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -214,7 +216,7 @@ public class RepVentConcretadas extends JPanel {
 		
 		btnCancelarReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				cancelarReporte();
 			}
 		});
 		
@@ -249,6 +251,10 @@ public class RepVentConcretadas extends JPanel {
 			PdfWriter writer = PdfWriter.getInstance(document, fileStream);
 			
 			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
 			
 			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 36, com.itextpdf.text.Font.BOLDITALIC, BaseColor.RED);
 			Paragraph p = new Paragraph("Reporte de Ventas Concretadas", iFont);
@@ -344,6 +350,15 @@ public class RepVentConcretadas extends JPanel {
 		}
 		
 		System.out.println(file);
+	}
+	
+	private void cancelarReporte() {
+		txtDesde.setDate(null);
+		txtHasta.setDate(null);
+		txtCantidadEncontrada.setText("");
+		txtCantidadAVisualizar.setText("");		
+		model.setRowCount(0);
+		txtGananciaTotal.setText("");
 	}
 	
 	private void cargarHistorialVentas() {
