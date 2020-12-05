@@ -21,7 +21,7 @@ public class GestionBoletaDNIClientes implements BoletaDNIClienteInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "{call }";
+			String sql = "{call usp_listadoBoletaPorNumero(?)}";
 			
 			pst = con.prepareStatement(sql);
 			
@@ -62,7 +62,7 @@ public class GestionBoletaDNIClientes implements BoletaDNIClienteInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "{call }";
+			String sql = "{call usp_listadoBoletaPorDNI(?)}";
 			
 			pst = con.prepareStatement(sql);
 			
@@ -103,7 +103,7 @@ public class GestionBoletaDNIClientes implements BoletaDNIClienteInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "{call }";
+			String sql = "{call usp_listadoBoletaPorRangoFechas(?,?)}";
 			
 			pst = con.prepareStatement(sql);
 			
