@@ -11,11 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import mantenimientos.GestionMarcaProducto;
+import mantenimientos.GestionTipoProducto;
+import model.MarcaProducto;
+import model.TipoProducto;
+
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class RepProducto extends JPanel {
@@ -71,12 +78,10 @@ public class RepProducto extends JPanel {
 		pProducto.add(lblTipo);
 		
 		cboMarca = new JComboBox<String>();
-		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Ejemplo"}));
 		cboMarca.setBounds(111, 60, 241, 20);
 		pProducto.add(cboMarca);
 		
 		cboTipoProducto = new JComboBox<String>();
-		cboTipoProducto.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleccione...", "Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa", "Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios"}));
 		cboTipoProducto.setBounds(111, 102, 241, 20);
 		pProducto.add(cboTipoProducto);
 		
@@ -102,6 +107,9 @@ public class RepProducto extends JPanel {
 		btnImprimir.setBorder(null);
 		btnImprimir.setBackground(Color.GRAY);
 		
+		llenarCboMarca();
+		llenarCboTipos();
+		
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -113,6 +121,34 @@ public class RepProducto extends JPanel {
 				
 			}
 		});
+	}
+	
+	private void llenarCboMarca() {
+		
+		cboMarca.addItem("Seleccione Marca...");
+		ArrayList<MarcaProducto> lista = new GestionMarcaProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de marcas");
+		} else {
+			for (MarcaProducto marca : lista) {
+				cboMarca.addItem(marca.getIdMarca()+".- " + marca.getDescripcion());
+			}
+		}
+		
+	}
+	
+	private void llenarCboTipos() {
+		cboTipoProducto.addItem("Seleccione Tipo...");
+		ArrayList<TipoProducto> lista = new GestionTipoProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de tipos");
+		} else {
+			for (TipoProducto tipo : lista) {
+				cboTipoProducto.addItem(tipo.getIdTipo()+".- " + tipo.getDescripcion());
+			}
+		}
 	}
 	
 	private String leerCodigo() {
