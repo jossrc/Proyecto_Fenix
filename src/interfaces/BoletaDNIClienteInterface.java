@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface BoletaDNIClienteInterface {
 
-public ArrayList<BoletaDNIClienteInterface> listadoPorBoleta(String boleta);
+	public ArrayList<BoletaDNIClienteInterface> listadoPorBoleta(int boleta);
 	
 	public ArrayList<BoletaDNIClienteInterface> listadoPorDNI(String dni);
 	
