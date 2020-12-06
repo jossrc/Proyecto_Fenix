@@ -6,6 +6,6 @@ import model.DetalleBoleta;
 
 public interface DetalleBoletaProductoInterface {
 
-	public ArrayList<DetalleBoleta> listaDetalle();
+	public ArrayList<DetalleBoleta> listaDetalle(int numBol);
 	
 }
