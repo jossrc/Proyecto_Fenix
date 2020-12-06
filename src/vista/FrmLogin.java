@@ -190,23 +190,37 @@ public class FrmLogin extends JFrame {
 	}
 	
 	private void iniciarSesion() {
-		if (vendedorLogueado == null) { // TODO: Evitar que se abra el Principal en caso que no coincida
-			cargarVendedor();
+		if (vendedorLogueado == null) { 
+			boolean estaRegistrado = cargarVendedor();
 			
-			FrmPrincipal principal = new FrmPrincipal();
-			principal.setLocationRelativeTo(null);
-			principal.setVisible(true);
+			if (estaRegistrado) {
+				FrmPrincipal principal = new FrmPrincipal();
+				principal.setLocationRelativeTo(null);
+				principal.setVisible(true);
+				
+				dispose();
+			} else {
+				aviso("Oops usuario o clave mal escrito");
+			}
 			
-			dispose();
+			
 		}
 	}
 	
-	private void cargarVendedor() { // TODO: Corregir debe retornar bool 
+	private boolean cargarVendedor() {
 		Login login = cargarLogin();
 		
 		if (login != null ) {
 			vendedorLogueado = new GestionLogin().obtenerVendedorYLogueo(login.getIdVendedor());
+			
+			if (vendedorLogueado == null) {
+				return false;
+			}
+			
+			return true;
 		}
+		
+		return false;
 	}
 	
 	
