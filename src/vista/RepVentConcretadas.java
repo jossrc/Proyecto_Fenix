@@ -13,7 +13,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.mysql.cj.util.StringUtils;
+
 import com.toedter.calendar.JDateChooser;
 
 import mantenimientos.GestionVentasConcretadas;
@@ -31,7 +31,6 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -248,7 +247,7 @@ public class RepVentConcretadas extends JPanel {
 			Document document = new Document();			
 			FileOutputStream fileStream = new FileOutputStream(file);
 			
-			PdfWriter writer = PdfWriter.getInstance(document, fileStream);
+			PdfWriter.getInstance(document, fileStream);
 			
 			document.open();
 			
@@ -271,14 +270,6 @@ public class RepVentConcretadas extends JPanel {
 
 			iFont = FontFactory.getFont("Sans Serif", 11, com.itextpdf.text.Font.ITALIC, BaseColor.BLACK);
 
-			/*
-			if (leerCantidadEncontrada() == 0) {
-				p = new Paragraph("No se encontraron ventas concretadas");
-				p.setAlignment(Chunk.ALIGN_CENTER);
-
-			} else
-			
-			*/
 			
 			if (leerCantidadAVisualizar() == leerCantidadEncontrada()) {
 				p = new Paragraph("*Se han seleccionado todos los registros encontrados", iFont);
