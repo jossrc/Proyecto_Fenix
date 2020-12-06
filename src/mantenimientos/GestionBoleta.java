@@ -21,7 +21,7 @@ public class GestionBoleta implements BoletaInterface {
 
 		try {
 			con = MySQLConexion8.getConexion();
-			String sql = "";
+			String sql = "SELECT * FROM boleta WHERE NUM_BOL = ?";
 			pst = con.prepareStatement(sql);
 
 			pst.setInt(1, numBol);
