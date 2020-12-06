@@ -24,7 +24,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
 
 import mantenimientos.GestionBoletaDNIClientes;
+import mantenimientos.GestionClientes;
 import model.BoletaDNICliente;
+import model.Cliente;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -241,6 +243,76 @@ public class RepBoleta extends JPanel {
 			}
 		});
 
+	}
+	
+	private void imprimirBoletaSeleccionada() {
+		
+		int filas = tblBoleta.getRowCount();
+		
+		if (filas == 0 || filas == -1) {
+			aviso("Oops. Se necesita de registros para generar el PDF");
+			return;
+		}
+		
+		
+		int filaSeleccionada = tblBoleta.getSelectedRow();
+		
+		if (filaSeleccionada == -1) {
+			aviso("Seleccione un registro para obtener la Boleta");
+			return;
+		}
+		
+		int numBoleta = Integer.parseInt(tblBoleta.getValueAt(filaSeleccionada, 0).toString());
+		String dniCliente = tblBoleta.getValueAt(filaSeleccionada, 1).toString();
+		
+		Cliente cliente = new GestionClientes().buscar(dniCliente);
+		
+		Date date = new Date();
+		int hashCode = date.toString().hashCode();
+		
+		String nombreArchivo = "reporte_Boleta" + hashCode + ".pdf";
+		String ruta = "reportes/";
+		String file = ruta + nombreArchivo;
+		
+		try {
+			
+			Document document = new Document();			
+			FileOutputStream fileStream = new FileOutputStream(file);
+			
+			PdfWriter.getInstance(document, fileStream);
+			
+			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
+			
+			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 24, com.itextpdf.text.Font.BOLD, BaseColor.BLACK);
+			Paragraph p = new Paragraph("Boleta", iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			
+			document.add(p);			
+			document.add(new Paragraph(" "));
+			
+			// Datos Cliente
+			p = new Paragraph("Cliente   : " + cliente.getNom_cli() + cliente.getApe_cli());
+			document.add(p);
+			
+			p = new Paragraph("Direccion : " + cliente.getDirec_cli());
+			document.add(p);
+			
+			p = new Paragraph("DNI       : " + dniCliente);
+			document.add(p);
+
+			
+			
+			document.close();
+			Desktop.getDesktop().open(new File(file));
+			
+		} catch (Exception e) {
+			System.out.println("Error al crear archivo PDF : " + e.getMessage());
+		}
+		
 	}
 	
 	private void generarReportePDF() {
