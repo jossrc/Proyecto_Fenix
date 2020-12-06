@@ -20,7 +20,7 @@ import model.TipoProducto;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
