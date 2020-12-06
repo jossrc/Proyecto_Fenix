@@ -243,7 +243,8 @@ public class RepBoleta extends JPanel {
 		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generarReportePDF();
+				//generarReportePDF();
+				imprimirBoletaSeleccionada();
 			}
 		});
 
@@ -300,16 +301,16 @@ public class RepBoleta extends JPanel {
 			document.add(new Paragraph(" "));
 			
 			// Datos Cliente
-			p = new Paragraph("Cliente   : " + cliente.getNom_cli() + cliente.getApe_cli());
+			p = new Paragraph("Cliente     : " + cliente.getNom_cli() + cliente.getApe_cli());
 			document.add(p);
 			
 			p = new Paragraph("Direccion : " + cliente.getDirec_cli());
 			document.add(p);
 			
-			p = new Paragraph("DNI       : " + dniCliente);
+			p = new Paragraph("DNI          : " + dniCliente);
 			document.add(p);
 			
-			p = new Paragraph("Fecha     : " + boleta.getFecha());
+			p = new Paragraph("Fecha      : " + boleta.getFecha());
 			document.add(p);
 			
 			document.add(new Paragraph(" "));
@@ -317,7 +318,7 @@ public class RepBoleta extends JPanel {
 			
 			ArrayList<DetalleBoletaProducto> listaDet = new GestionDetalleBolProducto().listaDetalle(numBoleta);
 			
-			PdfPTable table = new PdfPTable(6);
+			PdfPTable table = new PdfPTable(4);
 			p = new Paragraph("Cantidad");
 			PdfPCell col1 = new PdfPCell(p);
 			col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
@@ -345,7 +346,7 @@ public class RepBoleta extends JPanel {
 			for (DetalleBoletaProducto dbp : listaDet) {
 				table.addCell(dbp.getCantidadComprada() + "");
 				table.addCell(dbp.getDescripcionProducto());
-				//table.addCell(dbp.getPrecioUnitProd());
+				table.addCell(dbp.getPrecioUnitProd() + "");
 				table.addCell(dbp.getImporte() + "");
 			}
 			
@@ -354,13 +355,13 @@ public class RepBoleta extends JPanel {
 			document.add(new Paragraph(" "));
 			document.add(new Paragraph(" "));
 			
-			p = new Paragraph("Subtotal        : " + boleta.getSubtotal());
+			p = new Paragraph("Subtotal          : " + boleta.getSubtotal());
 			document.add(p);
 			
 			p = new Paragraph("Descuento      : " + boleta.getDescuento());
 			document.add(p);
 			
-			p = new Paragraph("Total a pagar : " + boleta.getTotal());
+			p = new Paragraph("Total a pagar  : " + boleta.getTotal());
 			document.add(p);
 			
 			document.close();
