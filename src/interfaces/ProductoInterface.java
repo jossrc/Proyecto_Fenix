@@ -18,4 +18,12 @@ public interface ProductoInterface {
 	
 	public ArrayList<Producto> listado();
 	
+	public int aplicarDescuentoXProducto(String codigo, int tipoDesc, double descuento );
+	
+	public int aplicarDescuentoXTipo(int tipoDesc, int tipoProd, double descuento);
+	
+	public int aplicarDescuentoXMarca(int tipoDesc, int tipoMarc, double descuento);
+	
+	public int aplicarDescuentoATodos(int tipoDesc, double descuento);
+	
 }
