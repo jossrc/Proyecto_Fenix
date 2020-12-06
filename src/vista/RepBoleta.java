@@ -26,9 +26,11 @@ import com.toedter.calendar.JDateChooser;
 import mantenimientos.GestionBoleta;
 import mantenimientos.GestionBoletaDNIClientes;
 import mantenimientos.GestionClientes;
+import mantenimientos.GestionDetalleBolProducto;
 import model.Boleta;
 import model.BoletaDNICliente;
 import model.Cliente;
+import model.DetalleBoletaProducto;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -311,7 +313,55 @@ public class RepBoleta extends JPanel {
 			document.add(p);
 			
 			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
 			
+			ArrayList<DetalleBoletaProducto> listaDet = new GestionDetalleBolProducto().listaDetalle(numBoleta);
+			
+			PdfPTable table = new PdfPTable(6);
+			p = new Paragraph("Cantidad");
+			PdfPCell col1 = new PdfPCell(p);
+			col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col1);
+			
+			p = new Paragraph("Descripción");				
+			PdfPCell col2 = new PdfPCell(p);
+			col2.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col2);
+			
+			p = new Paragraph("Precio Unit.");				
+			PdfPCell col3 = new PdfPCell(p);
+			col3.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col3);
+			
+			p = new Paragraph("Importe");				
+			PdfPCell col4 = new PdfPCell(p);
+			col4.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col4);
+			
+			for (DetalleBoletaProducto dbp : listaDet) {
+				table.addCell(dbp.getCantidadComprada() + "");
+				table.addCell(dbp.getDescripcionProducto());
+				//table.addCell(dbp.getPrecioUnitProd());
+				table.addCell(dbp.getImporte() + "");
+			}
+			
+			document.add(table);
+			
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
+			p = new Paragraph("Subtotal        : " + boleta.getSubtotal());
+			document.add(p);
+			
+			p = new Paragraph("Descuento      : " + boleta.getDescuento());
+			document.add(p);
+			
+			p = new Paragraph("Total a pagar : " + boleta.getTotal());
+			document.add(p);
 			
 			document.close();
 			Desktop.getDesktop().open(new File(file));
