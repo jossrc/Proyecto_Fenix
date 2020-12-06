@@ -226,4 +226,28 @@ public class GestionProductos implements ProductoInterface {
 
 		return lista;
 	}
+
+	@Override
+	public int aplicarDescuentoXProducto(String codigo, int tipoDesc, double descuento) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int aplicarDescuentoXTipo(int tipoDesc, int tipoProd, double descuento) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int aplicarDescuentoXMarca(int tipoDesc, int tipoMarc, double descuento) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int aplicarDescuentoATodos(int tipoDesc, double descuento) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
