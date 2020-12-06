@@ -322,7 +322,31 @@ public class GestionProductos implements ProductoInterface {
 
 	@Override
 	public int aplicarDescuentoATodos(int tipoDesc, double descuento) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_aplicarDescuentoProductoTodos(?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setInt(1, tipoDesc);
+			pst.setDouble(2, descuento);
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en aplicar descuento por tipo: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
 	}
 }
