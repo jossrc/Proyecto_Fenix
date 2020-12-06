@@ -26,13 +26,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.event.ChangeListener;
 
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionProductos;
 import mantenimientos.GestionTipoProducto;
 
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 
 public class OpcDescuentos extends JPanel {
@@ -225,7 +223,7 @@ public class OpcDescuentos extends JPanel {
 		txtDescuento3.setBounds(186, 66, 115, 20);
 		pTodo.add(txtDescuento3);
 		
-		btnGenerarDescuentoTodo = new JButton("GENERAR");
+		btnGenerarDescuentoTodo = new JButton("GENERAR");		
 		btnGenerarDescuentoTodo.setEnabled(false);
 		btnGenerarDescuentoTodo.setForeground(Color.WHITE);
 		btnGenerarDescuentoTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -299,6 +297,12 @@ public class OpcDescuentos extends JPanel {
 		btnGenerarDescuentoTipoMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aplicarDescuentoXTipoMarca();
+			}
+		});
+		
+		btnGenerarDescuentoTodo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aplicarDescuentoATodosProductos();
 			}
 		});
 		
@@ -456,6 +460,62 @@ public class OpcDescuentos extends JPanel {
 		
 	}
 	
+	
+	private void aplicarDescuentoATodosProductos() {
+		
+		int tipoDesc = leerTipoDescuento03();
+		
+		if (tipoDesc == -1) {
+			return;
+		}
+		
+		double minimoPrecio = new GestionProductos().obtenerPrecioMinimo();
+		
+		double descuento = leerDescuento03();
+		
+		if (descuento == -1) {
+			return;
+		}
+		
+		if (tipoDesc == 1) {
+			if (descuento >= minimoPrecio) {
+				aviso("El descuento no puede ser mayor que el precio minimo (" + minimoPrecio + ")");
+				txtDescuento3.requestFocus();
+				return ;
+			}
+		}
+		
+		if (tipoDesc == 2) {
+			if (descuento >= 100) {
+				aviso("El descuento no puede ser mayor o igual que el 100%");
+				txtDescuento3.requestFocus();
+				return;
+			}
+		}
+		
+		
+		int dialogResult = JOptionPane.showConfirmDialog(this,
+				"¿Está seguro de aplicar descuento a TODOS los productos?",
+				"Aplicar Descuento", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
+		if (dialogResult == JOptionPane.YES_OPTION) {
+			
+			int ok =  new GestionProductos().aplicarDescuentoATodos(tipoDesc, descuento);	
+			
+			if (ok == 0) {
+				aviso("Algo salió mal. No se pudo actualizar el producto");
+			} else {
+				limpiar();
+				JOptionPane.showMessageDialog(this, "Se aplicó correctamente el descuento");				
+			}
+			
+		} else {
+			limpiar();
+		}
+		
+		
+	}
+	
 	private void activarBotones(boolean activar, Color color) {
 		btnGenerarDescuentoProducto.setEnabled(activar);
 		btnGenerarDescuentoProducto.setBackground(color);
@@ -570,6 +630,7 @@ public class OpcDescuentos extends JPanel {
 		int tipo = cboTipoDescuento3.getSelectedIndex();
 		
 		if (tipo == -1 || tipo == 0) {
+			aviso("Seleccione un tipo de Descuento Válido");
 			return -1;
 		}
 		
