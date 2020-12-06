@@ -458,3 +458,20 @@ BEGIN
 	END IF;
 END $$
 delimiter ;
+
+-- PROCEDURE PARA OBTENER DETALLE DE BOLETA CON DESC DEL PRODUCTO
+
+delimiter $$
+CREATE PROCEDURE usp_listaDetalleBolProd(numBol INT)
+BEGIN
+	SELECT D.NUM_BOL, P.DESC_PRO, D.IMP_PRO, D.CANT_COMP_BOL
+    FROM detalle_boleta AS D
+	INNER JOIN producto AS P
+      ON D.COD_PRO = P.COD_PRO
+	WHERE D.NUM_BOL = numBol;
+END $$
+delimiter ;
+
+CALL usp_listaDetalleBolProd(2)
+
+
