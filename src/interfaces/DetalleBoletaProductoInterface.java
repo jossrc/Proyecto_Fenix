@@ -2,10 +2,10 @@ package interfaces;
 
 import java.util.ArrayList;
 
-import model.DetalleBoleta;
+import model.DetalleBoletaProducto;
 
 public interface DetalleBoletaProductoInterface {
 
-	public ArrayList<DetalleBoleta> listaDetalle(int numBol);
+	public ArrayList<DetalleBoletaProducto> listaDetalle(int numBol);
 	
 }
