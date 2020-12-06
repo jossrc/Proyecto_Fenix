@@ -352,7 +352,33 @@ public class GestionProductos implements ProductoInterface {
 
 	@Override
 	public double obtenerPrecioMinimo() {
-		// TODO Auto-generated method stub
-		return 0;
+		double precioMinimo = -1;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT MIN(PREC_UNIT_PRO) FROM PRODUCTO;";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {						
+				precioMinimo = rs.getDouble(1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en obtener el precio minimo de un producto " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return precioMinimo;
 	}
 }
