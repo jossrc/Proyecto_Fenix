@@ -23,8 +23,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
 
+import mantenimientos.GestionBoleta;
 import mantenimientos.GestionBoletaDNIClientes;
 import mantenimientos.GestionClientes;
+import model.Boleta;
 import model.BoletaDNICliente;
 import model.Cliente;
 
@@ -266,6 +268,7 @@ public class RepBoleta extends JPanel {
 		String dniCliente = tblBoleta.getValueAt(filaSeleccionada, 1).toString();
 		
 		Cliente cliente = new GestionClientes().buscar(dniCliente);
+		Boleta boleta = new GestionBoleta().buscarPorNumero(numBoleta);
 		
 		Date date = new Date();
 		int hashCode = date.toString().hashCode();
@@ -303,7 +306,11 @@ public class RepBoleta extends JPanel {
 			
 			p = new Paragraph("DNI       : " + dniCliente);
 			document.add(p);
-
+			
+			p = new Paragraph("Fecha     : " + boleta.getFecha());
+			document.add(p);
+			
+			document.add(new Paragraph(" "));
 			
 			
 			document.close();
