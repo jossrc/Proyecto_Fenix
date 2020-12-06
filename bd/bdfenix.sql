@@ -394,3 +394,67 @@ END $$
 delimiter ;
 
 CALL usp_listadoBoletaPorRangoFechas('2020/11/29', '2020/11/30');
+
+-- PROCEDURES PARA LOS DESCUENTOS
+
+-- Aplicar descuento a un producto
+delimiter $$
+CREATE PROCEDURE usp_aplicarDescuentoProducto(codProd CHAR(8), numTipo INT, descuento DECIMAL(10,2))
+BEGIN
+	IF (numTipo = 1) THEN  # 1 -> Numerico
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO - descuento
+        WHERE COD_PRO = codProd;
+	ELSE                   # 2 -> Porcentual
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO * ( 1 -  (descuento/100))
+        WHERE COD_PRO = codProd;
+	END IF;
+END $$
+delimiter ;
+
+-- Aplicar descuento a productos de tal tipo
+delimiter $$
+CREATE PROCEDURE usp_aplicarDescuentoProductoXTipo(tipoDesc INT, tipoProd INT, descuento DECIMAL(10,2))
+BEGIN
+	IF (tipoDesc = 1) THEN  # 1 -> Numerico
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO - descuento
+        WHERE ID_TIPO_PRO = tipoProd;
+	ELSE                   # 2 -> Porcentual
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO * ( 1 -  (descuento/100))
+        WHERE ID_TIPO_PRO = tipoProd;
+	END IF;
+END $$
+delimiter ;
+
+-- Aplicar descuento a productos de tal marca
+delimiter $$
+CREATE PROCEDURE usp_aplicarDescuentoProductoXMarca(tipoDesc INT, tipoMarc INT, descuento DECIMAL(10,2))
+BEGIN
+	IF (tipoDesc = 1) THEN  # 1 -> Numerico
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO - descuento
+        WHERE ID_MARC_PRO = tipoMarc;
+	ELSE                   # 2 -> Porcentual
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO * ( 1 -  (descuento/100))
+        WHERE ID_MARC_PRO = tipoMarc;
+	END IF;
+END $$
+delimiter ;
+
+-- Aplicar descuentos a todos los productos
+delimiter $$
+CREATE PROCEDURE usp_aplicarDescuentoProductoTodos(tipoDesc INT, descuento DECIMAL(10,2))
+BEGIN
+	IF (tipoDesc = 1) THEN  # 1 -> Numerico
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO - descuento;
+	ELSE                   # 2 -> Porcentual
+        UPDATE PRODUCTO
+        SET PREC_UNIT_PRO = PREC_UNIT_PRO * ( 1 -  (descuento/100));
+	END IF;
+END $$
+delimiter ;
