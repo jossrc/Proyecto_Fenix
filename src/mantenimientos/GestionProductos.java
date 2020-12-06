@@ -349,4 +349,10 @@ public class GestionProductos implements ProductoInterface {
 
 		return rs;
 	}
+
+	@Override
+	public double obtenerPrecioMinimo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

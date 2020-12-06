@@ -26,4 +26,6 @@ public interface ProductoInterface {
 	
 	public int aplicarDescuentoATodos(int tipoDesc, double descuento);
 	
+	public double obtenerPrecioMinimo();
+	
 }
