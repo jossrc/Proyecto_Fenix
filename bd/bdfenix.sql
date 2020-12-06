@@ -464,7 +464,7 @@ delimiter ;
 delimiter $$
 CREATE PROCEDURE usp_listaDetalleBolProd(numBol INT)
 BEGIN
-	SELECT D.NUM_BOL, P.DESC_PRO, D.IMP_PRO, D.CANT_COMP_BOL
+	SELECT D.NUM_BOL, P.DESC_PRO, P.PREC_UNIT_PRO, D.IMP_PRO, D.CANT_COMP_BOL
     FROM detalle_boleta AS D
 	INNER JOIN producto AS P
       ON D.COD_PRO = P.COD_PRO

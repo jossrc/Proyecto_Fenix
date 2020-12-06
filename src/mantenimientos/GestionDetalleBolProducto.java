@@ -35,10 +35,11 @@ public class GestionDetalleBolProducto implements DetalleBoletaProductoInterface
 				
 				int numBoleta = rs.getInt(1);
 				String descripcionProducto = rs.getString(2);
-				double importe = rs.getDouble(3);
-				int cantidadComprada = rs.getInt(4);
+				double precioUnitProd = rs.getDouble(3);
+				double importe = rs.getDouble(4);
+				int cantidadComprada = rs.getInt(5);
 
-				DetalleBoletaProducto det = new DetalleBoletaProducto(numBoleta, descripcionProducto, importe, cantidadComprada);
+				DetalleBoletaProducto det = new DetalleBoletaProducto(numBoleta, descripcionProducto, precioUnitProd, importe, cantidadComprada);
 				lista.add(det);
 			}
 		} catch (Exception e) {
@@ -52,6 +53,6 @@ public class GestionDetalleBolProducto implements DetalleBoletaProductoInterface
 		}
 
 		return lista;
-	}
 
+	}
 }

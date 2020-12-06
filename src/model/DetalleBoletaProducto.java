@@ -4,12 +4,15 @@ public class DetalleBoletaProducto {
 	
 	private int numBoleta;
 	private String descripcionProducto;
+	private double precioUnitProd;
 	private double importe;
 	private int cantidadComprada;
 	
-	public DetalleBoletaProducto(int numBoleta, String descripcionProducto, double importe, int cantidadComprada) {
+	public DetalleBoletaProducto(int numBoleta, String descripcionProducto, double precioUnitProd, double importe,
+			int cantidadComprada) {
 		this.numBoleta = numBoleta;
 		this.descripcionProducto = descripcionProducto;
+		this.precioUnitProd = precioUnitProd;
 		this.importe = importe;
 		this.cantidadComprada = cantidadComprada;
 	}
@@ -44,6 +47,14 @@ public class DetalleBoletaProducto {
 
 	public void setCantidadComprada(int cantidadComprada) {
 		this.cantidadComprada = cantidadComprada;
+	}
+
+	public double getPrecioUnitProd() {
+		return precioUnitProd;
+	}
+
+	public void setPrecioUnitProd(double precioUnitProd) {
+		this.precioUnitProd = precioUnitProd;
 	}
 
 }
