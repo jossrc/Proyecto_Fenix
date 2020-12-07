@@ -5,12 +5,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import mantenimientos.GestionMarcaProducto;
 import mantenimientos.GestionReporteProducto;
@@ -24,7 +33,10 @@ import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class RepProducto extends JPanel {
@@ -128,6 +140,70 @@ public class RepProducto extends JPanel {
 	
 	private void imprimirReporteProductos() {
 		
+		int filas = tblProductos.getRowCount();
+		
+		if (filas == 0 || filas == -1) {
+			aviso("Oops. Se necesita de registros para generar el PDF");
+			return;
+		}	
+				
+		Date date = new Date();
+		int hashCode = date.toString().hashCode();
+		
+		String nombreArchivo = "reporte_venCont" + hashCode + ".pdf";
+		String ruta = "reportes/";
+		String file = ruta + nombreArchivo;
+		
+		try {
+			Document document = new Document();			
+			FileOutputStream fileStream = new FileOutputStream(file);
+			
+			PdfWriter.getInstance(document, fileStream);
+			
+			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
+			
+			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 36, com.itextpdf.text.Font.BOLDITALIC, BaseColor.RED);
+			Paragraph p = new Paragraph("Reporte de Productos", iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			
+			document.add(p);
+			
+			iFont = FontFactory.getFont("Sans Serif", 14, com.itextpdf.text.Font.NORMAL, BaseColor.DARK_GRAY);
+			
+			switch (gbTipoBusqueda) {
+			case 1:
+				p = new Paragraph("Reporte de todos los productos ", iFont);
+				break;
+			case 2:
+				p = new Paragraph("Reporte de productos de la marca " + cboMarca.getSelectedItem().toString() , iFont);
+				break;
+			case 3:
+				p = new Paragraph("Reporte de productos del tipo " + cboTipoProducto.getSelectedItem().toString(), iFont);
+				break;
+			default:
+				p = new Paragraph("Reporte de productos de la marca " + cboMarca.getSelectedItem().toString() + " y tipo " + cboTipoProducto.getSelectedItem().toString(), iFont);
+				break;
+			}		
+			
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			document.add(new Paragraph(" "));
+			document.add(p);
+			
+			
+			
+			document.close();
+			Desktop.getDesktop().open(new File(file));
+			
+			
+		} catch (Exception e) {
+			System.out.println("Error al crear archivo PDF : " + e.getMessage());
+		}
+		
+		
 	}
 
 	private void listarEnTabla() {
@@ -213,7 +289,7 @@ public class RepProducto extends JPanel {
 			System.out.println("Hubo un problema al cargar la lista de marcas");
 		} else {
 			for (MarcaProducto marca : lista) {
-				cboMarca.addItem(marca.getIdMarca() + ".- " + marca.getDescripcion());
+				cboMarca.addItem(marca.getDescripcion());
 			}
 		}
 
@@ -227,7 +303,7 @@ public class RepProducto extends JPanel {
 			System.out.println("Hubo un problema al cargar la lista de tipos");
 		} else {
 			for (TipoProducto tipo : lista) {
-				cboTipoProducto.addItem(tipo.getIdTipo() + ".- " + tipo.getDescripcion());
+				cboTipoProducto.addItem(tipo.getDescripcion());
 			}
 		}
 	}
