@@ -165,4 +165,10 @@ public class GestionReporteProducto implements ReporteProductoInterface{
 		return null;
 	}
 
+	@Override
+	public ArrayList<ReporteProducto> listadoxtipoymarca(int codTipo, int codMarca) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
