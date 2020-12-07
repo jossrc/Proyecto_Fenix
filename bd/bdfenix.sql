@@ -157,7 +157,8 @@ SELECT
 	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t 
       on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
 	join MARCA_PRODUCTO m 
-      on p.ID_MARC_PRO = m.ID_MARC_PRO;
+      on p.ID_MARC_PRO = m.ID_MARC_PRO
+	WHERE p.ESTADO = 1;
 END $$
 delimiter ; 
 
