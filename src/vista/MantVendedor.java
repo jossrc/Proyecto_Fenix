@@ -233,6 +233,7 @@ private static final long serialVersionUID = 1L;
 			} else {
 				JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Vendedor");
 				limpiar();
+				listado();
 			}
 		}
 	}
@@ -248,6 +249,7 @@ private static final long serialVersionUID = 1L;
 			} else {
 				JOptionPane.showMessageDialog(this, "Vendedor actualizado correctamente");
 				limpiar();
+				listado();
 			}
 		}
 	}
@@ -294,6 +296,7 @@ private static final long serialVersionUID = 1L;
 			} else {
 				JOptionPane.showMessageDialog(this, "Nuevo Vendedor registrado");
 				limpiar();
+				listado();
 			}
 		}
 	}
