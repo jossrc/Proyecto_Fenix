@@ -11,10 +11,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import mantenimientos.GestionMarcaProducto;
+import mantenimientos.GestionReporteProducto;
 import mantenimientos.GestionTipoProducto;
 import model.MarcaProducto;
+import model.ReporteProducto;
 import model.TipoProducto;
 
 import javax.swing.JTable;
@@ -35,6 +38,7 @@ public class RepProducto extends JPanel {
 	private JTable tblProductos;
 	private JComboBox<String> cboMarca;
 	private JComboBox<String> cboTipoProducto;
+	private DefaultTableModel model;
 
 	public RepProducto() {
 		setLayout(null);
@@ -49,6 +53,14 @@ public class RepProducto extends JPanel {
 		panel.add(scrollPane);
 		
 		tblProductos = new JTable();
+		model = new DefaultTableModel();
+		tblProductos.setModel(model);
+		model.addColumn("Código");
+		model.addColumn("Descripción");
+		model.addColumn("Marca");
+		model.addColumn("Tipo");
+		model.addColumn("Stock");
+		model.addColumn("Precio");
 		scrollPane.setViewportView(tblProductos);
 		
 		JPanel pProducto = new JPanel();
@@ -104,7 +116,7 @@ public class RepProducto extends JPanel {
 		
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listarTodo();
 			}
 		});
 		
@@ -113,6 +125,22 @@ public class RepProducto extends JPanel {
 				
 			}
 		});
+	}
+	
+	private void listarTodo() {
+		
+		ArrayList<ReporteProducto> lista = new GestionReporteProducto().listado();
+		
+		if (lista == null) {
+			JOptionPane.showMessageDialog(this, "Listado vac\u00edo");
+		} else {
+			model.setRowCount(0);
+			for (ReporteProducto rp : lista) {
+				insertarNuevaFila(rp);
+			}
+		}
+		
+		
 	}
 	
 	private void llenarCboMarca() {
@@ -163,6 +191,11 @@ public class RepProducto extends JPanel {
 		}
 
 		return tipo;
+	}
+	
+	private void insertarNuevaFila(ReporteProducto r) {
+		Object datos[] = {r.getCodigo(), r.getDescripcion(), r.getMarca(), r.getTipo(), r.getStock(), r.getPrecio()};
+		model.addRow(datos);
 	}
 	
 	private void aviso(String mensaje) {
