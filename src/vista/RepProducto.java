@@ -32,11 +32,9 @@ public class RepProducto extends JPanel {
 
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCodigo;
 	private JTable tblProductos;
 	private JComboBox<String> cboMarca;
 	private JComboBox<String> cboTipoProducto;
-	private JCheckBox chkActivarTipoBusqueda;
 
 	public RepProducto() {
 		setLayout(null);
@@ -61,38 +59,26 @@ public class RepProducto extends JPanel {
 		pProducto.setBounds(14, 29, 727, 149);
 		panel.add(pProducto);
 		
-		JLabel lblCdigo = new JLabel("C\u00F3digo");
-		lblCdigo.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblCdigo.setBounds(23, 21, 45, 19);
-		pProducto.add(lblCdigo);
-		
-		txtCodigo = new JTextField();
-		txtCodigo.setColumns(10);
-		txtCodigo.setBounds(111, 22, 241, 20);
-		pProducto.add(txtCodigo);
-		
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblMarca.setBounds(23, 59, 39, 19);
+		lblMarca.setBounds(22, 31, 39, 19);
 		pProducto.add(lblMarca);
 		
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblTipo.setBounds(23, 101, 28, 19);
+		lblTipo.setBounds(22, 73, 28, 19);
 		pProducto.add(lblTipo);
 		
 		cboMarca = new JComboBox<String>();
-		cboMarca.setEnabled(false);
-		cboMarca.setBounds(111, 60, 241, 20);
+		cboMarca.setBounds(110, 32, 241, 20);
 		pProducto.add(cboMarca);
 		
 		cboTipoProducto = new JComboBox<String>();
-		cboTipoProducto.setEnabled(false);
-		cboTipoProducto.setBounds(111, 102, 241, 20);
+		cboTipoProducto.setBounds(110, 74, 241, 20);
 		pProducto.add(cboTipoProducto);
 		
 		JButton btnConsultar = new JButton("CONSULTAR");		
-		btnConsultar.setBounds(466, 21, 117, 43);
+		btnConsultar.setBounds(438, 19, 117, 43);
 		pProducto.add(btnConsultar);
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -103,7 +89,7 @@ public class RepProducto extends JPanel {
 		btnConsultar.setBackground(Color.GRAY);
 		
 		JButton btnImprimir = new JButton("IMPRIMIR");		
-		btnImprimir.setBounds(466, 89, 117, 43);
+		btnImprimir.setBounds(438, 84, 117, 43);
 		pProducto.add(btnImprimir);
 		btnImprimir.setForeground(Color.WHITE);
 		btnImprimir.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -113,29 +99,8 @@ public class RepProducto extends JPanel {
 		btnImprimir.setBorder(null);
 		btnImprimir.setBackground(Color.GRAY);
 		
-		chkActivarTipoBusqueda = new JCheckBox("");		
-		chkActivarTipoBusqueda.setSelected(true);
-		chkActivarTipoBusqueda.setBounds(363, 21, 28, 23);
-		pProducto.add(chkActivarTipoBusqueda);
-		
 		llenarCboMarca();
 		llenarCboTipos();
-		
-		chkActivarTipoBusqueda.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				
-				if (arg0.getStateChange() == ItemEvent.DESELECTED) {					
-					txtCodigo.setEnabled(false);
-					cboMarca.setEnabled(true);
-					cboTipoProducto.setEnabled(true);
-				} else {
-					txtCodigo.setEnabled(true);
-					cboMarca.setEnabled(false);
-					cboTipoProducto.setEnabled(false);
-				}
-				
-			}
-		});
 		
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,22 +141,6 @@ public class RepProducto extends JPanel {
 				cboTipoProducto.addItem(tipo.getIdTipo()+".- " + tipo.getDescripcion());
 			}
 		}
-	}
-	
-	private String leerCodigo() {
-		String codigo = txtCodigo.getText().toUpperCase().trim();
-
-		if (codigo.isEmpty()) {
-			aviso("El campo Código está vacío");
-			return null;
-		}
-
-		if (!codigo.matches("PROD[0-9]{4}")) {
-			aviso("Ingrese un código válido (PRODXXXX)");
-			return null;
-		}
-
-		return codigo;
 	}
 	
 	private int leerMarca() {
