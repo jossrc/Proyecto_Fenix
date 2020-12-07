@@ -19,6 +19,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import mantenimientos.GestionMarcaProducto;
@@ -132,7 +134,7 @@ public class RepProducto extends JPanel {
 
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				imprimirReporteProductos();
 			}
 		});
 	}
@@ -173,27 +175,80 @@ public class RepProducto extends JPanel {
 			document.add(p);
 			
 			iFont = FontFactory.getFont("Sans Serif", 14, com.itextpdf.text.Font.NORMAL, BaseColor.DARK_GRAY);
+			ArrayList<ReporteProducto> dataReporte;
 			
 			switch (gbTipoBusqueda) {
 			case 1:
 				p = new Paragraph("Reporte de todos los productos ", iFont);
+				dataReporte = new GestionReporteProducto().listado();
 				break;
 			case 2:
 				p = new Paragraph("Reporte de productos de la marca " + cboMarca.getSelectedItem().toString() , iFont);
+				dataReporte = new GestionReporteProducto().listadoxmarca(leerMarca());
 				break;
 			case 3:
 				p = new Paragraph("Reporte de productos del tipo " + cboTipoProducto.getSelectedItem().toString(), iFont);
+				dataReporte = new GestionReporteProducto().listadoxtipo(leerTipo());
 				break;
 			default:
 				p = new Paragraph("Reporte de productos de la marca " + cboMarca.getSelectedItem().toString() + " y tipo " + cboTipoProducto.getSelectedItem().toString(), iFont);
+				dataReporte = new GestionReporteProducto().listadoxtipoymarca(leerTipo(), leerMarca());
 				break;
-			}		
+			}
 			
 			p.setAlignment(Chunk.ALIGN_CENTER);
 			document.add(new Paragraph(" "));
 			document.add(p);
+			document.add(new Paragraph(" "));
 			
+			PdfPTable table = new PdfPTable(6);
 			
+			p = new Paragraph("Código");				
+			PdfPCell col1 = new PdfPCell(p);
+			col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col1);
+			
+			p = new Paragraph("Descripción");				
+			PdfPCell col2 = new PdfPCell(p);
+			col2.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col2);
+			
+			p = new Paragraph("Marca");				
+			PdfPCell col3 = new PdfPCell(p);
+			col3.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col3);
+			
+			p = new Paragraph("Tipo");				
+			PdfPCell col4 = new PdfPCell(p);
+			col4.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col4);
+			
+			p = new Paragraph("Stock");				
+			PdfPCell col5 = new PdfPCell(p);
+			col5.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col5.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col5);
+			
+			p = new Paragraph("Precio");				
+			PdfPCell col6 = new PdfPCell(p);
+			col6.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col6.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col6);
+			
+			for (ReporteProducto r : dataReporte) {
+				table.addCell(r.getCodigo());
+				table.addCell(r.getDescripcion());
+				table.addCell(r.getMarca());
+				table.addCell(r.getTipo());
+				table.addCell(r.getStock() + "");
+				table.addCell(r.getPrecio()+"");
+			}
+			
+			document.add(table);
 			
 			document.close();
 			Desktop.getDesktop().open(new File(file));
