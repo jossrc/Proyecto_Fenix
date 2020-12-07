@@ -474,4 +474,58 @@ delimiter ;
 
 CALL usp_listaDetalleBolProd(2)
 
+-- PROCEDURES PARA REPORTE PRODUCTO
 
+delimiter $$
+CREATE PROCEDURE usp_ReporteProductoXMarca(codMarca INT)
+BEGIN
+SELECT
+	p.COD_PRO,  
+	p.DESC_PRO,
+	m.DESC_MARCA,
+	T.DESC_TIPO,
+	P.STOCK_PRO,
+	P.PREC_UNIT_PRO
+	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t 
+      on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
+	join MARCA_PRODUCTO m 
+      on p.ID_MARC_PRO = m.ID_MARC_PRO
+	WHERE P.ID_MARC_PRO = codMarca AND P.ESTADO = 1;
+END $$
+delimiter ; 
+
+delimiter $$
+CREATE PROCEDURE usp_ReporteProductoXTipo(codTipo INT)
+BEGIN
+SELECT
+	p.COD_PRO,  
+	p.DESC_PRO,
+	m.DESC_MARCA,
+	T.DESC_TIPO,
+	P.STOCK_PRO,
+	P.PREC_UNIT_PRO
+	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t 
+      on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
+	join MARCA_PRODUCTO m 
+      on p.ID_MARC_PRO = m.ID_MARC_PRO
+	WHERE P.ID_TIPO_PRO = codTipo AND P.ESTADO = 1;
+END $$
+delimiter ;
+
+delimiter $$
+CREATE PROCEDURE usp_ReporteProductoXTipoYMarca(codTipo INT, codMarca INT)
+BEGIN
+SELECT
+	p.COD_PRO,  
+	p.DESC_PRO,
+	m.DESC_MARCA,
+	T.DESC_TIPO,
+	P.STOCK_PRO,
+	P.PREC_UNIT_PRO
+	FROM PRODUCTO p JOIN  TIPO_PRODUCTO t 
+      on p.ID_TIPO_PRO = t.ID_TIPO_PRO 
+	join MARCA_PRODUCTO m 
+      on p.ID_MARC_PRO = m.ID_MARC_PRO
+	WHERE P.ID_TIPO_PRO = codTipo AND P.ID_MARC_PRO = codMarca AND P.ESTADO = 1;
+END $$
+delimiter ;
