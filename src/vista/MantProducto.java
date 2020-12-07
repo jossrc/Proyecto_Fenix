@@ -198,6 +198,7 @@ public class MantProducto extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
 			}
 		});
 
@@ -272,6 +273,7 @@ public class MantProducto extends JPanel {
 				JOptionPane.showMessageDialog(this, "Nuevo Producto registrado");
 				limpiar();
 				txtCodigo.setText(generarCodigoProducto());
+				listado();
 			}
 		}
 		
@@ -289,6 +291,7 @@ public class MantProducto extends JPanel {
 				JOptionPane.showMessageDialog(this, "Producto actualizado correctamente");
 				limpiar();
 				txtCodigo.setText(generarCodigoProducto());
+				listado();
 			}
 		}
 	}
@@ -325,6 +328,7 @@ public class MantProducto extends JPanel {
 				JOptionPane.showMessageDialog(this, "Se eliminó correctamente el producto");
 				limpiar();
 				txtCodigo.setText(generarCodigoProducto());
+				listado();
 			}
 		}
 		
