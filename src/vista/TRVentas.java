@@ -209,10 +209,6 @@ public class TRVentas extends JPanel {
 		btnAdicionarProducto.setBounds(647, 125, 57, 36);
 		panelVentas.add(btnAdicionarProducto);
 		
-		JButton btnQuitarProducto = new JButton("-");
-		btnQuitarProducto.setBounds(647, 182, 57, 36);
-		panelVentas.add(btnQuitarProducto);
-		
 		JButton btnGenerarVenta = new JButton("GENERAR");		
 		btnGenerarVenta.setBounds(703, 296, 102, 36);
 		panelVentas.add(btnGenerarVenta);
