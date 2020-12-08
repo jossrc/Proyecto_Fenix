@@ -195,7 +195,7 @@ SELECT * FROM PRODUCTO;
 
 INSERT INTO VENDEDOR VALUES (1, '77416188', 'Jose', 'Atuncar', '701 Brickell Ave #1550, Miami, FL', '1117777', 1, 0);
 INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 Sicuani-Ate', '6665555', 1, 1);
-
+INSERT INTO VENDEDOR VALUES (3, '00000000', 'Elena', 'Efimova', '777 Monto Olimpo', '5550000', 1, 1);
 SELECT * FROM VENDEDOR;
 
 -- Procedure : Actualizar Vendedor
@@ -217,6 +217,7 @@ delimiter ;
 
 INSERT INTO LOGIN VALUES('admin', 'admin123', 1);
 INSERT INTO LOGIN VALUES('jossrc', 'vend123', 2);
+INSERT INTO LOGIN VALUES('elenae', 'vend456', 3);
 
 -- Procedure : Obtener vendedor y logueo
 delimiter $$
