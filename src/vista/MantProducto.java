@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,8 +14,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionMarcaProducto;
+import mantenimientos.GestionProductos;
+import mantenimientos.GestionReporteProducto;
+import mantenimientos.GestionTipoProducto;
+
+import model.MarcaProducto;
+import model.Producto;
+import model.ReporteProducto;
+import model.TipoProducto;
+
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MantProducto extends JPanel {
 
@@ -28,11 +42,11 @@ public class MantProducto extends JPanel {
 	private JComboBox<String> cboMarca;
 	private JComboBox<String> cboTipo;
 	private JTextField txtPrecioUnit;
+	private DefaultTableModel model;
 
 	public MantProducto() {
 		setLayout(null);
 
-		// Dando Forma al Panel
 		JPanel panelProducto = new JPanel();
 		panelProducto.setBounds(0, 0, 817, 470);
 		add(panelProducto);
@@ -46,8 +60,16 @@ public class MantProducto extends JPanel {
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelProducto.add(scrollPane);
 
-		tblProducto = new JTable();
+		tblProducto = new JTable();		
+		model = new DefaultTableModel();
+		tblProducto.setModel(model);
 		scrollPane.setViewportView(tblProducto);
+		model.addColumn("Código");
+		model.addColumn("Descripción");
+		model.addColumn("Marca");
+		model.addColumn("Tipo");
+		model.addColumn("Stock");
+		model.addColumn("Precio");
 
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
 		lblDescripcion.setBounds(37, 70, 62, 14);
@@ -63,11 +85,12 @@ public class MantProducto extends JPanel {
 
 		txtCodigo = new JTextField();
 		txtCodigo.setBounds(109, 42, 323, 20);
+		txtCodigo.setText(generarCodigoProducto());
 		panelProducto.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(109, 67, 323, 20);
+		txtDescripcion.setBounds(109, 67, 323, 20);		
 		txtDescripcion.setColumns(10);
 		panelProducto.add(txtDescripcion);
 
@@ -109,7 +132,7 @@ public class MantProducto extends JPanel {
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnAgregar);
 
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -120,7 +143,7 @@ public class MantProducto extends JPanel {
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnEditar);
 
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -131,7 +154,7 @@ public class MantProducto extends JPanel {
 		btnBuscar.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnBuscar);
 
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnEliminar = new JButton("Eliminar");		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -147,14 +170,10 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblTipo);
 
 		cboTipo = new JComboBox<String>();
-		cboTipo.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "Seleccione...", "Figuras de Acci\u00F3n", "Modelismo", "Modelismo 3D", "Juegos de Mesa",
-						"Miniaturas", "Consolas y Videojuegos", "Antiguedades", "Varios" }));
 		cboTipo.setBounds(109, 129, 323, 20);
 		panelProducto.add(cboTipo);
 
 		cboMarca = new JComboBox<String>();
-		cboMarca.setModel(new DefaultComboBoxModel<String>(new String[] { "Seleccione...", "Probando" }));
 		cboMarca.setBounds(109, 98, 323, 20);
 		panelProducto.add(cboMarca);
 
@@ -166,28 +185,156 @@ public class MantProducto extends JPanel {
 		txtPrecioUnit.setColumns(10);
 		txtPrecioUnit.setBounds(317, 160, 115, 20);
 		panelProducto.add(txtPrecioUnit);
+				
+		llenarCboMarca();
+		llenarCboTipos();
 
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				listado();
 			}
 		});
 
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
 			}
 		});
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearProducto();
+				registrarProducto();
+			}
+		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actualizarProducto();
+			}
+		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarProducto();
+			}
+		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarProducto();
+			}
+		});
+		
+		tblProducto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int fila = tblProducto.getSelectedRow();
+				
+				if (fila != -1) {
+					String codigo = tblProducto.getValueAt(fila, 0).toString();
+					
+					txtCodigo.setText(codigo);
+					buscarProducto();
+				}
 			}
 		});
 
 	}
+	
+	protected void listado() {
+		ArrayList<ReporteProducto> lista = new GestionReporteProducto().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (ReporteProducto r : lista){
+				insertarNuevaFila(r);				
+			}
+		}
+		
+	}
 
-	private void crearProducto() {
+	private void insertarNuevaFila(ReporteProducto r) {
+		Object datos[] = {r.getCodigo(), r.getDescripcion(), r.getMarca(), r.getTipo(), r.getStock(), r.getPrecio()};
+		model.addRow(datos);
+	}
+
+	private void registrarProducto() {
+		Producto producto = crearProducto();
+		
+		if (producto != null) {
+			int ok = new GestionProductos().registrar(producto);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Producto registrado");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
+				listado();
+			}
+		}
+		
+	}
+	
+	private void actualizarProducto() {
+		Producto producto = crearProducto();
+		
+		if (producto != null) {
+			int ok = new GestionProductos().actualizar(producto);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo actualizar Producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Producto actualizado correctamente");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
+				listado();
+			}
+		}
+	}
+	
+	private void buscarProducto() {
+		String codigo = leerCodigo();
+		
+		if (codigo != null) {
+			
+			Producto p = new GestionProductos().buscar(codigo);
+			
+			if (p == null) {
+				aviso("Oops no se pudo encontrar Producto");
+			} else {
+				txtCodigo.setText(p.getCodigo());
+				txtDescripcion.setText(p.getDescripcion());
+				cboMarca.setSelectedIndex(p.getIdMarca());
+				cboTipo.setSelectedIndex(p.getIdTipo());
+				txtStock.setText(p.getStock()+"");
+				txtPrecioUnit.setText(p.getPrecioUnitario()+"");	
+			}
+		}
+	}
+	
+	private void eliminarProducto() {
+		String codigo = leerCodigo();
+		
+		if (codigo != null) {
+			int ok = new GestionProductos().eliminar(codigo);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo eliminar producto");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminó correctamente el producto");
+				limpiar();
+				txtCodigo.setText(generarCodigoProducto());
+				listado();
+			}
+		}
+		
+	}
+
+	private Producto crearProducto() {
 		String codigo = leerCodigo();
 		String descripcion;
 		int stock, marca, tipo;
@@ -203,10 +350,8 @@ public class MantProducto extends JPanel {
 						stock = leerStock();
 						if (stock != -1) {
 							precioUnit = leerPrecioUnit();
-							if (precioUnit != -1) {
-								JOptionPane.showMessageDialog(this, "Nuevo Producto agregado");
-								limpiar();
-								// TODO: Crear un objeto producto y retornarlo
+							if (precioUnit != -1) {								
+								return new Producto(codigo, descripcion, marca, tipo, stock, precioUnit);
 							}
 						}
 					}
@@ -214,8 +359,40 @@ public class MantProducto extends JPanel {
 			}
 		}
 
-		// return null;
+		return null;
 
+	}
+
+	private void llenarCboMarca() {
+		
+		cboMarca.addItem("Seleccione Marca...");
+		ArrayList<MarcaProducto> lista = new GestionMarcaProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de marcas");
+		} else {
+			for (MarcaProducto marca : lista) {
+				cboMarca.addItem(marca.getIdMarca()+".- " + marca.getDescripcion());
+			}
+		}
+		
+	}
+	
+	private void llenarCboTipos() {
+		cboTipo.addItem("Seleccione Tipo...");
+		ArrayList<TipoProducto> lista = new GestionTipoProducto().listado();
+		
+		if (lista == null) {
+			System.out.println("Hubo un problema al cargar la lista de tipos");
+		} else {
+			for (TipoProducto tipo : lista) {
+				cboTipo.addItem(tipo.getIdTipo()+".- " + tipo.getDescripcion());
+			}
+		}
+	}
+	
+	private String generarCodigoProducto() {
+		return new GestionProductos().generarCodigo();
 	}
 
 	private String leerCodigo() {
@@ -253,7 +430,7 @@ public class MantProducto extends JPanel {
 			return -1;
 		}
 
-		if (!stock.matches("[0-9]{1,3}")) {
+		if (!stock.matches("[1-9]+[0-9]*")) {
 			aviso("Ingrese un valor válido para el Stock");
 			return -1;
 		}

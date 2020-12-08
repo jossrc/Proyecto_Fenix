@@ -6,32 +6,67 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
+
+import mantenimientos.GestionBoleta;
+import mantenimientos.GestionBoletaDNIClientes;
+import mantenimientos.GestionClientes;
+import mantenimientos.GestionDetalleBolProducto;
+import model.Boleta;
+import model.BoletaDNICliente;
+import model.Cliente;
+import model.DetalleBoletaProducto;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
+
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.awt.event.ItemEvent;
 
 public class RepBoleta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tblBoleta;
 	private JTextField txtNumBoleta;
-	private JTextField txtDNI_RUC;
+	private JTextField txtDNI;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JDateChooser txtFechInicial;
 	private JDateChooser txtFechFinal;
+	private DefaultTableModel model;
+	private JRadioButton rdbtnBoleta;
+	private JRadioButton rdbtnDocumento;
+	private JRadioButton rdbtnRango;
+	
+	private int tipoBusqueda = 0; // 0-> Boleta; 1-> DNI; 2 -> Fechas
+	private ArrayList<BoletaDNICliente> gListadoBoletas = new ArrayList<BoletaDNICliente>();
 
 	public RepBoleta() {
 		setLayout(null);
@@ -46,6 +81,14 @@ public class RepBoleta extends JPanel {
 		pBoleta.add(scrollPane);
 		
 		tblBoleta = new JTable();
+		model = new DefaultTableModel();
+		tblBoleta.setModel(model);
+		model.addColumn("N° Boleta");
+		model.addColumn("DNI Cliente");
+		model.addColumn("Fecha");
+		model.addColumn("SubTotal");
+		model.addColumn("Descuento");
+		model.addColumn("Total");
 		scrollPane.setViewportView(tblBoleta);
 		
 		JButton btnBuscar = new JButton("BUSCAR");		
@@ -59,16 +102,16 @@ public class RepBoleta extends JPanel {
 		btnBuscar.setBounds(665, 225, 117, 43);
 		pBoleta.add(btnBuscar);
 		
-		JButton btnVisualizar = new JButton("VISUALIZAR");		
-		btnVisualizar.setForeground(Color.WHITE);
-		btnVisualizar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnVisualizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVisualizar.setContentAreaFilled(false);
-		btnVisualizar.setOpaque(true);
-		btnVisualizar.setBorder(null);
-		btnVisualizar.setBackground(Color.GRAY);
-		btnVisualizar.setBounds(665, 294, 117, 43);
-		pBoleta.add(btnVisualizar);
+		JButton btnCancelar = new JButton("CANCELAR");		
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(Color.GRAY);
+		btnCancelar.setBounds(665, 294, 117, 43);
+		pBoleta.add(btnCancelar);
 		
 		JButton btnImprimir = new JButton("IMPRIMIR");		
 		btnImprimir.setForeground(Color.WHITE);
@@ -99,15 +142,16 @@ public class RepBoleta extends JPanel {
 		txtNumBoleta.setBounds(316, 18, 265, 20);
 		pTipoBusqueda.add(txtNumBoleta);
 		
-		JLabel lblBuscarDocumento = new JLabel("Buscar por N\u00B0 Documento (DNI/RUC)");
+		JLabel lblBuscarDocumento = new JLabel("Buscar por N\u00B0 Documento DNI");
 		lblBuscarDocumento.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblBuscarDocumento.setBounds(62, 56, 233, 19);
+		lblBuscarDocumento.setBounds(62, 56, 206, 19);
 		pTipoBusqueda.add(lblBuscarDocumento);
 		
-		txtDNI_RUC = new JTextField();
-		txtDNI_RUC.setColumns(10);
-		txtDNI_RUC.setBounds(316, 56, 265, 20);
-		pTipoBusqueda.add(txtDNI_RUC);
+		txtDNI = new JTextField();
+		txtDNI.setEnabled(false);
+		txtDNI.setColumns(10);
+		txtDNI.setBounds(316, 56, 265, 20);
+		pTipoBusqueda.add(txtDNI);
 		
 		JLabel lblBuscarRango = new JLabel("Buscar por Rango de Fechas");
 		lblBuscarRango.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -116,10 +160,12 @@ public class RepBoleta extends JPanel {
 		
 		txtFechInicial = new JDateChooser();
 		txtFechInicial.setBounds(294, 102, 107, 20);
+		txtFechInicial.setEnabled(false);
 		pTipoBusqueda.add(txtFechInicial);
 		
 		txtFechFinal = new JDateChooser();
 		txtFechFinal.setBounds(474, 102, 107, 20);
+		txtFechFinal.setEnabled(false);
 		pTipoBusqueda.add(txtFechFinal);
 		
 		JLabel lblHasta = new JLabel("hasta");
@@ -127,40 +173,277 @@ public class RepBoleta extends JPanel {
 		lblHasta.setBounds(422, 103, 35, 19);
 		pTipoBusqueda.add(lblHasta);
 		
-		JRadioButton rdbtnBoleta = new JRadioButton("");
+		rdbtnBoleta = new JRadioButton("");		
 		buttonGroup.add(rdbtnBoleta);
 		rdbtnBoleta.setSelected(true);
 		rdbtnBoleta.setBounds(28, 17, 28, 23);
 		pTipoBusqueda.add(rdbtnBoleta);
 		
-		JRadioButton rdbtnDocumento = new JRadioButton("");
+		rdbtnDocumento = new JRadioButton("");		
 		buttonGroup.add(rdbtnDocumento);
 		rdbtnDocumento.setBounds(28, 54, 28, 23);
 		pTipoBusqueda.add(rdbtnDocumento);
 		
-		JRadioButton rdbtnRango = new JRadioButton("");
+		rdbtnRango = new JRadioButton("");		
 		buttonGroup.add(rdbtnRango);
 		rdbtnRango.setBounds(28, 98, 28, 23);
 		pTipoBusqueda.add(rdbtnRango);
 		
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		rdbtnBoleta.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+					txtNumBoleta.setEnabled(false);
+				} else {
+					txtNumBoleta.setEnabled(true);
+					tipoBusqueda = 0;
+				}
 				
 			}
 		});
 		
-		btnVisualizar.addActionListener(new ActionListener() {
+		rdbtnDocumento.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED) {
+					txtDNI.setEnabled(false);
+				} else {
+					txtDNI.setEnabled(true);
+					tipoBusqueda = 1;
+				}
+			}
+		});
+		
+		rdbtnRango.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED) {
+					txtFechInicial.setEnabled(false);
+					txtFechFinal.setEnabled(false);
+				} else {
+					txtFechInicial.setEnabled(true);
+					txtFechFinal.setEnabled(true);
+					tipoBusqueda = 2;
+				}
+			}
+		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listadoBoletasEnTabla();
+				limpiar();
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiar();
+				model.setRowCount(0);
+				gListadoBoletas = null;
 			}
 		});
 		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//generarReportePDF();
+				imprimirBoletaSeleccionada();
 			}
 		});
 
+	}
+	
+	private void imprimirBoletaSeleccionada() {
+		
+		int filas = tblBoleta.getRowCount();
+		
+		if (filas == 0 || filas == -1) {
+			aviso("Oops. Se necesita de registros para generar el PDF");
+			return;
+		}
+		
+		
+		int filaSeleccionada = tblBoleta.getSelectedRow();
+		
+		if (filaSeleccionada == -1) {
+			aviso("Seleccione un registro para obtener la Boleta");
+			return;
+		}
+		
+		int numBoleta = Integer.parseInt(tblBoleta.getValueAt(filaSeleccionada, 0).toString());
+		String dniCliente = tblBoleta.getValueAt(filaSeleccionada, 1).toString();
+		
+		Cliente cliente = new GestionClientes().buscar(dniCliente);
+		Boleta boleta = new GestionBoleta().buscarPorNumero(numBoleta);
+		
+		Date date = new Date();
+		int hashCode = date.toString().hashCode();
+		
+		String nombreArchivo = "reporte_Boleta" + hashCode + ".pdf";
+		String ruta = "reportes/";
+		String file = ruta + nombreArchivo;
+		
+		try {
+			
+			Document document = new Document();			
+			FileOutputStream fileStream = new FileOutputStream(file);
+			
+			PdfWriter.getInstance(document, fileStream);
+			
+			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
+			
+			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 24, com.itextpdf.text.Font.BOLD, BaseColor.BLACK);
+			Paragraph p = new Paragraph("Boleta", iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			
+			document.add(p);			
+			document.add(new Paragraph(" "));
+			
+			// Datos Cliente
+			p = new Paragraph("Cliente     : " + cliente.getNom_cli() + cliente.getApe_cli());
+			document.add(p);
+			
+			p = new Paragraph("Direccion : " + cliente.getDirec_cli());
+			document.add(p);
+			
+			p = new Paragraph("DNI          : " + dniCliente);
+			document.add(p);
+			
+			p = new Paragraph("Fecha      : " + boleta.getFecha());
+			document.add(p);
+			
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
+			ArrayList<DetalleBoletaProducto> listaDet = new GestionDetalleBolProducto().listaDetalle(numBoleta);
+			
+			PdfPTable table = new PdfPTable(4);
+			p = new Paragraph("Cantidad");
+			PdfPCell col1 = new PdfPCell(p);
+			col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col1);
+			
+			p = new Paragraph("Descripción");				
+			PdfPCell col2 = new PdfPCell(p);
+			col2.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col2);
+			
+			p = new Paragraph("Precio Unit.");				
+			PdfPCell col3 = new PdfPCell(p);
+			col3.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col3);
+			
+			p = new Paragraph("Importe");				
+			PdfPCell col4 = new PdfPCell(p);
+			col4.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+			col4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			table.addCell(col4);
+			
+			for (DetalleBoletaProducto dbp : listaDet) {
+				table.addCell(dbp.getCantidadComprada() + "");
+				table.addCell(dbp.getDescripcionProducto());
+				table.addCell(dbp.getPrecioUnitProd() + "");
+				table.addCell(dbp.getImporte() + "");
+			}
+			
+			document.add(table);
+			
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
+			p = new Paragraph("Subtotal          : " + boleta.getSubtotal());
+			document.add(p);
+			
+			p = new Paragraph("Descuento      : " + boleta.getDescuento());
+			document.add(p);
+			
+			p = new Paragraph("Total a pagar  : " + boleta.getTotal());
+			document.add(p);
+			
+			document.close();
+			Desktop.getDesktop().open(new File(file));
+			
+		} catch (Exception e) {
+			System.out.println("Error al crear archivo PDF : " + e.getMessage());
+		}
+		
+	}
+	
+	private void listadoBoletasEnTabla() {
+		gListadoBoletas = obtenerListaBoletasPor(tipoBusqueda);
+		
+		if (gListadoBoletas == null) {
+			aviso("No se encontró resultados en la busqueda");
+		} else {
+			model.setRowCount(0);
+			for (BoletaDNICliente bol : gListadoBoletas) {
+				
+				Object[] datos = {bol.getNumeroBoleta(), bol.getDniCliente(), bol.getFecha(), bol.getSubtotal(), bol.getDescuento(), bol.getTotal()};				
+				model.addRow(datos);
+			}
+		}
+		
+	}
+	
+	
+	private ArrayList<BoletaDNICliente> obtenerListaBoletasPor(int tipo) {
+		switch (tipo) {
+		case 0:
+			return listadoPorBoleta();
+		case 1:
+			return listadoPorDNI();
+		case 2:
+			return listadoPorFechas();
+		default:
+			return null;
+		}
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorBoleta() {
+		int numBoleta = leerNumBoleta();
+		
+		if (numBoleta == -1) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorBoleta(numBoleta);
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorDNI() {
+		String dni = leerDNI();
+		
+		if (dni == null) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorDNI(dni);
+	}
+	
+	private ArrayList<BoletaDNICliente> listadoPorFechas() {
+		String fech1 = leerFechaInicial();
+		
+		if (fech1 == null) {
+			return null;
+		}
+		
+		String fech2 = leerFechaFinal();
+		
+		if (fech2 == null) {
+			return null;
+		}
+		
+		return new GestionBoletaDNIClientes().listadoPorRangoFechas(fech1, fech2);
+	}
+	
+	private void limpiar() {
+		txtNumBoleta.setText("");
+		txtDNI.setText("");
+		txtFechInicial.setDate(null);
+		txtFechFinal.setDate(null);
 	}
 	
 	private int leerNumBoleta() {
@@ -180,8 +463,8 @@ public class RepBoleta extends JPanel {
 		
 	}
 	
-	private String leerDNI_RUC() {
-		String dniRuc = txtDNI_RUC.getText().trim();
+	private String leerDNI() {
+		String dniRuc = txtDNI.getText().trim();
 
 		if (dniRuc.isEmpty()) {
 			aviso("El campo DNI-RUC está vacío");

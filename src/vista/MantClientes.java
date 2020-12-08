@@ -5,13 +5,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionClientes;
+import model.Cliente;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MantClientes extends JPanel {
 
@@ -23,6 +31,7 @@ public class MantClientes extends JPanel {
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTable tblCliente;
+	private DefaultTableModel model;
 
 	public MantClientes() {
 		setLayout(null);
@@ -41,8 +50,15 @@ public class MantClientes extends JPanel {
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelClientes.add(scrollPane);
 
-		tblCliente = new JTable();
+		tblCliente = new JTable();		
+		model = new DefaultTableModel();
+		tblCliente.setModel(model);
 		scrollPane.setViewportView(tblCliente);
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("DNI");
+		model.addColumn("Dirección");
+		model.addColumn("Teléfono");
 
 		JLabel lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(37, 92, 46, 14);
@@ -118,7 +134,7 @@ public class MantClientes extends JPanel {
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelClientes.add(btnAgregar);
 
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -129,7 +145,7 @@ public class MantClientes extends JPanel {
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelClientes.add(btnEditar);
 
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -141,6 +157,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");
+		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -157,7 +174,19 @@ public class MantClientes extends JPanel {
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				crearCliente();
+				registrarCliente();
+			}
+		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editarCliente();
+			}
+		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buscarCliente();
 			}
 		});
 		
@@ -169,15 +198,120 @@ public class MantClientes extends JPanel {
 
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				listado();
 
 			}
 		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminarCliente();
+			}
+		});
+		
+		tblCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fila = tblCliente.getSelectedRow();
+				
+				if (fila != -1) {
+					String dni = tblCliente.getValueAt(fila, 2).toString();
+					txtDNI.setText(dni);
+					buscarCliente();					
+				}
+			}
+		});
+	}
+	
+		protected void eliminarCliente() {
+			String dni = leerDNI();
+			
+			if (dni != null) {
+				int ok = new GestionClientes().eliminar(dni);
+				
+				if (ok == 0) {
+					aviso("Oops algo salió mal. No se pudo eliminar Cliente");
+				} else {
+					JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Cliente");
+					limpiar();					
+					listado();
+				}
+			}
+		
 	}
 
-	private void crearCliente() {
+		void listado() {
+		ArrayList<Cliente> lista = new GestionClientes().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Cliente c : lista){
+				insertarNuevaFila(c);				
+			}
+		}
+	}
+
+	private void buscarCliente() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			Cliente cliente = new GestionClientes().buscar(dni);
+			
+			if (cliente == null) {
+				aviso("Oops no se pudo encontrar Cliente");
+			} else {
+				txtNombres.setText(cliente.getNom_cli());
+				txtApellidos.setText(cliente.getApe_cli());
+				txtTelefono.setText(cliente.getTelef_cli());
+				txtDireccion.setText(cliente.getDirec_cli());
+			}
+		}
+	}
+	
+	private void editarCliente() {
+		Cliente cliente = crearCliente();
+		
+		if (cliente != null) {
+			int ok = new GestionClientes().actualizar(cliente);
+			
+			if (ok == 0) {
+				aviso("Oops no se pudo actualizar Cliente");
+			} else {
+				JOptionPane.showMessageDialog(this, "El cliente ah sido actualizado exitosamente");
+				listado();
+			}
+		}
+	}
+		
+	private void registrarCliente(){
+		Cliente cliente = crearCliente();
+		if (cliente != null) {
+			int ok = new GestionClientes().registrar(cliente);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Cliente");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Cliente registrado");
+				limpiar();
+				listado();
+				
+			}
+		}
+		
+	}
+
+	private void insertarNuevaFila(Cliente cliente) {
+		Object datos[] = {cliente.getNom_cli(), cliente.getApe_cli(), cliente.getDni_cli(), cliente.getDirec_cli(), cliente.getTelef_cli()};
+		model.addRow(datos);
+		
+	}
+
+	private Cliente crearCliente() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
-		
+
 		if (dni != null) {
 			nombre = leerNombre();
 			if (nombre != null) {
@@ -186,17 +320,15 @@ public class MantClientes extends JPanel {
 					telefono = leerTelefono();
 					if (telefono != null) {
 						direccion = leerDireccion();
-						if (direccion != null) {							
-							JOptionPane.showMessageDialog(this, "Nuevo Cliente agregado");
-							limpiar();
-							// TODO: Crea un objeto cliente y lo retorna							
+						if (direccion != null) {
+							return new Cliente (0, dni, nombre, apellido, direccion, telefono);							
 						}
 					}
 				}
 			}
 		}
 		
-		//return null
+		return null;
 	}
 
 	private String leerDNI() {

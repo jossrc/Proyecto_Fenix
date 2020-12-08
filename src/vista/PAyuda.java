@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.Calendar;
+import javax.swing.SwingConstants;
 
 public class PAyuda extends JPanel {
 
@@ -33,6 +34,23 @@ public class PAyuda extends JPanel {
 		lblYear.setFont(new Font("SansSerif", Font.ITALIC, 13));
 		lblYear.setText(cal.get(Calendar.YEAR)+"");
 		pContenidoAyuda.add(lblYear);
+		
+		JLabel lblDesarrolladores = new JLabel("Desarrolladores:");
+		lblDesarrolladores.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblDesarrolladores.setBounds(358, 91, 135, 28);
+		pContenidoAyuda.add(lblDesarrolladores);
+		
+		JLabel lblJosRobles = new JLabel("Jos\u00E9 Robles - jossrc10@gmail.com");
+		lblJosRobles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJosRobles.setFont(new Font("Dialog", Font.PLAIN, 15));
+		lblJosRobles.setBounds(284, 140, 278, 28);
+		pContenidoAyuda.add(lblJosRobles);
+		
+		JLabel lblElenaEfimova = new JLabel("Elena Efimova - ayefimova@gmail.com");
+		lblElenaEfimova.setHorizontalAlignment(SwingConstants.CENTER);
+		lblElenaEfimova.setFont(new Font("Dialog", Font.PLAIN, 15));
+		lblElenaEfimova.setBounds(284, 167, 278, 34);
+		pContenidoAyuda.add(lblElenaEfimova);
 
 	}
 }

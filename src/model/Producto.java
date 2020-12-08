@@ -8,7 +8,7 @@ public class Producto {
 	private int idTipo;
 	private int stock;
 	private double precioUnitario;
-	private int estado = 1;
+	private int estado;
 	
 	public Producto(String codigo, String descripcion, int idMarca, int idTipo, int stock, double precioUnitario) {		
 		this.codigo = codigo;
@@ -17,6 +17,7 @@ public class Producto {
 		this.idTipo = idTipo;
 		this.stock = stock;
 		this.precioUnitario = precioUnitario;
+		this.estado = 1;
 	}
 
 	public Producto(String codigo, String descripcion, int idMarca, int idTipo, int stock, double precioUnitario,

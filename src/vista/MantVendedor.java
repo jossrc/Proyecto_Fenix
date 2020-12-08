@@ -13,6 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionVendedores;
+import model.Vendedor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MantVendedor extends JPanel {
 private static final long serialVersionUID = 1L;
@@ -23,6 +30,7 @@ private static final long serialVersionUID = 1L;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTable tblVendedor;
+	private DefaultTableModel model;
 
 	
 	public MantVendedor() {
@@ -42,8 +50,15 @@ private static final long serialVersionUID = 1L;
 		scrollPane.setBounds(10, 187, 600, 271);
 		panelVendedor.add(scrollPane);
 		
-		tblVendedor = new JTable();
-		scrollPane.setViewportView(tblVendedor);
+		tblVendedor = new JTable();		
+		model = new DefaultTableModel();
+		tblVendedor.setModel(model);
+		model.addColumn("DNI");
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("Dirección");
+		model.addColumn("Telefono");		
+		scrollPane.setViewportView(tblVendedor);		
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(37, 92, 46, 14);
@@ -119,7 +134,7 @@ private static final long serialVersionUID = 1L;
 		btnAgregar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnAgregar);
 		
-		JButton btnEditar = new JButton("Editar");
+		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -130,7 +145,7 @@ private static final long serialVersionUID = 1L;
 		btnEditar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnEditar);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Buscar");		
 		btnBuscar.setBounds(633, 317, 122, 53);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -141,7 +156,7 @@ private static final long serialVersionUID = 1L;
 		btnBuscar.setBackground(Color.LIGHT_GRAY);
 		panelVendedor.add(btnBuscar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnEliminar = new JButton("Eliminar");		
 		btnEliminar.setBounds(633, 381, 122, 53);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -164,18 +179,129 @@ private static final long serialVersionUID = 1L;
 		
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listado();
 			}
 		});
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearVendedor();
+				registrarVendedor();
+			}
+		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				actualizarVendedor();
+			}
+		});
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buscarVendedor();
+			}
+		});
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarVendedor();
+			}
+		});
+		
+		tblVendedor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int fila = tblVendedor.getSelectedRow();
+				
+				if (fila != -1) {
+					String dni = tblVendedor.getValueAt(fila, 0).toString();
+					
+					txtDNI.setText(dni);
+					buscarVendedor();
+				}
 			}
 		});
 	}
 	
-	private void crearVendedor() {
+	private void eliminarVendedor() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			int ok = new GestionVendedores().eliminar(dni);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo eliminar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Vendedor");
+				limpiar();
+				listado();
+			}
+		}
+	}
+	
+	private void actualizarVendedor() {
+		Vendedor vendedor = crearVendedor();
+		
+		if (vendedor != null) {
+			int ok = new GestionVendedores().actualizar(vendedor);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo actualizar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Vendedor actualizado correctamente");
+				limpiar();
+				listado();
+			}
+		}
+	}
+	
+	private void buscarVendedor() {
+		String dni = leerDNI();
+		
+		if (dni != null) {
+			
+			Vendedor v = new GestionVendedores().buscar(dni);
+			
+			if (v == null) {
+				aviso("Oops no se pudo encontrar Vendedor");
+			} else {
+				txtNombres.setText(v.getNombre());
+				txtApellidos.setText(v.getApellido());
+				txtTelefono.setText(v.getTelefono());
+				txtDireccion.setText(v.getDireccion());
+			}
+		}
+	}
+	
+	private void listado() {
+		ArrayList<Vendedor> lista = new GestionVendedores().listado();
+		
+		if (lista == null){
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else{
+			model.setRowCount(0);
+			for (Vendedor v : lista){
+				insertarNuevaFila(v);				
+			}
+		}
+	}
+	
+	private void registrarVendedor() {
+		Vendedor vendedor = crearVendedor();
+		
+		if (vendedor != null) {
+			int ok = new GestionVendedores().registrar(vendedor);
+			
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Vendedor registrado");
+				limpiar();
+				listado();
+			}
+		}
+	}
+	
+	private Vendedor crearVendedor() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
 		
@@ -188,16 +314,14 @@ private static final long serialVersionUID = 1L;
 					if (telefono != null) {
 						direccion = leerDireccion();
 						if (direccion != null) {			
-							JOptionPane.showMessageDialog(this, "Nuevo Vendedor agregado");
-							limpiar();
-							// TODO: Crea un objeto Vendedor y lo retorna
+							return new Vendedor(0, dni, nombre, apellido, direccion, telefono);
 						}
 					}
 				}
 			}
 		}
 		
-		//return null
+		return null;
 	}
 
 	private String leerDNI() {
@@ -279,6 +403,11 @@ private static final long serialVersionUID = 1L;
 		return direccion;
 	}
 
+	private void insertarNuevaFila(Vendedor v) {
+		Object datos[] = {v.getDni(), v.getNombre(), v.getApellido(), v.getDireccion(), v.getTelefono()};
+		model.addRow(datos);
+	}
+	
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}

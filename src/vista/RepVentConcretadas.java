@@ -4,7 +4,21 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import com.toedter.calendar.JDateChooser;
+
+import mantenimientos.GestionVentasConcretadas;
+import model.VentaConcretada;
+
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -12,14 +26,19 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.awt.event.ActionEvent;
 
 public class RepVentConcretadas extends JPanel {
@@ -179,29 +198,236 @@ public class RepVentConcretadas extends JPanel {
 		btnImprimirReporte.setBounds(657, 315, 130, 39);
 		panelVentasConcretadas.add(btnImprimirReporte);
 		
+		cargarHistorialVentas();
+		cargarHistorialGanancia();
+		
 		btnBuscarVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				buscarVentas();
 			}
 		});
 		
 		btnGenerarReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				generarReporte();
 			}
 		});
 		
 		btnCancelarReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				cancelarReporte();
 			}
 		});
 		
 		btnImprimirReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				imprimirPDF();
 			}
 		});
+	}
+	
+	private void imprimirPDF() {
+		
+		int filas = tblReporte.getRowCount();
+		
+		if (filas == 0 || filas == -1) {
+			aviso("Oops. Se necesita de registros de reporte para generar el PDF");
+			return;
+		}	
+				
+		Date date = new Date();
+		int hashCode = date.toString().hashCode();
+		
+		String nombreArchivo = "reporte_venCont" + hashCode + ".pdf";
+		String ruta = "reportes/";
+		String file = ruta + nombreArchivo;
+		
+		try {
+			
+			Document document = new Document();			
+			FileOutputStream fileStream = new FileOutputStream(file);
+			
+			PdfWriter.getInstance(document, fileStream);
+			
+			document.open();
+			
+			Image logo = Image.getInstance("src/img/fenix_icon.png");
+			logo.scaleToFit(75, 75);
+			document.add(logo);
+			
+			com.itextpdf.text.Font iFont = FontFactory.getFont("Sans Serif", 36, com.itextpdf.text.Font.BOLDITALIC, BaseColor.RED);
+			Paragraph p = new Paragraph("Reporte de Ventas Concretadas", iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			
+			document.add(p);
+
+			iFont = FontFactory.getFont("Sans Serif", 14, com.itextpdf.text.Font.NORMAL, BaseColor.DARK_GRAY);
+			p = new Paragraph("Reporte desde " + leerFechaInicial() + " hasta el " + leerFechaFinal(), iFont);
+			p.setAlignment(Chunk.ALIGN_CENTER);
+
+			document.add(new Paragraph(" "));
+			document.add(p);
+
+			iFont = FontFactory.getFont("Sans Serif", 11, com.itextpdf.text.Font.ITALIC, BaseColor.BLACK);
+
+			
+			if (leerCantidadAVisualizar() == leerCantidadEncontrada()) {
+				p = new Paragraph("*Se han seleccionado todos los registros encontrados", iFont);
+				p.setAlignment(Chunk.ALIGN_LEFT);
+
+			} else {
+				p = new Paragraph("*Se ah seleccionado los primeros " + leerCantidadAVisualizar() + " registros", iFont);
+				p.setAlignment(Chunk.ALIGN_LEFT);
+			}
+			
+			document.add(new Paragraph(" "));
+			document.add(p);
+			document.add(new Paragraph(" "));
+			
+			ArrayList<VentaConcretada> ventas = new GestionVentasConcretadas().buscarVentasEnFechas(leerFechaInicial(), leerFechaFinal(), leerCantidadAVisualizar());
+			
+			if (ventas == null || ventas.size() == 0) {
+				p = new Paragraph("No se encontraron ventas concretadas");
+				p.setAlignment(Chunk.ALIGN_CENTER);
+				document.add(p);
+			} else {
+				PdfPTable table = new PdfPTable(4);
+				
+				p = new Paragraph("N° Boleta");				
+				PdfPCell col1 = new PdfPCell(p);
+				col1.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col1);
+				
+				p = new Paragraph("Cliente");				
+				PdfPCell col2 = new PdfPCell(p);
+				col2.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col2);
+				
+				p = new Paragraph("Compras realizadas");				
+				PdfPCell col3 = new PdfPCell(p);
+				col3.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col3);
+				
+				p = new Paragraph("Monto Total");				
+				PdfPCell col4 = new PdfPCell(p);
+				col4.setHorizontalAlignment(Chunk.ALIGN_CENTER);
+				col4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				table.addCell(col4);
+
+				for (VentaConcretada v : ventas) {
+					table.addCell(v.getNumBoleta()+"");
+					table.addCell(v.getCliente());
+					table.addCell(v.getComprasRealizadas()+"");
+					table.addCell(v.getTotal()+"");
+				}
+				document.add(table);
+				
+				document.add(new Paragraph(" "));
+				String espacios = String.format("%0" + 30 + "d", 0).replace("0", " ");
+				
+				p = new Paragraph("Ganancia Total : " + leerGananciaTotal() +  espacios );
+				p.setAlignment(Chunk.ALIGN_RIGHT);
+				document.add(p);
+			}
+
+			document.close();
+			Desktop.getDesktop().open(new File(file));
+
+		} catch (Exception e) {
+			System.out.println("Error al crear archivo PDF : " + e.getMessage());
+		}
+		
+		System.out.println(file);
+	}
+	
+	private void cancelarReporte() {
+		txtDesde.setDate(null);
+		txtHasta.setDate(null);
+		txtCantidadEncontrada.setText("");
+		txtCantidadAVisualizar.setText("");		
+		model.setRowCount(0);
+		txtGananciaTotal.setText("");
+	}
+	
+	private void cargarHistorialVentas() {
+		int historial = new GestionVentasConcretadas().obtenerHistorialVentas();
+		
+		txtHistorialVentas.setText(historial+"");
+	}
+	
+	private void cargarHistorialGanancia() {
+		double historial = new GestionVentasConcretadas().obtenerHistorialGanancia();
+		txtHistorialGanancia.setText(historial + "");
+	}
+	
+	private void generarReporte() {
+		String fech1 = leerFechaInicial();		
+		if (fech1 == null) return;
+		
+		String fech2 = leerFechaFinal();
+		if (fech2 == null) return;
+		
+		int cantidadAVisualizar = leerCantidadAVisualizar();
+		if (cantidadAVisualizar == -1) return;
+		
+		ArrayList<VentaConcretada> lista = new GestionVentasConcretadas().buscarVentasEnFechas(fech1, fech2, cantidadAVisualizar);
+		
+		mostrarRegistrosEnTabla(lista);
+		
+		double gananciaTotal = calcularGananciaTotal();
+		
+		if (gananciaTotal != -1) {
+			txtGananciaTotal.setText(gananciaTotal+"");
+		}
+		
+	}
+	
+	private void mostrarRegistrosEnTabla(ArrayList<VentaConcretada> lista) {
+		model.setRowCount(0);
+		for (VentaConcretada v : lista) {
+			insertarRegistroTabla(v);
+		}
+	}
+	
+	private void insertarRegistroTabla(VentaConcretada v) {
+		Object[] datos = {v.getNumBoleta(), v.getCliente(), v.getComprasRealizadas(), v.getTotal()};
+		model.addRow(datos);
+	}
+	
+	private void buscarVentas() {
+		
+		String fech1 = leerFechaInicial();
+		if (fech1 == null) return;
+		
+		String fech2 = leerFechaFinal();
+		if (fech2 == null) return;
+		
+		int cantidad = new GestionVentasConcretadas().cantidadVentas(fech1, fech2);
+		
+		if (cantidad == 0) {
+			aviso("No se encontraron ventas concretadas");
+		} else {
+			txtCantidadEncontrada.setText(cantidad + "");
+		}
+
+	}
+	
+	private double calcularGananciaTotal() {
+		int cantidadFilas = model.getRowCount();
+		double importe = 0;
+		double gananciaTotal = 0;
+		
+		if (cantidadFilas == 0 || cantidadFilas == -1) return -1;
+		
+		for (int i = 0; i < cantidadFilas; i++) {
+			importe = Double.parseDouble(tblReporte.getValueAt(i, 3).toString());
+			gananciaTotal += importe;
+		}
+		
+		return gananciaTotal;
 	}
 	
 	private String leerFechaInicial() {
@@ -209,6 +435,7 @@ public class RepVentConcretadas extends JPanel {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtDesde.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una Fecha inicial válida");
 			return null;
 		}
 	}
@@ -218,6 +445,7 @@ public class RepVentConcretadas extends JPanel {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtHasta.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una Fecha final válida");
 			return null;
 		}
 	}
@@ -240,7 +468,7 @@ public class RepVentConcretadas extends JPanel {
 			return -1;
 		}
 		
-		if (!cantidad.matches("[1-9]+")) {
+		if (!cantidad.matches("[0-9]+")) {
 			aviso("Ingrese una Cantidad Válida");
 			return -1;
 		}
