@@ -34,7 +34,7 @@ public class POpciones extends JPanel {
 		btnDescuentos.setContentAreaFilled(false);
 		btnDescuentos.setBorder(null);
 		btnDescuentos.setBackground(Color.LIGHT_GRAY);
-		btnDescuentos.setBounds(10, 11, 142, 29);
+		btnDescuentos.setBounds(343, 11, 142, 29);
 		pSubmenu.add(btnDescuentos);
 		
 		JPanel pContenidoOpciones = new JPanel();
