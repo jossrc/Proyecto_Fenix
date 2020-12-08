@@ -11,7 +11,7 @@ public class MySQLConexion8 {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://localhost:3306/bdfenix?useSSL=false&useTimezone=true&serverTimezone=UTC";
 			String usr = "root";
-			String psw = "B0ywh0f3ll4";
+			String psw = "mysql";
 			con = DriverManager.getConnection(url, usr, psw);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Error >> Driver no Instalado!!");
