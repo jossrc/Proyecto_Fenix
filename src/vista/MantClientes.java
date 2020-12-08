@@ -234,6 +234,7 @@ public class MantClientes extends JPanel {
 				} else {
 					JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Cliente");
 					limpiar();					
+					listado();
 				}
 			}
 		
@@ -279,6 +280,7 @@ public class MantClientes extends JPanel {
 				aviso("Oops no se pudo actualizar Cliente");
 			} else {
 				JOptionPane.showMessageDialog(this, "El cliente ah sido actualizado exitosamente");
+				listado();
 			}
 		}
 	}
@@ -293,6 +295,7 @@ public class MantClientes extends JPanel {
 			} else {
 				JOptionPane.showMessageDialog(this, "Nuevo Cliente registrado");
 				limpiar();
+				listado();
 				
 			}
 		}
