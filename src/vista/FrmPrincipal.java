@@ -152,6 +152,11 @@ public class FrmPrincipal extends JFrame {
 		pMenu.add(btnAyuda);
 
 		RSButtonMetro btnCerrarSesion = new RSButtonMetro();
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		btnCerrarSesion.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnCerrarSesion.setColorNormal(new Color(143, 143, 143));
 		btnCerrarSesion.setColorHover(new Color(153, 153, 153));
