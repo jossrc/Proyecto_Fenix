@@ -60,25 +60,25 @@ public class PReporte extends JPanel {
 		pSubmenu.add(btnVentasConcretadas);
 		
 		JPanel pContenidoReporte = new JPanel();
-		pContenidoReporte.setBounds(0, 51, 828, 611);
+		pContenidoReporte.setBounds(0, 51, 827, 570);
 		add(pContenidoReporte);
 		pContenidoReporte.setLayout(new CardLayout(0, 0));
 		
 		btnBoleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoReporte, content)
+				new CambiaPanel(pContenidoReporte, new RepBoleta());
 			}
 		});
 		
 		btnProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoReporte, content)
+				new CambiaPanel(pContenidoReporte, new RepProducto());
 			}
 		});
 		
 		btnVentasConcretadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new CambiaPanel(pContenidoReporte, content)
+				 new CambiaPanel(pContenidoReporte, new RepVentConcretadas());
 			}
 		});
 
