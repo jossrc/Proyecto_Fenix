@@ -72,7 +72,7 @@ public class MantProducto extends JPanel {
 		model.addColumn("Precio");
 
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
-		lblDescripcion.setBounds(37, 70, 62, 14);
+		lblDescripcion.setBounds(37, 71, 62, 14);
 		panelProducto.add(lblDescripcion);
 
 		JLabel lblStock = new JLabel("Stock");
@@ -90,7 +90,7 @@ public class MantProducto extends JPanel {
 		txtCodigo.setColumns(10);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(109, 67, 323, 20);		
+		txtDescripcion.setBounds(109, 71, 542, 20);		
 		txtDescripcion.setColumns(10);
 		panelProducto.add(txtDescripcion);
 
@@ -100,7 +100,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(txtStock);
 
 		JButton btnNuevo = new JButton("Nuevo");
-		btnNuevo.setBounds(477, 45, 122, 53);
+		btnNuevo.setBounds(317, 36, 91, 28);
 		btnNuevo.setForeground(Color.WHITE);
 		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -111,7 +111,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnNuevo);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(477, 106, 122, 53);
+		btnVerTodo.setBounds(477, 106, 91, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -122,7 +122,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnVerTodo);
 
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(633, 189, 122, 53);
+		btnGuardar.setBounds(643, 154, 91, 28);
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -133,7 +133,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnGuardar);
 
 		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(633, 253, 122, 53);
+		btnEditar.setBounds(435, 36, 91, 28);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -144,7 +144,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnEditar);
 
 		JButton btnBuscar = new JButton("Buscar");		
-		btnBuscar.setBounds(633, 317, 122, 53);
+		btnBuscar.setBounds(556, 36, 91, 28);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -155,7 +155,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");		
-		btnEliminar.setBounds(633, 381, 122, 53);
+		btnEliminar.setBounds(633, 117, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
