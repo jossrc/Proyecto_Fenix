@@ -105,16 +105,16 @@ public class MantClientes extends JPanel {
 		pDatosCliente.add(txtDireccion);
 		txtDireccion.setColumns(10);
 
-		JButton btnLimpiar = new JButton("Nuevo");
-		btnLimpiar.setBounds(312, 21, 91, 28);
-		pDatosCliente.add(btnLimpiar);
-		btnLimpiar.setForeground(Color.WHITE);
-		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpiar.setContentAreaFilled(false);
-		btnLimpiar.setOpaque(true);
-		btnLimpiar.setBorder(null);
-		btnLimpiar.setBackground(new Color(35, 178, 220));
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(312, 21, 91, 28);
+		pDatosCliente.add(btnNuevo);
+		btnNuevo.setForeground(Color.WHITE);
+		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNuevo.setContentAreaFilled(false);
+		btnNuevo.setOpaque(true);
+		btnNuevo.setBorder(null);
+		btnNuevo.setBackground(new Color(35, 178, 220));
 
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setBounds(423, 21, 91, 28);
@@ -241,11 +241,26 @@ public class MantClientes extends JPanel {
 			}
 		});
 
-		btnLimpiar.addActionListener(new ActionListener() {
+		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiar();
+				//limpiar();
+				activarBtnNuevo();
 			}
 		});
+	}
+	
+	
+	private void activarBtnNuevo() {
+		txtDNI.setEditable(true);
+		activarTxt(txtNombres);
+		activarTxt(txtApellidos);
+		activarTxt(txtTelefono);
+		activarTxt(txtDireccion);
+	}
+	
+	private void activarTxt(JTextField txt) {
+		txt.setEnabled(true);
+		txt.setEditable(true);
 	}
 
 	protected void eliminarCliente() {
