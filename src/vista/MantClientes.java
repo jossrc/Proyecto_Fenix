@@ -87,7 +87,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(txtApellidos);
 
 		txtDNI = new JTextField();
-		txtDNI.setBounds(109, 36, 323, 20);
+		txtDNI.setBounds(109, 36, 174, 20);
 		txtDNI.setColumns(10);
 		panelClientes.add(txtDNI);
 
@@ -101,8 +101,8 @@ public class MantClientes extends JPanel {
 		txtDireccion.setColumns(10);
 		panelClientes.add(txtDireccion);
 
-		JButton btnLimpiar = new JButton("Limpiar");		
-		btnLimpiar.setBounds(477, 45, 122, 53);
+		JButton btnLimpiar = new JButton("Nuevo");		
+		btnLimpiar.setBounds(633, 46, 122, 53);
 		btnLimpiar.setForeground(Color.WHITE);
 		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -113,7 +113,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnLimpiar);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(477, 106, 122, 53);
+		btnVerTodo.setBounds(633, 124, 122, 53);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
