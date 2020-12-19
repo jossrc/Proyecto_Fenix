@@ -34,6 +34,7 @@ public class MantClientes extends JPanel {
 	private JTable tblCliente;
 	private DefaultTableModel model;
 	private String accionBtn = "";
+	private boolean deseaBuscar = true;
 	
 
 	public MantClientes() {
@@ -229,11 +230,12 @@ public class MantClientes extends JPanel {
 					buscarCliente();
 				}
 			}
-		});
+		});		
+		
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buscarCliente();
+				habilitarBtnBuscar();
 			}
 		});
 
@@ -262,6 +264,21 @@ public class MantClientes extends JPanel {
 	 * AFTER
 	 * 
 	 * */
+	
+	
+	private void habilitarBtnBuscar() {
+	
+		if (deseaBuscar) {
+			activarTodosTxt(false);
+			txtDNI.setEditable(true);
+			deseaBuscar = false;
+		} else {
+			buscarCliente();
+			activarTodosTxt(false);
+			deseaBuscar = true;
+		}
+		
+	}
 	
 	
 	private void habilitarBtnEditar() {
