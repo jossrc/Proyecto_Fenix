@@ -29,6 +29,7 @@ import model.TipoProducto;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
 
 public class MantProducto extends JPanel {
 
@@ -51,13 +52,130 @@ public class MantProducto extends JPanel {
 		panelProducto.setBounds(0, 0, 817, 515);
 		add(panelProducto);
 		panelProducto.setLayout(null);
+		
+		JPanel pDatosProducto = new JPanel();
+		pDatosProducto.setBorder(new TitledBorder(null, "Informaci\u00F3n del Producto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pDatosProducto.setBounds(21, 11, 771, 158);
+		panelProducto.add(pDatosProducto);
+		pDatosProducto.setLayout(null);
 
 		JLabel lblCodigo = new JLabel("Código");
-		lblCodigo.setBounds(37, 45, 46, 14);
-		panelProducto.add(lblCodigo);
+		lblCodigo.setBounds(21, 30, 46, 14);
+		pDatosProducto.add(lblCodigo);
+		
+				JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
+				lblDescripcion.setBounds(21, 64, 62, 14);
+				pDatosProducto.add(lblDescripcion);
+				
+						JLabel lblStock = new JLabel("Stock");
+						lblStock.setBounds(21, 114, 26, 14);
+						pDatosProducto.add(lblStock);
+						
+								JLabel lblMarca = new JLabel("Marca");
+								lblMarca.setBounds(21, 89, 46, 14);
+								pDatosProducto.add(lblMarca);
+								
+										txtCodigo = new JTextField();
+										txtCodigo.setBounds(100, 30, 174, 20);
+										pDatosProducto.add(txtCodigo);
+										txtCodigo.setForeground(Color.BLUE);
+										txtCodigo.setEditable(false);
+										txtCodigo.setText(generarCodigoProducto());
+										txtCodigo.setColumns(10);
+										
+												txtDescripcion = new JTextField();
+												txtDescripcion.setBounds(100, 61, 527, 20);
+												pDatosProducto.add(txtDescripcion);
+												txtDescripcion.setEnabled(false);
+												txtDescripcion.setEditable(false);
+												txtDescripcion.setColumns(10);
+												
+														txtStock = new JTextField();
+														txtStock.setBounds(100, 111, 195, 20);
+														pDatosProducto.add(txtStock);
+														txtStock.setEnabled(false);
+														txtStock.setEditable(false);
+														txtStock.setColumns(10);
+														
+																JButton btnNuevo = new JButton("Nuevo");
+																btnNuevo.setBounds(294, 24, 91, 28);
+																pDatosProducto.add(btnNuevo);
+																btnNuevo.setForeground(Color.WHITE);
+																btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
+																btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																btnNuevo.setContentAreaFilled(false);
+																btnNuevo.setOpaque(true);
+																btnNuevo.setBorder(null);
+																btnNuevo.setBackground(new Color(35, 178, 220));
+																
+																		JButton btnEditar = new JButton("Editar");
+																		btnEditar.setBounds(415, 24, 91, 28);
+																		pDatosProducto.add(btnEditar);
+																		btnEditar.setForeground(Color.WHITE);
+																		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
+																		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																		btnEditar.setContentAreaFilled(false);
+																		btnEditar.setOpaque(true);
+																		btnEditar.setBorder(null);
+																		btnEditar.setBackground(new Color(35, 178, 220));
+																		
+																				JButton btnBuscar = new JButton("Buscar");
+																				btnBuscar.setBounds(536, 24, 91, 28);
+																				pDatosProducto.add(btnBuscar);
+																				btnBuscar.setForeground(Color.WHITE);
+																				btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
+																				btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																				btnBuscar.setContentAreaFilled(false);
+																				btnBuscar.setOpaque(true);
+																				btnBuscar.setBorder(null);
+																				btnBuscar.setBackground(new Color(35, 178, 220));
+																				
+																						JLabel lblTipo = new JLabel("Tipo");
+																						lblTipo.setBounds(330, 88, 46, 14);
+																						pDatosProducto.add(lblTipo);
+																						
+																								cboTipo = new JComboBox<String>();
+																								cboTipo.setBounds(397, 85, 195, 20);
+																								pDatosProducto.add(cboTipo);
+																								cboTipo.setEnabled(false);
+																								
+																										cboMarca = new JComboBox<String>();
+																										cboMarca.setBounds(100, 85, 195, 20);
+																										pDatosProducto.add(cboMarca);
+																										cboMarca.setEnabled(false);
+																										
+																												JLabel lblPrecioUnit = new JLabel("Precio Unit.");
+																												lblPrecioUnit.setBounds(330, 113, 55, 14);
+																												pDatosProducto.add(lblPrecioUnit);
+																												
+																														txtPrecioUnit = new JTextField();
+																														txtPrecioUnit.setBounds(397, 111, 195, 20);
+																														pDatosProducto.add(txtPrecioUnit);
+																														txtPrecioUnit.setEnabled(false);
+																														txtPrecioUnit.setEditable(false);
+																														txtPrecioUnit.setColumns(10);
+																				
+																				btnBuscar.addActionListener(new ActionListener() {
+																					public void actionPerformed(ActionEvent e) {
+																						buscarProducto();
+																					}
+																				});
+																		
+																		btnEditar.addActionListener(new ActionListener() {
+																			public void actionPerformed(ActionEvent arg0) {
+																				actualizarProducto();
+																			}
+																		});
+																
+																		btnNuevo.addActionListener(new ActionListener() {
+																			public void actionPerformed(ActionEvent e) {
+																				limpiar();
+																				txtCodigo.setText(generarCodigoProducto());
+																			}
+																		});
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 243, 771, 211);
+		scrollPane.setBounds(21, 227, 771, 227);
 		panelProducto.add(scrollPane);
 
 		tblProducto = new JTable();		
@@ -70,51 +188,6 @@ public class MantProducto extends JPanel {
 		model.addColumn("Tipo");
 		model.addColumn("Stock");
 		model.addColumn("Precio");
-
-		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
-		lblDescripcion.setBounds(37, 71, 62, 14);
-		panelProducto.add(lblDescripcion);
-
-		JLabel lblStock = new JLabel("Stock");
-		lblStock.setBounds(37, 136, 26, 14);
-		panelProducto.add(lblStock);
-
-		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(37, 100, 46, 14);
-		panelProducto.add(lblMarca);
-
-		txtCodigo = new JTextField();
-		txtCodigo.setForeground(Color.BLUE);
-		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(109, 42, 174, 20);
-		txtCodigo.setText(generarCodigoProducto());
-		panelProducto.add(txtCodigo);
-		txtCodigo.setColumns(10);
-
-		txtDescripcion = new JTextField();
-		txtDescripcion.setEnabled(false);
-		txtDescripcion.setEditable(false);
-		txtDescripcion.setBounds(109, 71, 542, 20);		
-		txtDescripcion.setColumns(10);
-		panelProducto.add(txtDescripcion);
-
-		txtStock = new JTextField();
-		txtStock.setEnabled(false);
-		txtStock.setEditable(false);
-		txtStock.setBounds(109, 133, 195, 20);
-		txtStock.setColumns(10);
-		panelProducto.add(txtStock);
-
-		JButton btnNuevo = new JButton("Nuevo");
-		btnNuevo.setBounds(317, 36, 91, 28);
-		btnNuevo.setForeground(Color.WHITE);
-		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNuevo.setContentAreaFilled(false);
-		btnNuevo.setOpaque(true);
-		btnNuevo.setBorder(null);
-		btnNuevo.setBackground(new Color(35, 178, 220));
-		panelProducto.add(btnNuevo);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
 		btnVerTodo.setBounds(677, 465, 115, 28);
@@ -129,7 +202,7 @@ public class MantProducto extends JPanel {
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setEnabled(false);
-		btnGuardar.setBounds(455, 204, 91, 28);
+		btnGuardar.setBounds(452, 188, 91, 28);
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -139,30 +212,8 @@ public class MantProducto extends JPanel {
 		btnGuardar.setBackground(new Color(126, 171, 162));
 		panelProducto.add(btnGuardar);
 
-		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(435, 36, 91, 28);
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnEditar.setContentAreaFilled(false);
-		btnEditar.setOpaque(true);
-		btnEditar.setBorder(null);
-		btnEditar.setBackground(new Color(35, 178, 220));
-		panelProducto.add(btnEditar);
-
-		JButton btnBuscar = new JButton("Buscar");		
-		btnBuscar.setBounds(556, 36, 91, 28);
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setContentAreaFilled(false);
-		btnBuscar.setOpaque(true);
-		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(new Color(35, 178, 220));
-		panelProducto.add(btnBuscar);
-
 		JButton btnEliminar = new JButton("Eliminar");		
-		btnEliminar.setBounds(576, 204, 91, 28);
+		btnEliminar.setBounds(573, 188, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -171,31 +222,6 @@ public class MantProducto extends JPanel {
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelProducto.add(btnEliminar);
-
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setBounds(339, 100, 46, 14);
-		panelProducto.add(lblTipo);
-
-		cboTipo = new JComboBox<String>();
-		cboTipo.setEnabled(false);
-		cboTipo.setBounds(406, 98, 195, 20);
-		panelProducto.add(cboTipo);
-
-		cboMarca = new JComboBox<String>();
-		cboMarca.setEnabled(false);
-		cboMarca.setBounds(109, 98, 195, 20);
-		panelProducto.add(cboMarca);
-
-		JLabel lblPrecioUnit = new JLabel("Precio Unit.");
-		lblPrecioUnit.setBounds(339, 136, 55, 14);
-		panelProducto.add(lblPrecioUnit);
-
-		txtPrecioUnit = new JTextField();
-		txtPrecioUnit.setEnabled(false);
-		txtPrecioUnit.setEditable(false);
-		txtPrecioUnit.setColumns(10);
-		txtPrecioUnit.setBounds(406, 133, 195, 20);
-		panelProducto.add(txtPrecioUnit);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(Color.WHITE);
@@ -205,7 +231,7 @@ public class MantProducto extends JPanel {
 		btnCancelar.setOpaque(true);
 		btnCancelar.setBorder(null);
 		btnCancelar.setBackground(new Color(211, 220, 35));
-		btnCancelar.setBounds(694, 204, 91, 28);
+		btnCancelar.setBounds(691, 188, 91, 28);
 		panelProducto.add(btnCancelar);
 				
 		llenarCboMarca();
@@ -217,28 +243,9 @@ public class MantProducto extends JPanel {
 			}
 		});
 
-		btnNuevo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiar();
-				txtCodigo.setText(generarCodigoProducto());
-			}
-		});
-
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarProducto();
-			}
-		});
-		
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				actualizarProducto();
-			}
-		});
-		
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				buscarProducto();
 			}
 		});
 		
