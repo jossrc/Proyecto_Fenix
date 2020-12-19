@@ -77,12 +77,12 @@ public class MantClientes extends JPanel {
 		panelClientes.add(lblDireccin);
 
 		txtNombres = new JTextField();
-		txtNombres.setBounds(109, 64, 323, 20);
+		txtNombres.setBounds(109, 64, 420, 20);
 		panelClientes.add(txtNombres);
 		txtNombres.setColumns(10);
 
 		txtApellidos = new JTextField();
-		txtApellidos.setBounds(109, 89, 323, 20);
+		txtApellidos.setBounds(109, 89, 420, 20);
 		txtApellidos.setColumns(10);
 		panelClientes.add(txtApellidos);
 
@@ -92,7 +92,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(txtDNI);
 
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(109, 117, 323, 20);
+		txtTelefono.setBounds(109, 117, 174, 20);
 		txtTelefono.setColumns(10);
 		panelClientes.add(txtTelefono);
 
@@ -102,7 +102,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(txtDireccion);
 
 		JButton btnLimpiar = new JButton("Nuevo");		
-		btnLimpiar.setBounds(633, 46, 122, 53);
+		btnLimpiar.setBounds(350, 30, 72, 28);
 		btnLimpiar.setForeground(Color.WHITE);
 		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -135,7 +135,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnAgregar);
 
 		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(633, 253, 122, 53);
+		btnEditar.setBounds(449, 30, 72, 28);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
