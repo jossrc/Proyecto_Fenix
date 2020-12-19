@@ -20,6 +20,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
 
 public class MantClientes extends JPanel {
 
@@ -41,13 +42,111 @@ public class MantClientes extends JPanel {
 		panelClientes.setBounds(0, 0, 817, 515);
 		add(panelClientes);
 		panelClientes.setLayout(null);
+		
+		JPanel pDatosCliente = new JPanel();
+		pDatosCliente.setBorder(new TitledBorder(null, "Informaci\u00F3n Personal", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pDatosCliente.setBounds(21, 9, 771, 176);
+		panelClientes.add(pDatosCliente);
+		pDatosCliente.setLayout(null);
 
 		JLabel lblNombres = new JLabel("Nombres");
-		lblNombres.setBounds(53, 74, 46, 14);
-		panelClientes.add(lblNombres);
+		lblNombres.setBounds(21, 58, 46, 14);
+		pDatosCliente.add(lblNombres);
+		
+				JLabel lblApellidos = new JLabel("Apellidos");
+				lblApellidos.setBounds(21, 83, 46, 14);
+				pDatosCliente.add(lblApellidos);
+				
+						JLabel lblDni = new JLabel("DNI");
+						lblDni.setBounds(21, 30, 46, 14);
+						pDatosCliente.add(lblDni);
+						
+								JLabel lblTelefono = new JLabel("Tel\u00E9fono");
+								lblTelefono.setBounds(21, 111, 46, 14);
+								pDatosCliente.add(lblTelefono);
+								
+										JLabel lblDireccin = new JLabel("Direcci\u00F3n");
+										lblDireccin.setBounds(21, 136, 46, 14);
+										pDatosCliente.add(lblDireccin);
+										
+												txtNombres = new JTextField();
+												txtNombres.setBounds(93, 55, 542, 20);
+												pDatosCliente.add(txtNombres);
+												txtNombres.setColumns(10);
+												
+														txtApellidos = new JTextField();
+														txtApellidos.setBounds(93, 80, 542, 20);
+														pDatosCliente.add(txtApellidos);
+														txtApellidos.setColumns(10);
+														
+																txtDNI = new JTextField();
+																txtDNI.setBounds(93, 27, 174, 20);
+																pDatosCliente.add(txtDNI);
+																txtDNI.setColumns(10);
+																
+																		txtTelefono = new JTextField();
+																		txtTelefono.setBounds(93, 108, 174, 20);
+																		pDatosCliente.add(txtTelefono);
+																		txtTelefono.setColumns(10);
+																		
+																				txtDireccion = new JTextField();
+																				txtDireccion.setBounds(93, 133, 323, 20);
+																				pDatosCliente.add(txtDireccion);
+																				txtDireccion.setColumns(10);
+																				
+																						JButton btnLimpiar = new JButton("Nuevo");
+																						btnLimpiar.setBounds(312, 21, 91, 28);
+																						pDatosCliente.add(btnLimpiar);
+																						btnLimpiar.setForeground(Color.WHITE);
+																						btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
+																						btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																						btnLimpiar.setContentAreaFilled(false);
+																						btnLimpiar.setOpaque(true);
+																						btnLimpiar.setBorder(null);
+																						btnLimpiar.setBackground(new Color(35, 178, 220));
+																						
+																								JButton btnEditar = new JButton("Editar");
+																								btnEditar.setBounds(423, 21, 91, 28);
+																								pDatosCliente.add(btnEditar);
+																								btnEditar.setForeground(Color.WHITE);
+																								btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
+																								btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																								btnEditar.setContentAreaFilled(false);
+																								btnEditar.setOpaque(true);
+																								btnEditar.setBorder(null);
+																								btnEditar.setBackground(new Color(35, 178, 220));
+																								
+																										JButton btnBuscar = new JButton("Buscar");
+																										btnBuscar.setBounds(544, 21, 91, 28);
+																										pDatosCliente.add(btnBuscar);
+																										btnBuscar.setForeground(Color.WHITE);
+																										btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
+																										btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+																										btnBuscar.setContentAreaFilled(false);
+																										btnBuscar.setOpaque(true);
+																										btnBuscar.setBorder(null);
+																										btnBuscar.setBackground(new Color(35, 178, 220));
+																										
+																										btnBuscar.addActionListener(new ActionListener() {
+																											public void actionPerformed(ActionEvent arg0) {
+																												buscarCliente();
+																											}
+																										});
+																								
+																								btnEditar.addActionListener(new ActionListener() {
+																									public void actionPerformed(ActionEvent e) {
+																										editarCliente();
+																									}
+																								});
+																						
+																						btnLimpiar.addActionListener(new ActionListener() {
+																							public void actionPerformed(ActionEvent e) {
+																								limpiar();
+																							}
+																						});
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 215, 771, 239);
+		scrollPane.setBounds(21, 243, 771, 211);
 		panelClientes.add(scrollPane);
 
 		tblCliente = new JTable();		
@@ -59,58 +158,6 @@ public class MantClientes extends JPanel {
 		model.addColumn("DNI");
 		model.addColumn("Dirección");
 		model.addColumn("Teléfono");
-
-		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(53, 99, 46, 14);
-		panelClientes.add(lblApellidos);
-
-		JLabel lblDni = new JLabel("DNI");
-		lblDni.setBounds(53, 46, 46, 14);
-		panelClientes.add(lblDni);
-
-		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setBounds(53, 127, 46, 14);
-		panelClientes.add(lblTelefono);
-
-		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
-		lblDireccin.setBounds(53, 152, 46, 14);
-		panelClientes.add(lblDireccin);
-
-		txtNombres = new JTextField();
-		txtNombres.setBounds(125, 71, 542, 20);
-		panelClientes.add(txtNombres);
-		txtNombres.setColumns(10);
-
-		txtApellidos = new JTextField();
-		txtApellidos.setBounds(125, 96, 542, 20);
-		txtApellidos.setColumns(10);
-		panelClientes.add(txtApellidos);
-
-		txtDNI = new JTextField();
-		txtDNI.setBounds(125, 43, 174, 20);
-		txtDNI.setColumns(10);
-		panelClientes.add(txtDNI);
-
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(125, 124, 174, 20);
-		txtTelefono.setColumns(10);
-		panelClientes.add(txtTelefono);
-
-		txtDireccion = new JTextField();
-		txtDireccion.setBounds(125, 149, 323, 20);
-		txtDireccion.setColumns(10);
-		panelClientes.add(txtDireccion);
-
-		JButton btnLimpiar = new JButton("Nuevo");		
-		btnLimpiar.setBounds(344, 37, 91, 28);
-		btnLimpiar.setForeground(Color.WHITE);
-		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpiar.setContentAreaFilled(false);
-		btnLimpiar.setOpaque(true);
-		btnLimpiar.setBorder(null);
-		btnLimpiar.setBackground(new Color(35, 178, 220));
-		panelClientes.add(btnLimpiar);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
 		btnVerTodo.setBounds(677, 465, 91, 28);
@@ -124,7 +171,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnVerTodo);
 
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(483, 176, 91, 28);
+		btnAgregar.setBounds(455, 204, 91, 28);
 		btnAgregar.setForeground(Color.WHITE);
 		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -134,31 +181,9 @@ public class MantClientes extends JPanel {
 		btnAgregar.setBackground(new Color(9, 168, 136));
 		panelClientes.add(btnAgregar);
 
-		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(455, 37, 91, 28);
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnEditar.setContentAreaFilled(false);
-		btnEditar.setOpaque(true);
-		btnEditar.setBorder(null);
-		btnEditar.setBackground(new Color(35, 178, 220));
-		panelClientes.add(btnEditar);
-
-		JButton btnBuscar = new JButton("Buscar");		
-		btnBuscar.setBounds(576, 37, 91, 28);
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setContentAreaFilled(false);
-		btnBuscar.setOpaque(true);
-		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(new Color(35, 178, 220));
-		panelClientes.add(btnBuscar);
-
 		JButton btnEliminar = new JButton("Eliminar");
 		
-		btnEliminar.setBounds(596, 176, 91, 28);
+		btnEliminar.setBounds(576, 204, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -167,10 +192,6 @@ public class MantClientes extends JPanel {
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelClientes.add(btnEliminar);
-
-		JLabel lblClientes = new JLabel("Clientes");
-		lblClientes.setBounds(109, 11, 78, 14);
-		panelClientes.add(lblClientes);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(Color.WHITE);
@@ -180,30 +201,12 @@ public class MantClientes extends JPanel {
 		btnCancelar.setOpaque(true);
 		btnCancelar.setBorder(null);
 		btnCancelar.setBackground(new Color(211, 220, 35));
-		btnCancelar.setBounds(701, 176, 91, 28);
+		btnCancelar.setBounds(694, 204, 91, 28);
 		panelClientes.add(btnCancelar);
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				registrarCliente();
-			}
-		});
-		
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editarCliente();
-			}
-		});
-		
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				buscarCliente();
-			}
-		});
-		
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiar();
 			}
 		});
 
