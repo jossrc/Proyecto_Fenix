@@ -47,7 +47,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(lblNombres);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 271);
+		scrollPane.setBounds(56, 209, 600, 222);
 		panelClientes.add(scrollPane);
 
 		tblCliente = new JTable();		
@@ -102,7 +102,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(txtDireccion);
 
 		JButton btnLimpiar = new JButton("Nuevo");		
-		btnLimpiar.setBounds(350, 30, 72, 28);
+		btnLimpiar.setBounds(565, 30, 91, 28);
 		btnLimpiar.setForeground(Color.WHITE);
 		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -113,7 +113,7 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnLimpiar);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(633, 124, 122, 53);
+		btnVerTodo.setBounds(565, 136, 91, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -124,18 +124,18 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnVerTodo);
 
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(633, 189, 122, 53);
+		btnAgregar.setBounds(679, 218, 91, 28);
 		btnAgregar.setForeground(Color.WHITE);
 		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAgregar.setContentAreaFilled(false);
 		btnAgregar.setOpaque(true);
 		btnAgregar.setBorder(null);
-		btnAgregar.setBackground(Color.LIGHT_GRAY);
+		btnAgregar.setBackground(new Color(9, 168, 136));
 		panelClientes.add(btnAgregar);
 
 		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(449, 30, 72, 28);
+		btnEditar.setBounds(565, 83, 91, 28);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -146,31 +146,42 @@ public class MantClientes extends JPanel {
 		panelClientes.add(btnEditar);
 
 		JButton btnBuscar = new JButton("Buscar");		
-		btnBuscar.setBounds(633, 317, 122, 53);
+		btnBuscar.setBounds(679, 314, 91, 28);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setContentAreaFilled(false);
 		btnBuscar.setOpaque(true);
 		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setBackground(new Color(35, 178, 220));
 		panelClientes.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");
 		
-		btnEliminar.setBounds(633, 381, 122, 53);
+		btnEliminar.setBounds(679, 267, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setContentAreaFilled(false);
 		btnEliminar.setOpaque(true);
 		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(Color.LIGHT_GRAY);
+		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelClientes.add(btnEliminar);
 
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setBounds(109, 11, 78, 14);
 		panelClientes.add(lblClientes);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(new Color(211, 220, 35));
+		btnCancelar.setBounds(679, 363, 91, 28);
+		panelClientes.add(btnCancelar);
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -424,5 +435,4 @@ public class MantClientes extends JPanel {
 		txtDNI.requestFocus();
 		txtDNI.selectAll();
 	}
-
 }
