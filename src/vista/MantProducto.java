@@ -233,8 +233,15 @@ public class MantProducto extends JPanel {
 
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiar();
+				habilitarBtnNuevo();
 				txtCodigo.setText(generarCodigoProducto());
+				
+				btnGuardar.setEnabled(true);
+				btnGuardar.setBackground(new Color(9, 168, 136));
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(232,169,156));
+				btnEditar.setEnabled(false);
+				btnEditar.setBackground(new Color(147,200,215));
 			}
 		});
 
@@ -271,6 +278,42 @@ public class MantProducto extends JPanel {
 		});
 
 	}
+	
+	
+	/*
+	 * AFTER
+	 * 
+	 * */
+	
+	private void habilitarBtnNuevo() {
+		activarTodosTxtCbo(true);
+		limpiar();
+	}
+	
+	private void activarTodosTxtCbo(boolean activar) {
+		txtCodigo.setEditable(!activar); // Reverse
+		activarTxt(txtDescripcion, activar);
+		activarCbo(cboMarca, activar);
+		activarCbo(cboTipo, activar);
+		activarTxt(txtStock, activar);
+		activarTxt(txtPrecioUnit, activar);
+	}
+	
+	private void activarTxt(JTextField txt, boolean activar) {
+		txt.setEnabled(activar);
+		txt.setEditable(activar);
+	}
+	
+	private void activarCbo(JComboBox<String> cbo, boolean activar) {
+		cbo.setEnabled(activar);
+		cbo.setEnabled(activar);
+	}
+	
+	
+	/*
+	 * BEFORE
+	 * 
+	 * */
 
 	protected void listado() {
 		ArrayList<ReporteProducto> lista = new GestionReporteProducto().listado();
