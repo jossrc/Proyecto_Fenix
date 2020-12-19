@@ -48,7 +48,7 @@ public class MantProducto extends JPanel {
 		setLayout(null);
 
 		JPanel panelProducto = new JPanel();
-		panelProducto.setBounds(0, 0, 817, 470);
+		panelProducto.setBounds(0, 0, 817, 515);
 		add(panelProducto);
 		panelProducto.setLayout(null);
 
