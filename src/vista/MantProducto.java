@@ -57,7 +57,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblCodigo);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 271);
+		scrollPane.setBounds(21, 243, 771, 211);
 		panelProducto.add(scrollPane);
 
 		tblProducto = new JTable();		
@@ -76,26 +76,32 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblDescripcion);
 
 		JLabel lblStock = new JLabel("Stock");
-		lblStock.setBounds(37, 163, 26, 14);
+		lblStock.setBounds(37, 136, 26, 14);
 		panelProducto.add(lblStock);
 
 		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(37, 101, 46, 14);
+		lblMarca.setBounds(37, 100, 46, 14);
 		panelProducto.add(lblMarca);
 
 		txtCodigo = new JTextField();
+		txtCodigo.setForeground(Color.BLUE);
+		txtCodigo.setEditable(false);
 		txtCodigo.setBounds(109, 42, 174, 20);
 		txtCodigo.setText(generarCodigoProducto());
 		panelProducto.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
 		txtDescripcion = new JTextField();
+		txtDescripcion.setEnabled(false);
+		txtDescripcion.setEditable(false);
 		txtDescripcion.setBounds(109, 71, 542, 20);		
 		txtDescripcion.setColumns(10);
 		panelProducto.add(txtDescripcion);
 
 		txtStock = new JTextField();
-		txtStock.setBounds(109, 160, 115, 20);
+		txtStock.setEnabled(false);
+		txtStock.setEditable(false);
+		txtStock.setBounds(109, 133, 195, 20);
 		txtStock.setColumns(10);
 		panelProducto.add(txtStock);
 
@@ -111,18 +117,19 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnNuevo);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(477, 106, 91, 28);
+		btnVerTodo.setBounds(677, 465, 115, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVerTodo.setContentAreaFilled(false);
 		btnVerTodo.setOpaque(true);
 		btnVerTodo.setBorder(null);
-		btnVerTodo.setBackground(Color.LIGHT_GRAY);
+		btnVerTodo.setBackground(Color.GRAY);
 		panelProducto.add(btnVerTodo);
 
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(643, 154, 91, 28);
+		btnGuardar.setEnabled(false);
+		btnGuardar.setBounds(455, 204, 91, 28);
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -155,7 +162,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");		
-		btnEliminar.setBounds(633, 117, 91, 28);
+		btnEliminar.setBounds(576, 204, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -166,25 +173,40 @@ public class MantProducto extends JPanel {
 		panelProducto.add(btnEliminar);
 
 		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setBounds(37, 126, 46, 14);
+		lblTipo.setBounds(339, 100, 46, 14);
 		panelProducto.add(lblTipo);
 
 		cboTipo = new JComboBox<String>();
-		cboTipo.setBounds(109, 129, 323, 20);
+		cboTipo.setEnabled(false);
+		cboTipo.setBounds(406, 98, 195, 20);
 		panelProducto.add(cboTipo);
 
 		cboMarca = new JComboBox<String>();
-		cboMarca.setBounds(109, 98, 174, 20);
+		cboMarca.setEnabled(false);
+		cboMarca.setBounds(109, 98, 195, 20);
 		panelProducto.add(cboMarca);
 
 		JLabel lblPrecioUnit = new JLabel("Precio Unit.");
-		lblPrecioUnit.setBounds(249, 163, 55, 14);
+		lblPrecioUnit.setBounds(339, 136, 55, 14);
 		panelProducto.add(lblPrecioUnit);
 
 		txtPrecioUnit = new JTextField();
+		txtPrecioUnit.setEnabled(false);
+		txtPrecioUnit.setEditable(false);
 		txtPrecioUnit.setColumns(10);
-		txtPrecioUnit.setBounds(317, 160, 115, 20);
+		txtPrecioUnit.setBounds(406, 133, 195, 20);
 		panelProducto.add(txtPrecioUnit);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(new Color(211, 220, 35));
+		btnCancelar.setBounds(694, 204, 91, 28);
+		panelProducto.add(btnCancelar);
 				
 		llenarCboMarca();
 		llenarCboTipos();
