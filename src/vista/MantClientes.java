@@ -33,6 +33,8 @@ public class MantClientes extends JPanel {
 	private JTextField txtDireccion;
 	private JTable tblCliente;
 	private DefaultTableModel model;
+	private String accionBtn = "";
+	
 
 	public MantClientes() {
 		setLayout(null);
@@ -186,7 +188,7 @@ public class MantClientes extends JPanel {
 		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelClientes.add(btnEliminar);
 
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Cancelar");		
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -237,31 +239,64 @@ public class MantClientes extends JPanel {
 
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editarCliente();
+				habilitarBtnEditar();
+				//editarCliente();
 			}
 		});
 
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//limpiar();
 				activarBtnNuevo();
 			}
 		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				activarBtnCancelar();
+			}
+		});
+		
 	}
 	
+	/*
+	 * AFTER
+	 * 
+	 * */
+	
+	
+	private void habilitarBtnEditar() {
+		accionBtn = "editar";
+		activarTodosTxt(true);
+		txtDNI.setEditable(false);
+		
+	}
+	
+	private void activarBtnCancelar() {
+		activarTodosTxt(false);
+	}
 	
 	private void activarBtnNuevo() {
-		txtDNI.setEditable(true);
-		activarTxt(txtNombres);
-		activarTxt(txtApellidos);
-		activarTxt(txtTelefono);
-		activarTxt(txtDireccion);
+		activarTodosTxt(true);		
+		limpiar();
 	}
 	
-	private void activarTxt(JTextField txt) {
-		txt.setEnabled(true);
-		txt.setEditable(true);
+	private void activarTodosTxt(boolean activar) {
+		txtDNI.setEditable(activar);
+		activarTxt(txtNombres, activar);
+		activarTxt(txtApellidos, activar);
+		activarTxt(txtTelefono, activar);
+		activarTxt(txtDireccion, activar);
 	}
+	
+	private void activarTxt(JTextField txt, boolean activar) {
+		txt.setEnabled(activar);
+		txt.setEditable(activar);
+	}
+	
+	/*
+	 * BEFORE
+	 * 
+	 * */
 
 	protected void eliminarCliente() {
 		String dni = leerDNI();
