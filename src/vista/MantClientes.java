@@ -160,7 +160,7 @@ public class MantClientes extends JPanel {
 		model.addColumn("Teléfono");
 
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(677, 465, 91, 28);
+		btnVerTodo.setBounds(677, 465, 115, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
