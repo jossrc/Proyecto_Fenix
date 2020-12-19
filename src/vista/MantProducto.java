@@ -84,7 +84,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(lblMarca);
 
 		txtCodigo = new JTextField();
-		txtCodigo.setBounds(109, 42, 323, 20);
+		txtCodigo.setBounds(109, 42, 174, 20);
 		txtCodigo.setText(generarCodigoProducto());
 		panelProducto.add(txtCodigo);
 		txtCodigo.setColumns(10);
@@ -99,16 +99,16 @@ public class MantProducto extends JPanel {
 		txtStock.setColumns(10);
 		panelProducto.add(txtStock);
 
-		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(477, 45, 122, 53);
-		btnLimpiar.setForeground(Color.WHITE);
-		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpiar.setContentAreaFilled(false);
-		btnLimpiar.setOpaque(true);
-		btnLimpiar.setBorder(null);
-		btnLimpiar.setBackground(Color.LIGHT_GRAY);
-		panelProducto.add(btnLimpiar);
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(477, 45, 122, 53);
+		btnNuevo.setForeground(Color.WHITE);
+		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNuevo.setContentAreaFilled(false);
+		btnNuevo.setOpaque(true);
+		btnNuevo.setBorder(null);
+		btnNuevo.setBackground(new Color(35, 178, 220));
+		panelProducto.add(btnNuevo);
 
 		JButton btnVerTodo = new JButton("Ver Todo");
 		btnVerTodo.setBounds(477, 106, 122, 53);
@@ -121,16 +121,16 @@ public class MantProducto extends JPanel {
 		btnVerTodo.setBackground(Color.LIGHT_GRAY);
 		panelProducto.add(btnVerTodo);
 
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(633, 189, 122, 53);
-		btnAgregar.setForeground(Color.WHITE);
-		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAgregar.setContentAreaFilled(false);
-		btnAgregar.setOpaque(true);
-		btnAgregar.setBorder(null);
-		btnAgregar.setBackground(Color.LIGHT_GRAY);
-		panelProducto.add(btnAgregar);
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(633, 189, 122, 53);
+		btnGuardar.setForeground(Color.WHITE);
+		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGuardar.setContentAreaFilled(false);
+		btnGuardar.setOpaque(true);
+		btnGuardar.setBorder(null);
+		btnGuardar.setBackground(new Color(126, 171, 162));
+		panelProducto.add(btnGuardar);
 
 		JButton btnEditar = new JButton("Editar");		
 		btnEditar.setBounds(633, 253, 122, 53);
@@ -140,7 +140,7 @@ public class MantProducto extends JPanel {
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setOpaque(true);
 		btnEditar.setBorder(null);
-		btnEditar.setBackground(Color.LIGHT_GRAY);
+		btnEditar.setBackground(new Color(35, 178, 220));
 		panelProducto.add(btnEditar);
 
 		JButton btnBuscar = new JButton("Buscar");		
@@ -151,7 +151,7 @@ public class MantProducto extends JPanel {
 		btnBuscar.setContentAreaFilled(false);
 		btnBuscar.setOpaque(true);
 		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setBackground(new Color(35, 178, 220));
 		panelProducto.add(btnBuscar);
 
 		JButton btnEliminar = new JButton("Eliminar");		
@@ -162,7 +162,7 @@ public class MantProducto extends JPanel {
 		btnEliminar.setContentAreaFilled(false);
 		btnEliminar.setOpaque(true);
 		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(Color.LIGHT_GRAY);
+		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelProducto.add(btnEliminar);
 
 		JLabel lblTipo = new JLabel("Tipo");
@@ -174,7 +174,7 @@ public class MantProducto extends JPanel {
 		panelProducto.add(cboTipo);
 
 		cboMarca = new JComboBox<String>();
-		cboMarca.setBounds(109, 98, 323, 20);
+		cboMarca.setBounds(109, 98, 174, 20);
 		panelProducto.add(cboMarca);
 
 		JLabel lblPrecioUnit = new JLabel("Precio Unit.");
@@ -195,14 +195,14 @@ public class MantProducto extends JPanel {
 			}
 		});
 
-		btnLimpiar.addActionListener(new ActionListener() {
+		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiar();
 				txtCodigo.setText(generarCodigoProducto());
 			}
 		});
 
-		btnAgregar.addActionListener(new ActionListener() {
+		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarProducto();
 			}
