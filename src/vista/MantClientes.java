@@ -70,26 +70,36 @@ public class MantClientes extends JPanel {
 										pDatosCliente.add(lblDireccin);
 										
 												txtNombres = new JTextField();
+												txtNombres.setEnabled(false);
+												txtNombres.setEditable(false);
 												txtNombres.setBounds(93, 55, 542, 20);
 												pDatosCliente.add(txtNombres);
 												txtNombres.setColumns(10);
 												
 														txtApellidos = new JTextField();
+														txtApellidos.setEnabled(false);
+														txtApellidos.setEditable(false);
 														txtApellidos.setBounds(93, 80, 542, 20);
 														pDatosCliente.add(txtApellidos);
 														txtApellidos.setColumns(10);
 														
 																txtDNI = new JTextField();
+																txtDNI.setForeground(Color.BLUE);
+																txtDNI.setEditable(false);
 																txtDNI.setBounds(93, 27, 174, 20);
 																pDatosCliente.add(txtDNI);
 																txtDNI.setColumns(10);
 																
 																		txtTelefono = new JTextField();
+																		txtTelefono.setEnabled(false);
+																		txtTelefono.setEditable(false);
 																		txtTelefono.setBounds(93, 108, 174, 20);
 																		pDatosCliente.add(txtTelefono);
 																		txtTelefono.setColumns(10);
 																		
 																				txtDireccion = new JTextField();
+																				txtDireccion.setEnabled(false);
+																				txtDireccion.setEditable(false);
 																				txtDireccion.setBounds(93, 133, 323, 20);
 																				pDatosCliente.add(txtDireccion);
 																				txtDireccion.setColumns(10);
