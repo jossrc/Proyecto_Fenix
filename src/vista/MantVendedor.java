@@ -113,11 +113,7 @@ private static final long serialVersionUID = 1L;
 		txtDireccion.setBounds(93, 133, 323, 20);
 		pDatosVendedor.add(txtDireccion);
 		txtDireccion.setColumns(10);
-		
-			
-		
-		
-		
+
 		
 		JButton btnVerTodo = new JButton("Ver Todo");
 		btnVerTodo.setBounds(677, 465, 115, 28);
