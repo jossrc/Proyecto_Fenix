@@ -18,7 +18,7 @@ public class PAyuda extends JPanel {
 		add(pContenidoAyuda);
 		pContenidoAyuda.setLayout(null);
 		
-		JLabel lblVersion = new JLabel("Versi\u00F3n 1.0.1");
+		JLabel lblVersion = new JLabel("Versi\u00F3n 1.3.1");
 		lblVersion.setBounds(335, 11, 158, 34);
 		lblVersion.setFont(new Font("SansSerif", Font.BOLD, 26));
 		pContenidoAyuda.add(lblVersion);

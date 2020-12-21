@@ -213,7 +213,7 @@ public class TRVentas extends JPanel {
 		btnGenerarVenta.setBounds(703, 296, 102, 36);
 		panelVentas.add(btnGenerarVenta);
 		
-		JButton btnCancelarVenta = new JButton("CANCELAR");
+		JButton btnCancelarVenta = new JButton("CANCELAR");		
 		btnCancelarVenta.setBounds(703, 355, 102, 36);
 		panelVentas.add(btnCancelarVenta);
 		
@@ -335,6 +335,13 @@ public class TRVentas extends JPanel {
 				generarVenta();
 			}
 		});
+		
+		btnCancelarVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				listaDetalleBoleta = new ArrayList<DetalleBoleta>();
+				limpiarTodo();
+			}
+		});
 
 	}
 	
@@ -384,6 +391,8 @@ public class TRVentas extends JPanel {
 					aviso("Oops algo salió mal. No se pudo generar la venta");
 				} else {
 					JOptionPane.showMessageDialog(this, "Venta realizada exitosamente");
+					listaDetalleBoleta = null;
+					limpiarTodo();
 				}
 				
 			}
@@ -437,6 +446,8 @@ public class TRVentas extends JPanel {
 				listaDetalleBoleta.add(det);
 				
 				estableciendoSubTotal();
+				
+				limpiarDatosProducto();
 			}
 			
 		} else {
@@ -686,6 +697,46 @@ public class TRVentas extends JPanel {
 		return pagarD;
 		
 	}
+	
+	
+	
+	private void limpiarDatosCliente() {
+		txtIDCliente.setText("");
+		txtCliente.setText("");
+
+	}
+	
+	private void limpiarDatosProducto() {
+		txtCodigo.setText("");
+		txtDescripcionProducto.setText("");
+		txtCantidad.setText("");
+		txtPrecio.setText("");
+		txtStock.setText("");
+	}
+	
+	
+	private void limpiarPagaCon() {
+		txtCambio.setText("");
+		txtPagaCon.setText("");
+		
+	}
+	
+	private void limpiarPagar() {
+		txtSubtotal.setText("");
+		txtDescuento.setText("0.0");		
+		txtTotalAPagar.setText("");	
+	}
+	
+	private void limpiarTodo() {
+		limpiarDatosCliente();
+		limpiarDatosProducto();
+		limpiarPagaCon();
+		limpiarPagar();
+		
+		model.setRowCount(0);
+	}
+	
+	
 	
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
