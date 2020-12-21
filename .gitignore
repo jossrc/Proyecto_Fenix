@@ -11,6 +11,9 @@ local.properties
 .loadpath
 .recommenders
 
+# PDF
+*.pdf
+
 # External tool builders
 .externalToolBuilders/
 

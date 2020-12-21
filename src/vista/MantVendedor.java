@@ -1,20 +1,29 @@
 package vista;
 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import mantenimientos.GestionVendedores;
+import model.Vendedor;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
 
 public class MantVendedor extends JPanel {
+	
 private static final long serialVersionUID = 1L;
 	
 	private JTextField txtNombres;
@@ -23,6 +32,15 @@ private static final long serialVersionUID = 1L;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
 	private JTable tblVendedor;
+	private DefaultTableModel model;
+	private String accionBtn = "nuevo";
+	private boolean deseaBuscar = true;
+	private JButton btnGuardar;
+	private JButton btnEliminar;
+	private JButton btnCancelar;
+	private JButton btnEditar;
+	private JButton btnNuevo;
+	private JButton btnBuscar;
 
 	
 	public MantVendedor() {
@@ -30,155 +48,456 @@ private static final long serialVersionUID = 1L;
 		
 		//Dando Forma al Panel
 		JPanel panelVendedor = new JPanel();
-		panelVendedor.setBounds(0, 0, 817, 470);
+		panelVendedor.setBounds(0, 0, 817, 515);
 		add(panelVendedor);
 		panelVendedor.setLayout(null);
 		
+		JPanel pDatosVendedor = new JPanel();
+		pDatosVendedor.setBorder(new TitledBorder(null, "Informaci\u00F3n Personal", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		pDatosVendedor.setBounds(21, 9, 771, 176);
+		panelVendedor.add(pDatosVendedor);
+		pDatosVendedor.setLayout(null);
+		
 		JLabel lblNombres = new JLabel("Nombres");
-		lblNombres.setBounds(37, 67, 46, 14);
-		panelVendedor.add(lblNombres);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 271);
-		panelVendedor.add(scrollPane);
-		
-		tblVendedor = new JTable();
-		scrollPane.setViewportView(tblVendedor);
+		lblNombres.setBounds(21, 58, 46, 14);
+		pDatosVendedor.add(lblNombres);
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(37, 92, 46, 14);
-		panelVendedor.add(lblApellidos);
+		lblApellidos.setBounds(21, 83, 46, 14);
+		pDatosVendedor.add(lblApellidos);
 		
 		JLabel lblDni = new JLabel("DNI");
-		lblDni.setBounds(37, 39, 46, 14);
-		panelVendedor.add(lblDni);
+		lblDni.setBounds(21, 30, 46, 14);
+		pDatosVendedor.add(lblDni);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setBounds(37, 120, 46, 14);
-		panelVendedor.add(lblTelefono);
+		lblTelefono.setBounds(21, 111, 46, 14);
+		pDatosVendedor.add(lblTelefono);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
-		lblDireccion.setBounds(37, 145, 46, 14);
-		panelVendedor.add(lblDireccion);
+		lblDireccion.setBounds(21, 136, 46, 14);
+		pDatosVendedor.add(lblDireccion);
 		
 		txtNombres = new JTextField();
-		txtNombres.setBounds(109, 64, 323, 20);
-		panelVendedor.add(txtNombres);
+		txtNombres.setEnabled(false);
+		txtNombres.setEditable(false);
+		txtNombres.setBounds(93, 55, 542, 20);
+		pDatosVendedor.add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		txtApellidos = new JTextField();
-		txtApellidos.setBounds(109, 89, 323, 20);
+		txtApellidos.setEnabled(false);
+		txtApellidos.setEditable(false);
+		txtApellidos.setBounds(93, 80, 542, 20);
+		pDatosVendedor.add(txtApellidos);
 		txtApellidos.setColumns(10);
-		panelVendedor.add(txtApellidos);
-		
+
 		txtDNI = new JTextField();
-		txtDNI.setBounds(109, 36, 323, 20);
+		txtDNI.setForeground(Color.BLUE);
+		txtDNI.setEditable(false);
+		txtDNI.setBounds(93, 27, 174, 20);
+		pDatosVendedor.add(txtDNI);
 		txtDNI.setColumns(10);
-		panelVendedor.add(txtDNI);
-		
+
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(109, 117, 323, 20);
+		txtTelefono.setEnabled(false);
+		txtTelefono.setEditable(false);
+		txtTelefono.setBounds(93, 108, 174, 20);
+		pDatosVendedor.add(txtTelefono);
 		txtTelefono.setColumns(10);
-		panelVendedor.add(txtTelefono);
-		
+
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(109, 142, 323, 20);
+		txtDireccion.setEnabled(false);
+		txtDireccion.setEditable(false);
+		txtDireccion.setBounds(93, 133, 323, 20);
+		pDatosVendedor.add(txtDireccion);
 		txtDireccion.setColumns(10);
-		panelVendedor.add(txtDireccion);
 		
-		JButton btnLimpiar = new JButton("Limpiar");		
-		btnLimpiar.setBounds(477, 45, 122, 53);
-		btnLimpiar.setForeground(Color.WHITE);
-		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpiar.setContentAreaFilled(false);
-		btnLimpiar.setOpaque(true);
-		btnLimpiar.setBorder(null);
-		btnLimpiar.setBackground(Color.LIGHT_GRAY);
-		panelVendedor.add(btnLimpiar);
+			
+		
+		
+		
 		
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(477, 106, 122, 53);
+		btnVerTodo.setBounds(677, 465, 115, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVerTodo.setContentAreaFilled(false);
 		btnVerTodo.setOpaque(true);
 		btnVerTodo.setBorder(null);
-		btnVerTodo.setBackground(Color.LIGHT_GRAY);		
+		btnVerTodo.setBackground(Color.GRAY);
 		panelVendedor.add(btnVerTodo);
 		
-		JButton btnAgregar = new JButton("Agregar");		
-		btnAgregar.setBounds(633, 189, 122, 53);
-		btnAgregar.setForeground(Color.WHITE);
-		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAgregar.setContentAreaFilled(false);
-		btnAgregar.setOpaque(true);
-		btnAgregar.setBorder(null);
-		btnAgregar.setBackground(Color.LIGHT_GRAY);
-		panelVendedor.add(btnAgregar);
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(312, 21, 91, 28);
+		pDatosVendedor.add(btnNuevo);
+		btnNuevo.setForeground(Color.WHITE);
+		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNuevo.setContentAreaFilled(false);
+		btnNuevo.setOpaque(true);
+		btnNuevo.setBorder(null);
+		btnNuevo.setBackground(new Color(35, 178, 220));
 		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(633, 253, 122, 53);
+		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(423, 21, 91, 28);
+		pDatosVendedor.add(btnEditar);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setOpaque(true);
 		btnEditar.setBorder(null);
-		btnEditar.setBackground(Color.LIGHT_GRAY);
-		panelVendedor.add(btnEditar);
+		btnEditar.setBackground(new Color(35, 178, 220));
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(633, 317, 122, 53);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 243, 771, 211);
+		panelVendedor.add(scrollPane);
+		
+		tblVendedor = new JTable();		
+		model = new DefaultTableModel();
+		tblVendedor.setModel(model);
+		scrollPane.setViewportView(tblVendedor);
+		model.addColumn("Nombre");
+		model.addColumn("Apellido");
+		model.addColumn("DNI");
+		model.addColumn("Dirección");
+		model.addColumn("Teléfono");	
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(544, 21, 91, 28);
+		pDatosVendedor.add(btnBuscar);
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setContentAreaFilled(false);
 		btnBuscar.setOpaque(true);
 		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(Color.LIGHT_GRAY);
-		panelVendedor.add(btnBuscar);
+		btnBuscar.setBackground(new Color(35, 178, 220));	
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(633, 381, 122, 53);
+		btnEliminar = new JButton("Eliminar");
+
+		btnEliminar.setBounds(576, 204, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setContentAreaFilled(false);
 		btnEliminar.setOpaque(true);
 		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(Color.LIGHT_GRAY);
+		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelVendedor.add(btnEliminar);
 		
-		JLabel lblVendedores = new JLabel("Vendedores");
-		lblVendedores.setBounds(109, 11, 99, 14);
-		panelVendedor.add(lblVendedores);
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setEnabled(false);
+		btnGuardar.setBounds(455, 204, 91, 28);
+		btnGuardar.setForeground(Color.WHITE);
+		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGuardar.setContentAreaFilled(false);
+		btnGuardar.setOpaque(true);
+		btnGuardar.setBorder(null);
+		btnGuardar.setBackground(new Color(126, 171, 162));
+		panelVendedor.add(btnGuardar);
 		
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiar();
+		btnCancelar = new JButton("Cancelar");		
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(new Color(211, 220, 35));
+		btnCancelar.setBounds(694, 204, 91, 28);
+		panelVendedor.add(btnCancelar);
+		
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				habilitarBtnGuardar();				
 			}
 		});
-		
+
 		btnVerTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				listado();
+
+			}
+		});
+
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminarVendedor();
+			}
+		});
+
+		tblVendedor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fila = tblVendedor.getSelectedRow();
+
+				if (fila != -1) {
+					String dni = tblVendedor.getValueAt(fila, 2).toString();
+					txtDNI.setText(dni);
+					buscarVendedor();
+				}
+			}
+		});		
+		
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				habilitarBtnBuscar();
+			}
+		});
+
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				habilitarBtnEditar();
+				btnGuardar.setEnabled(true);
+				btnGuardar.setBackground(new Color(9, 168, 136));
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(232,169,156));
+			}
+		});
+
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				activarBtnNuevo();
+				btnGuardar.setEnabled(true);
+				btnGuardar.setBackground(new Color(9, 168, 136));
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(232,169,156));
+				btnEditar.setEnabled(false);
+				btnEditar.setBackground(new Color(147,200,215));
 			}
 		});
 		
-		btnAgregar.addActionListener(new ActionListener() {
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearVendedor();
+				activarBtnCancelar();
+				
+				deseaBuscar = true;
+				btnBuscar.setForeground(Color.WHITE);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
+				btnNuevo.setEnabled(true);
+				btnNuevo.setBackground(new Color(35, 178, 220));
 			}
 		});
+		
 	}
 	
-	private void crearVendedor() {
+	/*
+	 * AFTER
+	 * 
+	 * */
+	
+	
+	private void habilitarBtnGuardar() {
+		if (accionBtn.equals("nuevo")) {
+			registrarVendedor();			
+		} else {
+			editarVendedor();
+		}
+	}
+	
+	
+	private void habilitarBtnBuscar() {
+	
+		if (deseaBuscar) {
+			activarTodosTxt(false);
+			txtDNI.setEditable(true);
+			
+			
+			btnBuscar.setForeground(Color.BLUE);
+			
+			// COLORES DESHABILITAR
+			
+			btnGuardar.setEnabled(false);
+			btnGuardar.setBackground(new Color(126, 171, 162));
+			btnEliminar.setEnabled(false);
+			btnEliminar.setBackground(new Color(232,169,156));
+			btnNuevo.setEnabled(false);
+			btnNuevo.setBackground(new Color(147,200,215));
+			btnEditar.setEnabled(false);
+			btnEditar.setBackground(new Color(147,200,215));
+			
+			deseaBuscar = false;
+		} else {
+			buscarVendedor();
+			activarTodosTxt(false);
+			
+			btnBuscar.setForeground(Color.WHITE);
+			
+			// COLORES HABILITAR
+			
+			btnEliminar.setEnabled(true);
+			btnEliminar.setBackground(new Color(241, 71, 38));
+			btnNuevo.setEnabled(true);
+			btnNuevo.setBackground(new Color(35, 178, 220));
+			btnEditar.setEnabled(true);
+			btnEditar.setBackground(new Color(35, 178, 220));
+			
+			deseaBuscar = true;
+		}
+		
+	}
+	
+	
+	private void habilitarBtnEditar() {
+		accionBtn = "editar";
+		activarTodosTxt(true);
+		txtDNI.setEditable(false);
+		
+	}
+	
+	private void activarBtnCancelar() {
+		activarTodosTxt(false);
+		
+		accionBtn = "nuevo";
+	}
+	
+	private void activarBtnNuevo() {
+		activarTodosTxt(true);		
+		limpiar();
+	}
+	
+	private void activarTodosTxt(boolean activar) {
+		txtDNI.setEditable(activar);
+		activarTxt(txtNombres, activar);
+		activarTxt(txtApellidos, activar);
+		activarTxt(txtTelefono, activar);
+		activarTxt(txtDireccion, activar);
+	}
+	
+	private void activarTxt(JTextField txt, boolean activar) {
+		txt.setEnabled(activar);
+		txt.setEditable(activar);
+	}
+	
+	/*
+	 * BEFORE
+	 * 
+	 * */
+
+	protected void eliminarVendedor() {
+		String dni = leerDNI();
+
+		if (dni != null) {
+			int ok = new GestionVendedores().eliminar(dni);
+
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo eliminar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminó correctamente al Vendedor");
+				limpiar();
+				listado();
+			}
+		}
+
+	}
+
+	void listado() {
+		ArrayList<Vendedor> lista = new GestionVendedores().listado();
+
+		if (lista == null) {
+			JOptionPane.showMessageDialog(this, "Listado vacio");
+		} else {
+			model.setRowCount(0);
+			for (Vendedor v : lista) {
+				insertarNuevaFila(v);
+			}
+		}
+	}
+
+	private void buscarVendedor() {
+		String dni = leerDNI();
+
+		if (dni != null) {
+			Vendedor vendedor = new GestionVendedores().buscar(dni);
+
+			if (vendedor == null) {
+				aviso("Oops no se pudo encontrar Vendedor");
+			} else {
+				txtNombres.setText(vendedor.getNombre());
+				txtApellidos.setText(vendedor.getApellido());
+				txtTelefono.setText(vendedor.getTelefono());
+				txtDireccion.setText(vendedor.getDireccion());
+			}
+		}
+	}
+
+	private void editarVendedor() {
+		Vendedor vendedor = crearVendedor();
+
+		if (vendedor != null) {
+			int ok = new GestionVendedores().actualizar(vendedor);
+
+			if (ok == 0) {
+				aviso("Oops no se pudo actualizar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "El vendedor ha sido actualizado exitosamente");
+				listado();
+				
+				// COLORES
+				
+				activarTodosTxt(false);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
+			}
+		}
+	}
+
+	private void registrarVendedor() {
+		Vendedor vendedor = crearVendedor();
+		if (vendedor != null) {
+			int ok = new GestionVendedores().registrar(vendedor);
+
+			if (ok == 0) {
+				aviso("Oops algo salió mal. No se pudo registrar Vendedor");
+			} else {
+				JOptionPane.showMessageDialog(this, "Nuevo Vendedor registrado");
+				limpiar();
+				listado();
+				
+				// COLORES
+				
+				activarTodosTxt(false);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
+
+			}
+		}
+
+	}
+
+	private void insertarNuevaFila(Vendedor vendedor) {
+		Object datos[] = { vendedor.getNombre(), vendedor.getApellido(), vendedor.getDni(), vendedor.getDireccion(),
+				vendedor.getTelefono() };
+		model.addRow(datos);
+
+	}
+
+	private Vendedor crearVendedor() {
 		String dni = leerDNI();
 		String nombre, apellido, telefono, direccion;
-		
+
 		if (dni != null) {
 			nombre = leerNombre();
 			if (nombre != null) {
@@ -187,17 +506,15 @@ private static final long serialVersionUID = 1L;
 					telefono = leerTelefono();
 					if (telefono != null) {
 						direccion = leerDireccion();
-						if (direccion != null) {			
-							JOptionPane.showMessageDialog(this, "Nuevo Vendedor agregado");
-							limpiar();
-							// TODO: Crea un objeto Vendedor y lo retorna
+						if (direccion != null) {
+							return new Vendedor(0, dni, nombre, apellido, direccion, telefono);
 						}
 					}
 				}
 			}
 		}
-		
-		//return null
+
+		return null;
 	}
 
 	private String leerDNI() {
@@ -282,17 +599,15 @@ private static final long serialVersionUID = 1L;
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
-	
+
 	private void limpiar() {
 		txtDNI.setText("");
 		txtNombres.setText("");
 		txtApellidos.setText("");
 		txtTelefono.setText("");
 		txtDireccion.setText("");
-		
+
 		txtDNI.requestFocus();
 		txtDNI.selectAll();
 	}
-	
-	
 }

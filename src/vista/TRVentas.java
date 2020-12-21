@@ -11,10 +11,22 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import mantenimientos.GestionProductoXMarcaTipo;
+import mantenimientos.GestionVentas;
+import model.Boleta;
+import model.DetalleBoleta;
+import model.Producto;
+import model.ProductoXMarcaTipo;
+import model.Venta;
+
 import java.awt.Color;
+import java.awt.Cursor;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,7 +37,6 @@ import java.awt.event.ActionEvent;
 public class TRVentas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCliente;
 	private JTextField txtBoleta;
 	private JTextField txtCodigo;
 	private JTextField txtCantidad;
@@ -41,6 +52,12 @@ public class TRVentas extends JPanel {
 	private JTextField txtDescuento;
 	private JTextField txtTotalAPagar;
 	private JDateChooser txtFecha;
+	
+	// GLOBAL
+	public static JTextField txtIDCliente;
+	public static JTextField txtCliente;
+
+	private ArrayList<DetalleBoleta> listaDetalleBoleta = new ArrayList<DetalleBoleta>();
 
 	public TRVentas() {
 		setLayout(null);
@@ -56,8 +73,8 @@ public class TRVentas extends JPanel {
 		panelVentas.add(pDatosVenta);
 		pDatosVenta.setLayout(null);
 		
-		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(21, 19, 46, 14);
+		JLabel lblCliente = new JLabel("CLIENTE COMPRADOR");
+		lblCliente.setBounds(21, 19, 109, 14);
 		pDatosVenta.add(lblCliente);
 		
 		txtCliente = new JTextField();
@@ -85,10 +102,22 @@ public class TRVentas extends JPanel {
 		txtFecha = new JDateChooser();
 		txtFecha.setBounds(467, 44, 128, 20);
 		pDatosVenta.add(txtFecha);
-		
-		JButton btnBuscarCliente = new JButton("");
-		btnBuscarCliente.setBounds(250, 44, 26, 20);
+
+		JButton btnBuscarCliente = new JButton("");		
+		btnBuscarCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarCliente.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
+		btnBuscarCliente.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
+		btnBuscarCliente.setContentAreaFilled(false);
+		btnBuscarCliente.setBorderPainted(false);
+		btnBuscarCliente.setBorder(null);
+		btnBuscarCliente.setBounds(250, 41, 25, 25);
 		pDatosVenta.add(btnBuscarCliente);
+		
+		txtIDCliente = new JTextField();
+		txtIDCliente.setEditable(false);
+		txtIDCliente.setColumns(10);
+		txtIDCliente.setBounds(170, 16, 70, 20);
+		pDatosVenta.add(txtIDCliente);
 		
 		JPanel pDatosProducto = new JPanel();
 		pDatosProducto.setBorder(crearBordeTitulo("Datos del Producto"));
@@ -106,8 +135,14 @@ public class TRVentas extends JPanel {
 		txtCodigo.setBounds(21, 44, 219, 20);
 		pDatosProducto.add(txtCodigo);
 		
-		JButton btnBuscarProducto = new JButton("");
-		btnBuscarProducto.setBounds(250, 44, 26, 20);
+		JButton btnBuscarProducto = new JButton("");		
+		btnBuscarProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarProducto.setRolloverIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar_hover.png")));
+		btnBuscarProducto.setIcon(new ImageIcon(TRVentas.class.getResource("/img/buscar.png")));
+		btnBuscarProducto.setContentAreaFilled(false);
+		btnBuscarProducto.setBorderPainted(false);
+		btnBuscarProducto.setBorder(null);
+		btnBuscarProducto.setBounds(250, 41, 25, 25);
 		pDatosProducto.add(btnBuscarProducto);
 		
 		JLabel lblCantidad = new JLabel("CANTIDAD");
@@ -170,15 +205,11 @@ public class TRVentas extends JPanel {
 		tblVenta.getColumnModel().getColumn(5).setPreferredWidth(77);
 		scrollPane.setViewportView(tblVenta);
 		
-		JButton btnAdicionarProducto = new JButton("+");
+		JButton btnAdicionarProducto = new JButton("+");		
 		btnAdicionarProducto.setBounds(647, 125, 57, 36);
 		panelVentas.add(btnAdicionarProducto);
 		
-		JButton btnQuitarProducto = new JButton("-");
-		btnQuitarProducto.setBounds(647, 182, 57, 36);
-		panelVentas.add(btnQuitarProducto);
-		
-		JButton btnGenerarVenta = new JButton("GENERAR");
+		JButton btnGenerarVenta = new JButton("GENERAR");		
 		btnGenerarVenta.setBounds(703, 296, 102, 36);
 		panelVentas.add(btnGenerarVenta);
 		
@@ -258,6 +289,35 @@ public class TRVentas extends JPanel {
 		btnCalcularPagoTotal.setBounds(357, 23, 89, 35);
 		pPagar.add(btnCalcularPagoTotal);
 		
+		generarFechaActual();
+		
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abrirBusquedaCliente();
+			}
+		});
+		
+		btnBuscarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Producto producto = abrirBusquedaProducto();
+				
+				if (producto != null) {
+					txtCodigo.setText(producto.getCodigo());
+					txtDescripcionProducto.setText(producto.getDescripcion());
+					txtStock.setText(producto.getStock()+"");
+					txtPrecio.setText(producto.getPrecioUnitario()+"");
+				}
+				
+			}
+		});
+		
+		btnAdicionarProducto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				agregarProductoAlCarrito();
+			}
+		});
+		
 		btnCalcularPagoTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				calcularPagoTotalConDescuento();				
@@ -269,7 +329,162 @@ public class TRVentas extends JPanel {
 				calcularCambio();
 			}
 		});
+		
+		btnGenerarVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				generarVenta();
+			}
+		});
 
+	}
+	
+	private void generarVenta() {
+		if (FrmLogin.vendedorLogueado == null) {
+			aviso("Inicie Sesión antes de empezar a vender");
+			return;
+		}
+		
+		int idCliente = leerIDCliente();
+		
+		if (idCliente == -1 ) {
+			aviso("Seleccione a un cliente");
+			return;
+		}
+		
+		int cantidadFilas = model.getRowCount();
+		
+		if (cantidadFilas == -1 || cantidadFilas == 0) {
+			aviso("Seleccione productos a vender");
+			return;
+		}
+		
+		double totalAPagar = leerTotalPagar();
+		
+		if (totalAPagar == -1) {
+			aviso("Falta Calcular el Total a Pagar");
+			return;
+		}
+		
+		String fecha = leerFechaBoleta();
+		
+		if (fecha != null) {
+			int numBoleta = new GestionVentas().obtenerNumBoleta();
+			
+			Venta venta = new Venta(0, FrmLogin.vendedorLogueado.getId(), numBoleta);
+			
+			double subtotal = leerSubTotal();
+			double descuento = leerDescuento();
+			
+			if (descuento != -1) {
+				Boleta boleta = new Boleta(numBoleta, fecha, subtotal, descuento, totalAPagar, idCliente);
+				
+				int ok = new GestionVentas().realizarVentaCompleta(venta, listaDetalleBoleta, boleta);
+				
+				if (ok == -1) {
+					aviso("Oops algo salió mal. No se pudo generar la venta");
+				} else {
+					JOptionPane.showMessageDialog(this, "Venta realizada exitosamente");
+				}
+				
+			}
+	
+		}
+
+	}
+	
+	
+	private void agregarProductoAlCarrito() {
+		
+		if (FrmLogin.vendedorLogueado == null) {
+			aviso("Inicie Sesión antes de empezar a vender");
+			return;
+		}
+		
+		int idCliente = leerIDCliente();
+		
+		if (idCliente == -1 ) {
+			aviso("Seleccione a un cliente");
+			return;
+		}
+		
+		String codigoProd = leerCodigoProducto();
+		String tipo = null;
+		String descripcion = leerDescripcionProducto();
+		double precio = leerPrecioProducto();
+		
+		int cantidad;
+		
+		ProductoXMarcaTipo aux = new GestionProductoXMarcaTipo().buscarProductoMarcaTipo(codigoProd);
+		
+		if (aux != null) {
+			tipo = aux.getTipo();
+		}
+		
+		if (codigoProd != null && tipo != null && descripcion != null && precio != -1) {
+			
+			cantidad = leerCantidadAComprar();
+			
+			if (cantidad != -1) {
+				
+				double importe = cantidad * precio;
+				
+				Object[] datos = {codigoProd, tipo, descripcion, cantidad, precio, importe};
+				model.addRow(datos);
+				
+				int numBol = new GestionVentas().obtenerNumBoleta();
+				
+				DetalleBoleta det = new DetalleBoleta(numBol, codigoProd, importe, cantidad);
+				listaDetalleBoleta.add(det);
+				
+				estableciendoSubTotal();
+			}
+			
+		} else {
+			aviso("Busque un producto para agregar");
+		}
+
+	}
+	
+	private void estableciendoSubTotal() {
+
+		double subTotal = calcularSubTotal();
+		
+		if (subTotal != -1 || subTotal != 0) {
+			txtSubtotal.setText(subTotal+"");
+		}
+	}
+	
+	private double calcularSubTotal() {
+		
+		int cantidadFilas = model.getRowCount();
+		double importe = 0;
+		double subTotal = 0;
+		
+		if (cantidadFilas == -1 || cantidadFilas == 0) {
+			return -1;
+		}
+
+		for (int i = 0; i < cantidadFilas; i++) {
+			importe = Double.parseDouble(tblVenta.getValueAt(i, 5).toString());
+			subTotal += importe;
+		}
+		
+		return subTotal;
+		
+	}
+	
+	private Producto abrirBusquedaProducto() {
+		DlgBuscarProducto buscar = new DlgBuscarProducto();
+		buscar.setLocationRelativeTo(this);
+		Producto p = buscar.showDialog();
+		
+		return p;
+	}
+	
+	private void abrirBusquedaCliente() {
+		DlgBuscarCliente buscar = new DlgBuscarCliente();
+		buscar.setLocationRelativeTo(this);
+		buscar.setVisible(true);
 	}
 	
 	private void calcularPagoTotalConDescuento() {
@@ -299,7 +514,7 @@ public class TRVentas extends JPanel {
 			if (total == -1) {
 				aviso("Oops!! No existe Total a Pagar");
 			} else {
-				double cambio = leerTotalPagar() - pagacon;
+				double cambio = pagacon - total;
 				txtCambio.setText(cambio+"");
 			}
 		}
@@ -312,15 +527,19 @@ public class TRVentas extends JPanel {
 		return titled;
 	}
 	
-	private String leerCliente() {
+	private int leerIDCliente() {
+		String id = txtIDCliente.getText().trim();
 		
-		String cliente = txtCliente.getText().trim();
-		
-		if (cliente.isEmpty()) {
-			return null;
+		if (id.isEmpty()) {
+			return -1;
 		}
 		
-		return cliente;
+		return Integer.parseInt(id);
+	}
+	
+	private void generarFechaActual() {
+		Date fechaActual = new Date();
+		txtFecha.setDate(fechaActual);  
 	}
 	
 	private String leerFechaBoleta() {
@@ -329,6 +548,7 @@ public class TRVentas extends JPanel {
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 			return sdf.format(txtFecha.getDate());
 		} catch (Exception e) {
+			aviso("Seleccione una fecha válida");
 			return null;
 		}
 	}
@@ -372,7 +592,7 @@ public class TRVentas extends JPanel {
 			return -1;
 		}
 		
-		if (!cantidad.matches("[0-9]+")) {
+		if (!cantidad.matches("[1-9]+[0-9]*")) {
 			aviso("Ingrese una Cantidad válidad");
 			return -1;
 		}
@@ -410,7 +630,7 @@ public class TRVentas extends JPanel {
 	
 	private double leerDescuento() {
 		
-		String descuento = txtSubtotal.getText().trim();
+		String descuento = txtDescuento.getText().trim();
 		
 		if (descuento.isEmpty()) {
 			aviso("El campo Descuento está vacío");
@@ -470,5 +690,4 @@ public class TRVentas extends JPanel {
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
-	
 }

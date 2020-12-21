@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import mantenimientos.GestionLogin;
+import model.Login;
+import model.Vendedor;
+
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.Font;
@@ -17,10 +22,10 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrmLogin extends JFrame {
 
@@ -35,6 +40,9 @@ public class FrmLogin extends JFrame {
 	
 	private Color principalColor = new Color(247,71,38);
 	private JLabel lblNewLabel;
+	
+	// GLOBAL
+	public static Vendedor vendedorLogueado = null;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -112,7 +120,7 @@ public class FrmLogin extends JFrame {
 		lblIconClave.setBounds(40, 299, 46, 38);
 		panel.add(lblIconClave);
 		
-		btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
+		btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");		
 		btnIniciarSesion.setEnabled(false);
 		btnIniciarSesion.setForeground(Color.WHITE);
 		btnIniciarSesion.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -173,6 +181,62 @@ public class FrmLogin extends JFrame {
 				}
 			}
 		});
+		
+		btnIniciarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				iniciarSesion();
+			}
+		});
+	}
+	
+	private void iniciarSesion() {
+		if (vendedorLogueado == null) { 
+			boolean estaRegistrado = cargarVendedor();
+			
+			if (estaRegistrado) {
+				FrmPrincipal principal = new FrmPrincipal();
+				principal.setLocationRelativeTo(null);
+				principal.setVisible(true);
+				
+				dispose();
+			} else {
+				aviso("Oops usuario o clave mal escrito");
+			}
+			
+			
+		}
+	}
+	
+	private boolean cargarVendedor() {
+		Login login = cargarLogin();
+		
+		if (login != null ) {
+			vendedorLogueado = new GestionLogin().obtenerVendedorYLogueo(login.getIdVendedor());
+			
+			if (vendedorLogueado == null) {
+				return false;
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	private Login cargarLogin() {
+		String username = leerUserName();
+		String clave;
+		
+		if (username != null) {
+			clave = leerPassword();
+			
+			if (clave != null) {
+				return new GestionLogin().iniciarSesion(username, clave);
+			}			
+		}
+		
+		return null;		
 	}
 	
 	private String leerUserName() {

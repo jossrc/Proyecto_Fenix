@@ -1,21 +1,22 @@
 package model;
 
-public class ReporteProducto {
+public class ProductoXMarcaTipo {
 
 	private String codigo;
 	private String descripcion;
 	private String marca;
 	private String tipo;
 	private int stock;
-	private double precio;
-
-	public ReporteProducto(String codigo, String descripcion, String marca, String tipo, int stock, double precio) {
+	private double precioUnit;
+	
+	public ProductoXMarcaTipo(String codigo, String descripcion, String marca, String tipo, int stock,
+			double precioUnit) {		
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.tipo = tipo;
 		this.stock = stock;
-		this.precio = precio;
+		this.precioUnit = precioUnit;
 	}
 
 	public String getCodigo() {
@@ -58,12 +59,12 @@ public class ReporteProducto {
 		this.stock = stock;
 	}
 
-	public double getPrecio() {
-		return precio;
+	public double getPrecioUnit() {
+		return precioUnit;
 	}
 
-	public void setPrecio(double precio) {
-		this.precio = precio;
+	public void setPrecioUnit(double precioUnit) {
+		this.precioUnit = precioUnit;
 	}
 
 }

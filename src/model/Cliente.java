@@ -22,16 +22,14 @@ public class Cliente {
 	}
 
 	public Cliente(int id_cli, String dni_cli, String nom_cli, String ape_cli, String direc_cli, String telef_cli) {
-		super();
 		this.id_cli = id_cli;
 		this.dni_cli = dni_cli;
 		this.nom_cli = nom_cli;
 		this.ape_cli = ape_cli;
 		this.direc_cli = direc_cli;
 		this.telef_cli = telef_cli;
+		this.estado_cli = 1;
 	}
-
-
 
 	public Cliente() {
 		

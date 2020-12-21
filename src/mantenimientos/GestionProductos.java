@@ -226,4 +226,159 @@ public class GestionProductos implements ProductoInterface {
 
 		return lista;
 	}
+
+	@Override
+	public int aplicarDescuentoXProducto(String codigo, int tipoDesc, double descuento) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_aplicarDescuentoProducto(?,?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setString(1, codigo);
+			pst.setInt(2, tipoDesc);
+			pst.setDouble(3, descuento);
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en aplicar descuento por producto: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
+	}
+
+	@Override
+	public int aplicarDescuentoXTipo(int tipoDesc, int tipoProd, double descuento) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_aplicarDescuentoProductoXTipo(?,?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setInt(1, tipoDesc);
+			pst.setInt(2, tipoProd);
+			pst.setDouble(3, descuento);
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en aplicar descuento por tipo: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
+	}
+
+	@Override
+	public int aplicarDescuentoXMarca(int tipoDesc, int tipoMarc, double descuento) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_aplicarDescuentoProductoXMarca(?,?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setInt(1, tipoDesc);
+			pst.setInt(2, tipoMarc);
+			pst.setDouble(3, descuento);
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en aplicar descuento por tipo: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
+	}
+
+	@Override
+	public int aplicarDescuentoATodos(int tipoDesc, double descuento) {
+		int rs = 0;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "{call usp_aplicarDescuentoProductoTodos(?,?)}";
+			pst = con.prepareStatement(sql);
+
+			pst.setInt(1, tipoDesc);
+			pst.setDouble(2, descuento);
+			
+			rs = pst.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en aplicar descuento por tipo: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return rs;
+	}
+
+	@Override
+	public double obtenerPrecioMinimo() {
+		double precioMinimo = -1;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "SELECT MIN(PREC_UNIT_PRO) FROM PRODUCTO;";
+			pst = con.prepareStatement(sql);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {						
+				precioMinimo = rs.getDouble(1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en obtener el precio minimo de un producto " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar : " + e.getMessage());
+			}
+		}
+
+		return precioMinimo;
+	}
 }

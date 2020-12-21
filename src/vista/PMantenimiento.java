@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 public class PMantenimiento extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JButton btnVendedores;
 
 	public PMantenimiento() {
 		setLayout(null);
@@ -36,7 +37,7 @@ public class PMantenimiento extends JPanel {
 		btnCliente.setBounds(122, 11, 117, 29);
 		pSubmenu.add(btnCliente);
 		
-		JButton btnVendedores = new JButton("Vendedores");		
+		btnVendedores = new JButton("Vendedores");		
 		btnVendedores.setForeground(Color.WHITE);
 		btnVendedores.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVendedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -45,6 +46,7 @@ public class PMantenimiento extends JPanel {
 		btnVendedores.setBorder(null);
 		btnVendedores.setBackground(Color.LIGHT_GRAY);		
 		btnVendedores.setBounds(340, 11, 117, 29);
+		btnVendedores.setVisible(false);
 		pSubmenu.add(btnVendedores);
 		
 		JButton btnProductos = new JButton("Productos");		
@@ -63,26 +65,33 @@ public class PMantenimiento extends JPanel {
 		add(pContenidoMantenimiento);
 		pContenidoMantenimiento.setLayout(new CardLayout(0, 0));
 		
+		habilitarBotonVendedor();
+		
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new CambiaPanel(pContenidoMantenimiento, content);
 				new CambiaPanel(pContenidoMantenimiento, new MantClientes());
 			}
 		});
 		
 		btnVendedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new CambiaPanel(pContenidoMantenimiento, new MantVentas());
 				new CambiaPanel(pContenidoMantenimiento, new MantVendedor());
 			}
 		});
 		
 		btnProductos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new CambiaPanel(pContenidoMantenimiento, content);
 				new CambiaPanel(pContenidoMantenimiento, new MantProducto());
 			}
 		});
+	}
+	
+	private void habilitarBotonVendedor() {
+		if (FrmLogin.vendedorLogueado != null) {
+			if (FrmLogin.vendedorLogueado.getTipo() == 0) {
+				btnVendedores.setVisible(true);
+			}
+		}
 	}
 
 }

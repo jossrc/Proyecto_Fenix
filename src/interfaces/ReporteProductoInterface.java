@@ -12,6 +12,8 @@ public interface ReporteProductoInterface {
 	
 	public ArrayList<ReporteProducto> listadoxtipo (int codTipo);
 	
+	public ArrayList<ReporteProducto> listadoxtipoymarca(int codTipo, int codMarca);
+	
 	public ArrayList<ReporteProducto> listadoxstock (int stock);
 	
 	public ArrayList<ReporteProducto> listadoxprecio (double precio);
