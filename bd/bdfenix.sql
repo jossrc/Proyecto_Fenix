@@ -1,3 +1,4 @@
+
 DROP DATABASE IF EXISTS bdfenix;
 CREATE DATABASE bdfenix;
 
@@ -135,12 +136,17 @@ BEGIN
 END $$
 delimiter ;
 
-INSERT INTO CLIENTE VALUES (1, '12345678', 'Marcos', 'Szeigfer', 's/n Avebury rd, Londres, Reino Unido', '555000', 1);
-INSERT INTO CLIENTE VALUES (2, '87654321', 'Alan', 'Travis', 's/n Avebury rd, Londres, Reino Unido', '555001', 1);
-INSERT INTO CLIENTE VALUES (3, '00100234', 'James', 'Harker', 's/n Avebury rd, Londres, Reino Unido', '555002', 1);
-INSERT INTO CLIENTE VALUES (4, '17171717', 'Faith', 'Jones', 's/n Avebury rd, Londres, Reino Unido', '555003', 1);
-INSERT INTO CLIENTE VALUES (5, '00100567', 'Diane', 'Leigh', 'Adolfo Alsina 323, C1002ABA CABA, Argentina', '555004', 0);
-INSERT INTO CLIENTE VALUES (6, '00200666', 'Steven', 'Doherty', 'Florida 328, C1005AAH CABA, Argentina', '555005', 0);
+INSERT INTO CLIENTE VALUES (1, '12345678', 'Harry', 'Potter', 'Av. Santa Fe 4815 C1425BHK - Ciudad Autónoma de Buenos Aires', '43466239', 1);
+INSERT INTO CLIENTE VALUES (2, '87654321', 'Ronald', 'Weasley', 'Piedras 141 C1070AAC - Ciudad Autónoma de Buenos Aires', '43353509', 1);
+INSERT INTO CLIENTE VALUES (3, '00100234', 'Hermione', 'Granger', 'Paso 551 C1031ABK - Ciudad Autónoma de Buenos Aires', '2223300', 1);
+INSERT INTO CLIENTE VALUES (4, '17171717', 'Draco', 'Malfoy', 'Av. Cabildo 65 1° piso C1426AAA - Ciudad Autónoma de Buenos Aires', '8884373', 1);
+INSERT INTO CLIENTE VALUES (5, '00100567', 'Sirius', 'Black', 'Adolfo Alsina 323, C1002ABA CABA, Argentina', '5550004', 0);
+INSERT INTO CLIENTE VALUES (6, '00200666', 'Lucius', 'Malfoy', 'Florida 328, C1005AAH CABA, Argentina', '5550005', 0);
+INSERT INTO CLIENTE VALUES (7, '00200896', 'Bellatrix', 'Lestrange', 'Ayacucho 1050 CABA, Argentina 1111', '35352170', 1);
+INSERT INTO CLIENTE VALUES (8, '12200896', 'Molly', 'Weasley', 'Av. Sargento Mayor Cayetano Beliera 3025, CABA, Argentina', '52633158', 1);
+INSERT INTO CLIENTE VALUES (9, '62201896', 'Albus', 'Dumbledore', 'Ruta Panamericana Km 36, Tortuguitas, Pcia. de Buenos Aires', '33274580', 1);
+INSERT INTO CLIENTE VALUES (10, '82401895', 'Severus', 'Snape', 'Pte. Roca 4145 S2001KDK, Rosario, Santa Fe, Argentina', '4655777', 1);
+
 
 SELECT * FROM CLIENTE;
 
@@ -191,12 +197,27 @@ INSERT INTO PRODUCTO VALUES ('PROD0007', 'NES Classic', 16, 6, 1, 6000, 1);
 INSERT INTO PRODUCTO VALUES ('PROD0008', 'Atari Flashback 8 Gold Deluxe', 18, 6, 2, 7000, 1);
 INSERT INTO PRODUCTO VALUES ('PROD0009', 'PlayStation Classic', 19, 6, 3, 5500, 1);
 INSERT INTO PRODUCTO VALUES ('PROD0010', 'Sega Genesis', 17, 6, 1, 4500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0011', 'Beyblade Burst Surge Speedstorm', 2, 8, 6, 1500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0012', 'Chatter Telephone', 4, 8, 7, 2600, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0013', 'Lanzador Nerf Elite Shellstrike DS-6', 6, 8, 4, 5500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0014', 'Spitfire Mk. VIII cockpit 1/48', 9, 3, 2, 500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0015', 'Titanic（W/LED） 03719', 10, 1, 4, 990, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0016', 'Supermarine Spitfire Mk.IXc', 11, 4, 3, 600, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0017', 'Dassault MD450 Ouragan', 12, 6, 4, 4500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0018', 'Python 3 missiles for F-4E Phantoms', 12, 5, 4, 6500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0019', 'Grumman F6F Hellcat model kit', 13, 7, 8, 3500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0021', '#1311GSW Miniature Leaf Punch - DARK GREEN', 14, 3, 1, 1500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0022', '#1415GSW Miniature Leaf Punch - MEDIUM BLUE', 14, 3, 1, 1500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0023', 'ADVAN COROLLA LEVIN AE92 “1989 INTER TEC”', 15, 5, 2, 10500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0024', 'Sega DreamCast', 17, 6, 5, 5500, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0025', 'Atari 2600', 18, 6, 6, 5700, 1);
+INSERT INTO PRODUCTO VALUES ('PROD0026', 'Playstation 2', 19, 6, 3, 4300, 1);
 
 SELECT * FROM PRODUCTO;
 
 INSERT INTO VENDEDOR VALUES (1, '77416188', 'Jose', 'Atuncar', '701 Brickell Ave #1550, Miami, FL', '1117777', 1, 0);
 INSERT INTO VENDEDOR VALUES (2, '77494174', 'Jose', 'Robles', 'Buenos Aires 322 Sicuani-Ate', '6665555', 1, 1);
-INSERT INTO VENDEDOR VALUES (3, '00000000', 'Elena', 'Efimova', '777 Monto Olimpo', '5550000', 1, 1);
+INSERT INTO VENDEDOR VALUES (3, '00000000', 'Elena', 'Efimova', '777 Monte Olimpo', '5550000', 1, 1);
 SELECT * FROM VENDEDOR;
 
 -- Procedure : Actualizar Vendedor

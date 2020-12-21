@@ -20,6 +20,8 @@ import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class MantClientes extends JPanel {
 
@@ -32,25 +34,124 @@ public class MantClientes extends JPanel {
 	private JTextField txtDireccion;
 	private JTable tblCliente;
 	private DefaultTableModel model;
+	private String accionBtn = "nuevo";
+	private boolean deseaBuscar = true;
+	private JButton btnGuardar;
+	private JButton btnEliminar;
+	private JButton btnCancelar;
+	private JButton btnEditar;
+	private JButton btnNuevo;
+	private JButton btnBuscar;
+	
 
 	public MantClientes() {
 		setLayout(null);
 
 		// Dando Forma al Panel
 		JPanel panelClientes = new JPanel();
-		panelClientes.setBounds(0, 0, 817, 470);
+		panelClientes.setBounds(0, 0, 817, 515);
 		add(panelClientes);
 		panelClientes.setLayout(null);
 
+		JPanel pDatosCliente = new JPanel();
+		pDatosCliente.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n Personal del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pDatosCliente.setBounds(21, 9, 771, 176);
+		panelClientes.add(pDatosCliente);
+		pDatosCliente.setLayout(null);
+
 		JLabel lblNombres = new JLabel("Nombres");
-		lblNombres.setBounds(37, 67, 46, 14);
-		panelClientes.add(lblNombres);
+		lblNombres.setBounds(21, 58, 46, 14);
+		pDatosCliente.add(lblNombres);
+
+		JLabel lblApellidos = new JLabel("Apellidos");
+		lblApellidos.setBounds(21, 83, 46, 14);
+		pDatosCliente.add(lblApellidos);
+
+		JLabel lblDni = new JLabel("DNI");
+		lblDni.setBounds(21, 30, 46, 14);
+		pDatosCliente.add(lblDni);
+
+		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
+		lblTelefono.setBounds(21, 111, 46, 14);
+		pDatosCliente.add(lblTelefono);
+
+		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
+		lblDireccin.setBounds(21, 136, 46, 14);
+		pDatosCliente.add(lblDireccin);
+
+		txtNombres = new JTextField();
+		txtNombres.setEnabled(false);
+		txtNombres.setEditable(false);
+		txtNombres.setBounds(93, 55, 542, 20);
+		pDatosCliente.add(txtNombres);
+		txtNombres.setColumns(10);
+
+		txtApellidos = new JTextField();
+		txtApellidos.setEnabled(false);
+		txtApellidos.setEditable(false);
+		txtApellidos.setBounds(93, 80, 542, 20);
+		pDatosCliente.add(txtApellidos);
+		txtApellidos.setColumns(10);
+
+		txtDNI = new JTextField();
+		txtDNI.setForeground(Color.BLUE);
+		txtDNI.setEditable(false);
+		txtDNI.setBounds(93, 27, 174, 20);
+		pDatosCliente.add(txtDNI);
+		txtDNI.setColumns(10);
+
+		txtTelefono = new JTextField();
+		txtTelefono.setEnabled(false);
+		txtTelefono.setEditable(false);
+		txtTelefono.setBounds(93, 108, 174, 20);
+		pDatosCliente.add(txtTelefono);
+		txtTelefono.setColumns(10);
+
+		txtDireccion = new JTextField();
+		txtDireccion.setEnabled(false);
+		txtDireccion.setEditable(false);
+		txtDireccion.setBounds(93, 133, 323, 20);
+		pDatosCliente.add(txtDireccion);
+		txtDireccion.setColumns(10);
+
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(312, 21, 91, 28);
+		pDatosCliente.add(btnNuevo);
+		btnNuevo.setForeground(Color.WHITE);
+		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNuevo.setContentAreaFilled(false);
+		btnNuevo.setOpaque(true);
+		btnNuevo.setBorder(null);
+		btnNuevo.setBackground(new Color(35, 178, 220));
+
+		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(423, 21, 91, 28);
+		pDatosCliente.add(btnEditar);
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEditar.setContentAreaFilled(false);
+		btnEditar.setOpaque(true);
+		btnEditar.setBorder(null);
+		btnEditar.setBackground(new Color(35, 178, 220));
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(544, 21, 91, 28);
+		pDatosCliente.add(btnBuscar);
+		btnBuscar.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscar.setContentAreaFilled(false);
+		btnBuscar.setOpaque(true);
+		btnBuscar.setBorder(null);
+		btnBuscar.setBackground(new Color(35, 178, 220));		
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 187, 600, 271);
+		scrollPane.setBounds(21, 243, 771, 211);
 		panelClientes.add(scrollPane);
 
-		tblCliente = new JTable();		
+		tblCliente = new JTable();
 		model = new DefaultTableModel();
 		tblCliente.setModel(model);
 		scrollPane.setViewportView(tblCliente);
@@ -60,139 +161,55 @@ public class MantClientes extends JPanel {
 		model.addColumn("DirecciÛn");
 		model.addColumn("TelÈfono");
 
-		JLabel lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(37, 92, 46, 14);
-		panelClientes.add(lblApellidos);
-
-		JLabel lblDni = new JLabel("DNI");
-		lblDni.setBounds(37, 39, 46, 14);
-		panelClientes.add(lblDni);
-
-		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setBounds(37, 120, 46, 14);
-		panelClientes.add(lblTelefono);
-
-		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
-		lblDireccin.setBounds(37, 145, 46, 14);
-		panelClientes.add(lblDireccin);
-
-		txtNombres = new JTextField();
-		txtNombres.setBounds(109, 64, 323, 20);
-		panelClientes.add(txtNombres);
-		txtNombres.setColumns(10);
-
-		txtApellidos = new JTextField();
-		txtApellidos.setBounds(109, 89, 323, 20);
-		txtApellidos.setColumns(10);
-		panelClientes.add(txtApellidos);
-
-		txtDNI = new JTextField();
-		txtDNI.setBounds(109, 36, 323, 20);
-		txtDNI.setColumns(10);
-		panelClientes.add(txtDNI);
-
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(109, 117, 323, 20);
-		txtTelefono.setColumns(10);
-		panelClientes.add(txtTelefono);
-
-		txtDireccion = new JTextField();
-		txtDireccion.setBounds(109, 142, 323, 20);
-		txtDireccion.setColumns(10);
-		panelClientes.add(txtDireccion);
-
-		JButton btnLimpiar = new JButton("Limpiar");		
-		btnLimpiar.setBounds(477, 45, 122, 53);
-		btnLimpiar.setForeground(Color.WHITE);
-		btnLimpiar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpiar.setContentAreaFilled(false);
-		btnLimpiar.setOpaque(true);
-		btnLimpiar.setBorder(null);
-		btnLimpiar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnLimpiar);
-
 		JButton btnVerTodo = new JButton("Ver Todo");
-		btnVerTodo.setBounds(477, 106, 122, 53);
+		btnVerTodo.setBounds(677, 465, 115, 28);
 		btnVerTodo.setForeground(Color.WHITE);
 		btnVerTodo.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnVerTodo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVerTodo.setContentAreaFilled(false);
 		btnVerTodo.setOpaque(true);
 		btnVerTodo.setBorder(null);
-		btnVerTodo.setBackground(Color.LIGHT_GRAY);
+		btnVerTodo.setBackground(Color.GRAY);
 		panelClientes.add(btnVerTodo);
 
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(633, 189, 122, 53);
-		btnAgregar.setForeground(Color.WHITE);
-		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAgregar.setContentAreaFilled(false);
-		btnAgregar.setOpaque(true);
-		btnAgregar.setBorder(null);
-		btnAgregar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnAgregar);
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setEnabled(false);
+		btnGuardar.setBounds(455, 204, 91, 28);
+		btnGuardar.setForeground(Color.WHITE);
+		btnGuardar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGuardar.setContentAreaFilled(false);
+		btnGuardar.setOpaque(true);
+		btnGuardar.setBorder(null);
+		btnGuardar.setBackground(new Color(126, 171, 162));
+		panelClientes.add(btnGuardar);
 
-		JButton btnEditar = new JButton("Editar");		
-		btnEditar.setBounds(633, 253, 122, 53);
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnEditar.setContentAreaFilled(false);
-		btnEditar.setOpaque(true);
-		btnEditar.setBorder(null);
-		btnEditar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnEditar);
+		btnEliminar = new JButton("Eliminar");
 
-		JButton btnBuscar = new JButton("Buscar");		
-		btnBuscar.setBounds(633, 317, 122, 53);
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setContentAreaFilled(false);
-		btnBuscar.setOpaque(true);
-		btnBuscar.setBorder(null);
-		btnBuscar.setBackground(Color.LIGHT_GRAY);
-		panelClientes.add(btnBuscar);
-
-		JButton btnEliminar = new JButton("Eliminar");
-		
-		btnEliminar.setBounds(633, 381, 122, 53);
+		btnEliminar.setBounds(576, 204, 91, 28);
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setContentAreaFilled(false);
 		btnEliminar.setOpaque(true);
 		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(Color.LIGHT_GRAY);
+		btnEliminar.setBackground(new Color(241, 71, 38));
 		panelClientes.add(btnEliminar);
 
-		JLabel lblClientes = new JLabel("Clientes");
-		lblClientes.setBounds(109, 11, 78, 14);
-		panelClientes.add(lblClientes);
+		btnCancelar = new JButton("Cancelar");		
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setOpaque(true);
+		btnCancelar.setBorder(null);
+		btnCancelar.setBackground(new Color(211, 220, 35));
+		btnCancelar.setBounds(694, 204, 91, 28);
+		panelClientes.add(btnCancelar);
 
-		btnAgregar.addActionListener(new ActionListener() {
+		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				registrarCliente();
-			}
-		});
-		
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editarCliente();
-			}
-		});
-		
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				buscarCliente();
-			}
-		});
-		
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiar();
+				habilitarBtnGuardar();				
 			}
 		});
 
@@ -202,63 +219,204 @@ public class MantClientes extends JPanel {
 
 			}
 		});
-		
+
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				eliminarCliente();
 			}
 		});
-		
+
 		tblCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int fila = tblCliente.getSelectedRow();
-				
+
 				if (fila != -1) {
 					String dni = tblCliente.getValueAt(fila, 2).toString();
 					txtDNI.setText(dni);
-					buscarCliente();					
+					buscarCliente();
 				}
+			}
+		});		
+		
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				habilitarBtnBuscar();
 			}
 		});
+
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				habilitarBtnEditar();
+				btnGuardar.setEnabled(true);
+				btnGuardar.setBackground(new Color(9, 168, 136));
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(232,169,156));
+			}
+		});
+
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				activarBtnNuevo();
+				btnGuardar.setEnabled(true);
+				btnGuardar.setBackground(new Color(9, 168, 136));
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(232,169,156));
+				btnEditar.setEnabled(false);
+				btnEditar.setBackground(new Color(147,200,215));
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				activarBtnCancelar();
+				
+				deseaBuscar = true;
+				btnBuscar.setForeground(Color.WHITE);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
+				btnNuevo.setEnabled(true);
+				btnNuevo.setBackground(new Color(35, 178, 220));
+			}
+		});
+		
 	}
 	
-		protected void eliminarCliente() {
-			String dni = leerDNI();
+	/*
+	 * AFTER
+	 * 
+	 * */
+	
+	
+	private void habilitarBtnGuardar() {
+		if (accionBtn.equals("nuevo")) {
+			registrarCliente();			
+		} else {
+			editarCliente();
+		}
+	}
+	
+	
+	private void habilitarBtnBuscar() {
+	
+		if (deseaBuscar) {
+			activarTodosTxt(false);
+			txtDNI.setEditable(true);
 			
-			if (dni != null) {
-				int ok = new GestionClientes().eliminar(dni);
-				
-				if (ok == 0) {
-					aviso("Oops algo saliÛ mal. No se pudo eliminar Cliente");
-				} else {
-					JOptionPane.showMessageDialog(this, "Se eliminÛ correctamente al Cliente");
-					limpiar();					
-					listado();
-				}
-			}
+			
+			btnBuscar.setForeground(Color.BLUE);
+			
+			// COLORES DESHABILITAR
+			
+			btnGuardar.setEnabled(false);
+			btnGuardar.setBackground(new Color(126, 171, 162));
+			btnEliminar.setEnabled(false);
+			btnEliminar.setBackground(new Color(232,169,156));
+			btnNuevo.setEnabled(false);
+			btnNuevo.setBackground(new Color(147,200,215));
+			btnEditar.setEnabled(false);
+			btnEditar.setBackground(new Color(147,200,215));
+			
+			deseaBuscar = false;
+		} else {
+			buscarCliente();
+			activarTodosTxt(false);
+			
+			btnBuscar.setForeground(Color.WHITE);
+			
+			// COLORES HABILITAR
+			
+			btnEliminar.setEnabled(true);
+			btnEliminar.setBackground(new Color(241, 71, 38));
+			btnNuevo.setEnabled(true);
+			btnNuevo.setBackground(new Color(35, 178, 220));
+			btnEditar.setEnabled(true);
+			btnEditar.setBackground(new Color(35, 178, 220));
+			
+			deseaBuscar = true;
+		}
 		
 	}
-
-		void listado() {
-		ArrayList<Cliente> lista = new GestionClientes().listado();
+	
+	
+	private void habilitarBtnEditar() {
+		accionBtn = "editar";
+		activarTodosTxt(true);
+		txtDNI.setEditable(false);
 		
-		if (lista == null){
+	}
+	
+	private void activarBtnCancelar() {
+		activarTodosTxt(false);
+		
+		accionBtn = "nuevo";
+	}
+	
+	private void activarBtnNuevo() {
+		activarTodosTxt(true);		
+		limpiar();
+	}
+	
+	private void activarTodosTxt(boolean activar) {
+		txtDNI.setEditable(activar);
+		activarTxt(txtNombres, activar);
+		activarTxt(txtApellidos, activar);
+		activarTxt(txtTelefono, activar);
+		activarTxt(txtDireccion, activar);
+	}
+	
+	private void activarTxt(JTextField txt, boolean activar) {
+		txt.setEnabled(activar);
+		txt.setEditable(activar);
+	}
+	
+	/*
+	 * BEFORE
+	 * 
+	 * */
+
+	protected void eliminarCliente() {
+		String dni = leerDNI();
+
+		if (dni != null) {
+			int ok = new GestionClientes().eliminar(dni);
+
+			if (ok == 0) {
+				aviso("Oops algo saliÛ mal. No se pudo eliminar Cliente");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se eliminÛ correctamente al Cliente");
+				limpiar();
+				listado();
+			}
+		}
+
+	}
+
+	void listado() {
+		ArrayList<Cliente> lista = new GestionClientes().listado();
+
+		if (lista == null) {
 			JOptionPane.showMessageDialog(this, "Listado vacio");
-		} else{
+		} else {
 			model.setRowCount(0);
-			for (Cliente c : lista){
-				insertarNuevaFila(c);				
+			for (Cliente c : lista) {
+				insertarNuevaFila(c);
 			}
 		}
 	}
 
 	private void buscarCliente() {
 		String dni = leerDNI();
-		
+
 		if (dni != null) {
 			Cliente cliente = new GestionClientes().buscar(dni);
-			
+
 			if (cliente == null) {
 				aviso("Oops no se pudo encontrar Cliente");
 			} else {
@@ -269,27 +427,38 @@ public class MantClientes extends JPanel {
 			}
 		}
 	}
-	
+
 	private void editarCliente() {
 		Cliente cliente = crearCliente();
-		
+
 		if (cliente != null) {
 			int ok = new GestionClientes().actualizar(cliente);
-			
+
 			if (ok == 0) {
 				aviso("Oops no se pudo actualizar Cliente");
 			} else {
 				JOptionPane.showMessageDialog(this, "El cliente ah sido actualizado exitosamente");
 				listado();
+				
+				// COLORES
+				
+				activarTodosTxt(false);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
 			}
 		}
 	}
-		
-	private void registrarCliente(){
+
+	private void registrarCliente() {
 		Cliente cliente = crearCliente();
 		if (cliente != null) {
 			int ok = new GestionClientes().registrar(cliente);
-			
+
 			if (ok == 0) {
 				aviso("Oops algo saliÛ mal. No se pudo registrar Cliente");
 			} else {
@@ -297,15 +466,27 @@ public class MantClientes extends JPanel {
 				limpiar();
 				listado();
 				
+				// COLORES
+				
+				activarTodosTxt(false);
+				
+				btnGuardar.setEnabled(false);
+				btnGuardar.setBackground(new Color(126, 171, 162));
+				btnEliminar.setEnabled(true);
+				btnEliminar.setBackground(new Color(241, 71, 38));
+				btnEditar.setEnabled(true);
+				btnEditar.setBackground(new Color(35, 178, 220));
+
 			}
 		}
-		
+
 	}
 
 	private void insertarNuevaFila(Cliente cliente) {
-		Object datos[] = {cliente.getNom_cli(), cliente.getApe_cli(), cliente.getDni_cli(), cliente.getDirec_cli(), cliente.getTelef_cli()};
+		Object datos[] = { cliente.getNom_cli(), cliente.getApe_cli(), cliente.getDni_cli(), cliente.getDirec_cli(),
+				cliente.getTelef_cli() };
 		model.addRow(datos);
-		
+
 	}
 
 	private Cliente crearCliente() {
@@ -321,13 +502,13 @@ public class MantClientes extends JPanel {
 					if (telefono != null) {
 						direccion = leerDireccion();
 						if (direccion != null) {
-							return new Cliente (0, dni, nombre, apellido, direccion, telefono);							
+							return new Cliente(0, dni, nombre, apellido, direccion, telefono);
 						}
 					}
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -357,7 +538,7 @@ public class MantClientes extends JPanel {
 			return null;
 		}
 
-		if (!nombre.matches("^(?=.{3,15}$)[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+(?:\\s[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+)?$")) {
+		if (!nombre.matches("^(?=.{3,45}$)[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+(?:\\s[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+)?$")) {
 			aviso("Ingrese un nombre v·lido");
 			return null;
 		}
@@ -374,7 +555,7 @@ public class MantClientes extends JPanel {
 			return null;
 		}
 
-		if (!apellido.matches("^(?=.{3,15}$)[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+(?:\\s[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+)?$")) {
+		if (!apellido.matches("^(?=.{3,45}$)[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+(?:\\s[A-Z¡…Õ”⁄a-zÒ·ÈÌÛ˙]+)?$")) {
 			aviso("Ingrese un apellido v·lido");
 			return null;
 		}
@@ -413,16 +594,15 @@ public class MantClientes extends JPanel {
 	private void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(this, mensaje, "Aviso", 2);
 	}
-	
+
 	private void limpiar() {
 		txtDNI.setText("");
 		txtNombres.setText("");
 		txtApellidos.setText("");
 		txtTelefono.setText("");
 		txtDireccion.setText("");
-		
+
 		txtDNI.requestFocus();
 		txtDNI.selectAll();
 	}
-
 }
