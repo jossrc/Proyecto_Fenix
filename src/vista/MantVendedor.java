@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class MantVendedor extends JPanel {
 	
@@ -53,8 +54,7 @@ private static final long serialVersionUID = 1L;
 		panelVendedor.setLayout(null);
 		
 		JPanel pDatosVendedor = new JPanel();
-		pDatosVendedor.setBorder(new TitledBorder(null, "Informaci\u00F3n Personal", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		pDatosVendedor.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n Personal del Vendedor", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pDatosVendedor.setBounds(21, 9, 771, 176);
 		panelVendedor.add(pDatosVendedor);
 		pDatosVendedor.setLayout(null);
@@ -127,7 +127,7 @@ private static final long serialVersionUID = 1L;
 		panelVendedor.add(btnVerTodo);
 		
 		btnNuevo = new JButton("Nuevo");
-		btnNuevo.setBounds(312, 21, 91, 28);
+		btnNuevo.setBounds(325, 21, 91, 28);
 		pDatosVendedor.add(btnNuevo);
 		btnNuevo.setForeground(Color.WHITE);
 		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -138,7 +138,7 @@ private static final long serialVersionUID = 1L;
 		btnNuevo.setBackground(new Color(35, 178, 220));
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(423, 21, 91, 28);
+		btnEditar.setBounds(430, 21, 91, 28);
 		pDatosVendedor.add(btnEditar);
 		btnEditar.setForeground(Color.WHITE);
 		btnEditar.setFont(new Font("SansSerif", Font.BOLD, 14));

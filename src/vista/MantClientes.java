@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class MantClientes extends JPanel {
 
@@ -53,8 +54,7 @@ public class MantClientes extends JPanel {
 		panelClientes.setLayout(null);
 
 		JPanel pDatosCliente = new JPanel();
-		pDatosCliente.setBorder(new TitledBorder(null, "Informaci\u00F3n Personal", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		pDatosCliente.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n Personal del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pDatosCliente.setBounds(21, 9, 771, 176);
 		panelClientes.add(pDatosCliente);
 		pDatosCliente.setLayout(null);
