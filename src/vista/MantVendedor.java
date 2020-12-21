@@ -539,7 +539,7 @@ private static final long serialVersionUID = 1L;
 			return null;
 		}
 
-		if (!nombre.matches("^(?=.{3,15}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
+		if (!nombre.matches("^(?=.{3,45}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
 			aviso("Ingrese un nombre válido");
 			return null;
 		}
@@ -556,7 +556,7 @@ private static final long serialVersionUID = 1L;
 			return null;
 		}
 
-		if (!apellido.matches("^(?=.{3,15}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
+		if (!apellido.matches("^(?=.{3,45}$)[A-ZÁÉÍÓÚa-zñáéíóú]+(?:\\s[A-ZÁÉÍÓÚa-zñáéíóú]+)?$")) {
 			aviso("Ingrese un apellido válido");
 			return null;
 		}
